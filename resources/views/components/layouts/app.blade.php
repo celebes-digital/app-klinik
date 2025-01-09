@@ -21,10 +21,9 @@
 
 			{{-- Brand --}}
 			<div>
-				<img src="./storage/assets/img/logo/logo-klinik-medika.png" alt="" width="140" />
+				<img src="./assets/img/logo/logo-klinik-medika.png" alt="" width="140" />
 			</div>
 		</x-slot:brand>
-
 
 		{{-- Right side actions --}}
 		<x-slot:actions>
