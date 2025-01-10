@@ -2,7 +2,6 @@
 
 namespace App\Livewire\Pasien;
 
-use App\Models\Pasien;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -40,7 +39,6 @@ class View extends Component
             ['key' => 'kewarganegaraan',    'label' => 'Kewarganegaraan'],
             ['key' => 'status_nikah',       'label' => 'Status Nikah'],
         ];
-
 
         return view('livewire.pasien.view');
     }

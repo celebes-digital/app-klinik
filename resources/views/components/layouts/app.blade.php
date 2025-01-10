@@ -46,8 +46,8 @@
 				<x-menu-item title="Profil" icon="o-archive-box" link="####" />
 				<x-menu-item title="Poliklinik" icon="o-archive-box" link="####" />
 				<x-menu-item title="Apotek" icon="o-archive-box" link="####" />
-				<x-menu-item title="Tenaga Medis" icon="o-archive-box" link="####" />
-				<x-menu-item title="Staff" icon="o-archive-box" link="####" />
+				<x-menu-item title="Tenaga Medis" icon="o-archive-box" link="tenaga-medis" />
+				<x-menu-item title="Staff" icon="o-archive-box" link="staff" />
 				<x-menu-item title="Tindakan Medis" icon="o-archive-box" link="####" />
 				<x-menu-item title="Penunjang Medis" icon="o-archive-box" link="####" />
 				<x-menu-item title="Ruang Perawatan" icon="o-archive-box" link="####" />

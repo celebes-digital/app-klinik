@@ -2,8 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\TenagaMedis;
 use App\Models\User;
 use Database\Factories\PasienFactory;
+use Database\Factories\StaffFactory;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -16,11 +18,13 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        // User::factory()->create([
+        //     'name' => 'Test User',
+        //     'email' => 'test@example.com',
+        // ]);
 
-        PasienFactory::new()->count(10)->create();
+        // PasienFactory::new()->count(10)->create();
+        // StaffFactory::new()->count(10)->create();
+        TenagaMedis::factory()->count(10)->create();
     }
 }

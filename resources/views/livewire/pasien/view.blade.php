@@ -11,7 +11,7 @@
                 <x-post link="/pasien/create" />
             </x-slot:menu>
 
-            <x-table :headers="$headers" :rows="$pasien" striped with-pagination per-page="perPage" :per-page-values="[3, 5, 10]">
+            <x-table :headers="$headers" :rows="$pasien" striped with-pagination per-page="perPage">
                 <x-slot:empty>
                     <x-icon name="o-cube" label="It is empty." />
                 </x-slot:empty>

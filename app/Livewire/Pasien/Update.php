@@ -20,7 +20,7 @@ class Update extends Component
     public function render()
     {
         return view('livewire.pasien.update', [
-            'dataPasien' => $this->dataPasien
+            'dataPasien' => $this->data_pasien
         ]);
     }
 }
