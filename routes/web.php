@@ -1,5 +1,7 @@
 <?php
 
+use App\Livewire\Profil;
+use App\Livewire\Profil\Update;
 use App\Livewire\Welcome;
 use Illuminate\Support\Facades\Route;
 
@@ -41,3 +43,5 @@ Route::get('/staff', StaffView::class);
 Route::get('/tenaga-medis', TenagaMedisView::class);
 // Route::get('/tenaga-medis/create', TenagaMedisCreate::class);
 // Route::get('/tenaga-medis/update/{id_tenaga_medis}', TenagaMedisUpdate::class);
+
+Route::get('/profil', Update::class);

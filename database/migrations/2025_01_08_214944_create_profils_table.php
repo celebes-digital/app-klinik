@@ -11,9 +11,24 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('profils', function (Blueprint $table) {
+        Schema::create('profil', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+
+            $table->char('nama_puskesmas', 50);
+            $table->text('alamat', 100);
+            $table->char('email', 50);
+            $table->char('no_telp', 16);
+            $table->char('organization_id', 100);
+            $table->char('client_id', 100);
+            $table->char('client_secret', 100);
+
+            $table->string('url');
+            $table->char('provinsi', 2);
+            $table->char('kabupaten', 4);
+            $table->char('kecamatan', 7);
+            $table->char('kelurahan', 10);
+            $table->char('kode_pos', 6);
+            $table->string('logo');
         });
     }
 
@@ -22,6 +37,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('profils');
+        Schema::dropIfExists('profil');
     }
 };

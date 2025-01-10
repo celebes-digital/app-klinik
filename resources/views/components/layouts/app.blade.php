@@ -6,12 +6,14 @@
 	<meta name="csrf-token" content="{{ csrf_token() }}">
 	<title>{{ isset($title) ? $title.' - '.config('app.name') : config('app.name') }}</title>
 
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.css" />
 	@vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="min-h-screen font-sans antialiased bg-base-200/50 dark:bg-base-200">
 
 	{{-- The navbar with `sticky` and `full-width` --}}
-	<x-navcustom sticky full-width>
+	<x-nav-custom sticky full-width>
 
 		<x-slot:brand>
 			{{-- Drawer toggle for "main-drawer" --}}
@@ -26,40 +28,38 @@
 		</x-slot:brand>
 
 		{{-- Right side actions --}}
-		<x-slot:actions class="gap-0">
-			<x-button label="Home" icon="o-home" class="btn-ghost" link="/" />
-			<x-button label="Antrian" icon="o-users" class="btn-ghost" />
-
-			<x-dropdown label="Registrasi">
-				<x-slot:trigger>
-					<x-button label="Registrasi" icon="o-pencil" icon-right="o-chevron-down" class="btn-ghost" />
-				</x-slot:trigger>
-				<x-menu-item title="IGD" icon="o-wifi" link="####" />
-				<x-menu-item title="Kunjungan" icon="o-wifi" link="####" />
-			</x-dropdown>
-
-			<x-dropdown label="Setting">
-				<x-slot:trigger>
-					<x-button label="Setting" icon="o-cog-8-tooth" icon-right="o-chevron-down" class="btn-ghost" />
-				</x-slot:trigger>
-				<x-menu-item title="Pasien" icon="o-wifi" link="pasien" />
-				<x-menu-item title="Profil" icon="o-archive-box" link="####" />
-				<x-menu-item title="Poliklinik" icon="o-archive-box" link="####" />
-				<x-menu-item title="Apotek" icon="o-archive-box" link="####" />
-				<x-menu-item title="Tenaga Medis" icon="o-archive-box" link="tenaga-medis" />
-				<x-menu-item title="Staff" icon="o-archive-box" link="staff" />
-				<x-menu-item title="Tindakan Medis" icon="o-archive-box" link="####" />
-				<x-menu-item title="Penunjang Medis" icon="o-archive-box" link="####" />
-				<x-menu-item title="Ruang Perawatan" icon="o-archive-box" link="####" />
-				<x-menu-item title="Kamar Perawatan" icon="o-archive-box" link="####" />
-			</x-dropdown>
+		<x-slot:actions class="!gap-1">
+			
+			{{-- <x-button label="Home" icon="o-home" class="text-white bg-teal-400" />
+			<x-button label="Antrian" icon="o-users" class="btn-ghost h-[2rem]" /> --}}
+			
+			<x-menu class="flex flex-row" activate-by-route>
+				<x-menu-item title="Home" icon="o-home" link="/" />
+				<x-menu-item title="Antrian" icon="o-users" link="/antrian" />
+				<x-nav-menu-sub title="Registrasi" icon="o-pencil">
+					<x-menu-item title="IGD" icon="o-wifi" link="/igd" />
+					<x-menu-item title="Kunjungan" icon="o-wifi" link="/kunjungan" />
+				</x-nav-menu-sub>
+				<x-nav-menu-sub title="Setting" icon="o-cog-8-tooth">
+					<x-menu-item title="Pasien" icon="o-wifi" link="/pasien" />
+					<x-menu-item title="Profil" icon="o-archive-box" link="/profil" />
+					<x-menu-item title="Poliklinik" icon="o-archive-box" link="/poliklinik" />
+					<x-menu-item title="Apotek" icon="o-archive-box" link="/apotek" />
+					<x-menu-item title="Tenaga Medis" icon="o-archive-box" link="/tenaga-medis" />
+					<x-menu-item title="Staff" icon="o-archive-box" link="/staff" />
+					<x-menu-item title="Tindakan Medis" icon="o-archive-box" link="/tindakan-medis" />
+					<x-menu-item title="Penunjang Medis" icon="o-archive-box" link="/penunjang-medis" />
+					<x-menu-item title="Ruang Perawatan" icon="o-archive-box" link="/ruang-perawatan" />
+					<x-menu-item title="Kamar Perawatan" icon="o-archive-box" link="/kamar-perawatan" />
+				</x-nav-menu-sub>
+			</x-menu>
 
 			<div class="flex gap-1">
 				<x-theme-toggle class="btn btn-circle btn-ghost" />
 				<x-avatar placeholder="RT" class="!w-10" />
 			</div>
 		</x-slot:actions>
-	</x-navcustom>
+	</x-nav-custom>
 
 	{{-- The main content with `full-width` --}}
 	<x-main with-nav full-width>
@@ -92,6 +92,7 @@
 
 		{{-- The `$slot` goes here --}}
 		<x-slot:content>
+			<x-header title="Home" separator />
 			{{ $slot }}
 		</x-slot:content>
 	</x-main>
