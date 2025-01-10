@@ -6,6 +6,8 @@
 	<meta name="csrf-token" content="{{ csrf_token() }}">
 	<title>{{ isset($title) ? $title.' - '.config('app.name') : config('app.name') }}</title>
 
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.css" />
 	@vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="min-h-screen font-sans antialiased bg-base-200/50 dark:bg-base-200">
@@ -38,7 +40,7 @@
 					<x-menu-item title="IGD" icon="o-wifi" link="/igd" />
 					<x-menu-item title="Kunjungan" icon="o-wifi" link="/kunjungan" />
 				</x-nav-menu-sub>
-				<x-nav-menu-sub title="Setting" icon="o-pencil">
+				<x-nav-menu-sub title="Setting" icon="o-cog-8-tooth">
 					<x-menu-item title="Pasien" icon="o-wifi" link="/pasien" />
 					<x-menu-item title="Profil" icon="o-archive-box" link="/profil" />
 					<x-menu-item title="Poliklinik" icon="o-archive-box" link="/poliklinik" />
@@ -90,7 +92,7 @@
 
 		{{-- The `$slot` goes here --}}
 		<x-slot:content>
-			<x-header title="Home" separator />
+			<x-header title="Home" separator /> 
 			{{ $slot }}
 		</x-slot:content>
 	</x-main>
