@@ -21,13 +21,13 @@
 
 			{{-- Brand --}}
 			<div>
-				<img src="./assets/img/logo/logo-klinik-medika.png" alt="" width="140" />
+				<img src="/assets/img/logo/logo-klinik-medika.png" alt="" width="140" />
 			</div>
 		</x-slot:brand>
 
 		{{-- Right side actions --}}
 		<x-slot:actions class="gap-0">
-			<x-button label="Home" icon="o-home" class="btn-ghost" />
+			<x-button label="Home" icon="o-home" class="btn-ghost" link="/" />
 			<x-button label="Antrian" icon="o-users" class="btn-ghost" />
 
 			<x-dropdown label="Registrasi">
@@ -42,7 +42,7 @@
 				<x-slot:trigger>
 					<x-button label="Setting" icon="o-cog-8-tooth" icon-right="o-chevron-down" class="btn-ghost" />
 				</x-slot:trigger>
-				<x-menu-item title="Pasien" icon="o-wifi" link="####" />
+				<x-menu-item title="Pasien" icon="o-wifi" link="pasien" />
 				<x-menu-item title="Profil" icon="o-archive-box" link="####" />
 				<x-menu-item title="Poliklinik" icon="o-archive-box" link="####" />
 				<x-menu-item title="Apotek" icon="o-archive-box" link="####" />
@@ -92,7 +92,6 @@
 
 		{{-- The `$slot` goes here --}}
 		<x-slot:content>
-			<x-header title="Home" separator />
 			{{ $slot }}
 		</x-slot:content>
 	</x-main>

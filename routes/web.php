@@ -1,5 +1,8 @@
 <?php
 
+use App\Livewire\Pasien\View;
+use App\Livewire\Pasien\Create;
+use App\Livewire\Pasien\Update;
 use App\Livewire\Welcome;
 use Illuminate\Support\Facades\Route;
 
@@ -15,3 +18,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', Welcome::class);
+
+// FORM PASIEN
+Route::get('/pasien', View::class);
+Route::get('/pasien/create', Create::class);
+Route::get('/pasien/update/{id_pasien}', Update::class);
