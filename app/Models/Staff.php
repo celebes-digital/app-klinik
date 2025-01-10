@@ -5,18 +5,22 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class TenagaMedis extends Model
+class Staff extends Model
 {
     use HasFactory;
 
-    protected $table = 'tenaga_medis';
+    protected $table = 'staff';
+    protected $primaryKey = 'id_staff';
 
     protected $fillable = [
+        'id_staff',
         'nama',
+        'tgl_lahir',
         'nik',
-        'no_str',
+        'kelamin',
         'alamat',
         'no_telp',
-        'his',
+        'no_str',
+        'ihs',
     ];
 }

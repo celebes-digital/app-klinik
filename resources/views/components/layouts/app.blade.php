@@ -23,7 +23,7 @@
 
 			{{-- Brand --}}
 			<div>
-				<img src="./assets/img/logo/logo-klinik-medika.png" alt="" width="140" />
+				<img src="/assets/img/logo/logo-klinik-medika.png" alt="" width="140" />
 			</div>
 		</x-slot:brand>
 
@@ -92,7 +92,6 @@
 
 		{{-- The `$slot` goes here --}}
 		<x-slot:content>
-			<x-header title="Home" separator /> 
 			{{ $slot }}
 		</x-slot:content>
 	</x-main>

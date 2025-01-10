@@ -1,4 +1,6 @@
 <div>
+    <x-header title="Home" separator />
+
     {{-- <!-- HEADER -->
     <x-header title="Hello" separator progress-indicator>
         <x-slot:middle class="!justify-end">
