@@ -4,7 +4,15 @@ import defaultTheme from "tailwindcss/defaultTheme";
 export default {
     darkMode: "class",
     daisyui: {
-        themes: ["light", "dark"],
+        themes: [
+            {
+                light: {
+                    ...require("daisyui/src/theming/themes")["light"],
+                    "--rounded-box": "8px",
+                },
+            },
+            "dark",
+        ],
     },
     content: [
         "./vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php",
