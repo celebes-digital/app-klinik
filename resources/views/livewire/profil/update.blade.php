@@ -21,16 +21,8 @@
             <x-tabs wire:model="selectedTab">
                 {{-- Informasi Umum --}}
                 <x-tab name="umum" label="Informasi Umum" icon="o-building-office-2">
-                    <div class="flex flex-col gap-8 md:flex-row">
+                    <div class="flex gap-8 md:flex-row">
                         <div class="flex-shrink-0 w-52">
-                            {{-- <x-file wire:model="logo" accept="image/png" crop-after-change     change-text="Change"
-                                crop-text="Crop"
-                                crop-title-text="Crop image"
-                                crop-cancel-text="Cancel"
-                                crop-save-text="Crop"
-                            >
-                                <img src="{{ $user->avatar ?? 'https://placehold.co/400' }}" class="h-full rounded-lg" />
-                            </x-file> --}}
                             <x-file 
                                 label="Logo"
                                 wire:model="form.logo" 

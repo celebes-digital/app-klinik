@@ -5,10 +5,12 @@ namespace App\Livewire\Profil;
 use App\Livewire\Forms\ProfilForm;
 use App\Models\Profil;
 use Illuminate\Support\Facades\Http;
+use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\Features\SupportFileUploads\WithFileUploads;
 use Mary\Traits\Toast;
 
+#[Title('Profil')]
 class Update extends Component
 {
     use WithFileUploads;
@@ -16,7 +18,7 @@ class Update extends Component
 
     public ProfilForm $form;
 
-    public $selectedTab = "umum";
+    public $selectedTab = "";
 
     public $apiurl = "https://www.emsifa.com/api-wilayah-indonesia/api";
 
@@ -28,6 +30,7 @@ class Update extends Component
     public function mount()
     {
         $profil = Profil::first();
+        $this->selectedTab = "umum";
 
         $this->filteredProvinsi = Http::get($this->apiurl . '/provinces.json')->json();
         if ($profil) {

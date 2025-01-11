@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('profil', function (Blueprint $table) {
-            $table->id();
+            $table->tinyInteger('id', true, true);
 
             $table->char('nama_puskesmas', 50);
             $table->text('alamat', 100);
