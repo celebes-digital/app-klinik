@@ -6,11 +6,16 @@
 	<meta name="csrf-token" content="{{ csrf_token() }}">
 	<title>{{ isset($title) ? $title.' - '.config('app.name') : config('app.name') }}</title>
 
+	{{-- Font --}}
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.js"></script>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.css" />
 	@vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="min-h-screen font-sans antialiased bg-base-200/50 dark:bg-base-200">
+<body class="min-h-screen antialiased bg-base-200/50 dark:bg-base-200">
 
 	{{-- The navbar with `sticky` and `full-width` --}}
 	<x-nav-custom sticky full-width>
@@ -92,6 +97,13 @@
 
 		{{-- The `$slot` goes here --}}
 		<x-slot:content>
+			<div>
+				<x-header :title="$title ?? ''">
+					<x-slot:actions>
+						{{ $headerActions ?? '' }}
+					</x-slot:actions>
+				</x-header>
+			</div>
 			{{ $slot }}
 		</x-slot:content>
 	</x-main>

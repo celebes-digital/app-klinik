@@ -52,7 +52,7 @@ class ProfilForm extends Form
     public $kode_pos        = "";
 
     #[Validate('nullable|image|max:1024')] // 1MB Max
-    public $logo            = "";
+    public $logo            = null;
 
     public function setProfil(Profil $profil)
     {
@@ -81,7 +81,7 @@ class ProfilForm extends Form
 
         if ($this->logo instanceof \Illuminate\Http\UploadedFile) {
             $fileName = 'logo' . '.' . $this->logo->getClientOriginalExtension();
-            $url = $this->logo->storeAs('img', $fileName, 'public');
+            $this->logo->storeAs('img', $fileName, 'public');
             $this->logo = $fileName;
         }
 
