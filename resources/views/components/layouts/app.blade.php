@@ -92,7 +92,7 @@
 
 		{{-- The `$slot` goes here --}}
 		<x-slot:content>
-			<x-header title="Home" separator />
+			{{-- <x-header title="Home" separator />  --}}
 			{{ $slot }}
 		</x-slot:content>
 	</x-main>
