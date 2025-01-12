@@ -35,27 +35,24 @@
 		{{-- Right side actions --}}
 		<x-slot:actions class="!gap-1">
 			
-			{{-- <x-button label="Home" icon="o-home" class="text-white bg-teal-400" />
-			<x-button label="Antrian" icon="o-users" class="btn-ghost h-[2rem]" /> --}}
-			
-			<x-menu class="flex flex-row" activate-by-route>
+			<x-menu class="flex flex-row gap-1" activate-by-route>
 				<x-menu-item title="Home" icon="o-home" link="/" />
 				<x-menu-item title="Antrian" icon="o-users" link="/antrian" />
 				<x-nav-menu-sub title="Registrasi" icon="o-pencil">
-					<x-menu-item title="IGD" icon="o-wifi" link="/igd" />
-					<x-menu-item title="Kunjungan" icon="o-wifi" link="/kunjungan" />
+					<x-menu-item title="IGD" icon="o-truck" link="/igd" />
+					<x-menu-item title="Kunjungan" icon="o-finger-print" link="/kunjungan" />
 				</x-nav-menu-sub>
 				<x-nav-menu-sub title="Setting" icon="o-cog-8-tooth">
-					<x-menu-item title="Pasien" icon="o-wifi" link="/pasien" />
-					<x-menu-item title="Profil" icon="o-archive-box" link="/profil" />
-					<x-menu-item title="Poliklinik" icon="o-archive-box" link="/poliklinik" />
-					<x-menu-item title="Apotek" icon="o-archive-box" link="/apotek" />
-					<x-menu-item title="Tenaga Medis" icon="o-archive-box" link="/tenaga-medis" />
-					<x-menu-item title="Staff" icon="o-archive-box" link="/staff" />
-					<x-menu-item title="Tindakan Medis" icon="o-archive-box" link="/tindakan-medis" />
-					<x-menu-item title="Penunjang Medis" icon="o-archive-box" link="/penunjang-medis" />
-					<x-menu-item title="Ruang Perawatan" icon="o-archive-box" link="/ruang-perawatan" />
-					<x-menu-item title="Kamar Perawatan" icon="o-archive-box" link="/kamar-perawatan" />
+					<x-menu-item title="Pasien" icon="o-user-plus" link="/pasien" />
+					<x-menu-item title="Profil" icon="o-building-office-2" link="/profil" />
+					<x-menu-item title="Poliklinik" icon="o-building-library" link="/poliklinik" />
+					<x-menu-item title="Apotek" icon="o-building-storefront" link="/apotek" />
+					<x-menu-item title="Tenaga Medis" icon="o-user-group" link="/tenaga-medis" />
+					<x-menu-item title="Staff" icon="o-users" link="/staff" />
+					<x-menu-item title="Tindakan Medis" icon="o-scissors" link="/tindakan-medis" />
+					<x-menu-item title="Penunjang Medis" icon="o-beaker" link="/penunjang-medis" />
+					<x-menu-item title="Ruang Perawatan" icon="o-rectangle-stack" link="/ruang-perawatan" />
+					<x-menu-item title="Kamar Perawatan" icon="o-rectangle-group" link="/kamar-perawatan" />
 				</x-nav-menu-sub>
 			</x-menu>
 
