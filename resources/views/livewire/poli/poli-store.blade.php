@@ -106,7 +106,7 @@
         
             <x-slot:actions>
                 <x-button type="submit" class="btn-primary">Simpan</x-button>
-            </x-slot>
+            </x-slot:actions>
         </x-form>
     </x-card>
 </div>
