@@ -3,42 +3,64 @@
 namespace App\Livewire\Pasien;
 
 use App\Livewire\Forms\PasienForm;
-use App\Models\Pasien as Pasien;
+use App\Models\Pasien;
+use App\Traits\HandlesWilayah;
 use Illuminate\Support\Facades\Http;
 use Livewire\Component;
 use Mary\Traits\Toast;
 
 class Create extends Component
 {
+    use HandlesWilayah;
     use Toast;
 
     public PasienForm $form;
+    public $selectedTab = 'umum';
+    public $config1;
 
-    public $selectedTab = "input";
-
-    public $apiurl = "https://www.emsifa.com/api-wilayah-indonesia/api";
-
-    public $filteredProvinsi    = [];
-    public $filteredKabupaten   = [];
-    public $filteredKecamatan   = [];
-    public $filteredKelurahan   = [];
+    public $filteredProvinsi = [];
+    public $filteredKabupaten = [];
+    public $filteredKecamatan = [];
+    public $filteredKelurahan = [];
 
     public function mount()
     {
-        $pasien = new Pasien();
+        $this->filteredProvinsi = Http::get("{$this->apiurl}/provinces.json")->json();
+    }
 
-        $this->filteredProvinsi = Http::get($this->apiurl . '/provinces.json')->json();
-        if ($pasien) {
-            $this->form->setPasien($pasien);
+    public function updatedFormProvinsi($value)
+    {
+        $this->filteredKabupaten = $this->loadKabupaten($value);
+        $this->filteredKecamatan = [];
+        $this->filteredKelurahan = [];
+    }
 
-            $this->filteredKabupaten = Http::get($this->apiurl . "/regencies/{$pasien->provinsi}.json")->json();
-            $this->filteredKecamatan = Http::get($this->apiurl . "/districts/{$pasien->kabupaten}.json")->json();
-            $this->filteredKelurahan = Http::get($this->apiurl . "/villages/{$pasien->kecamatan}.json")->json();
-        }
+    public function updatedFormKabupaten($value)
+    {
+        $this->filteredKecamatan = $this->loadKecamatan($value);
+        $this->filteredKelurahan = [];
+    }
+
+    public function updatedFormKecamatan($value)
+    {
+        $this->filteredKelurahan = $this->loadKelurahan($value);
+    }
+
+    public function save()
+    {
+        // Simpan data pasien
+        Pasien::create($this->form);
+
+        session()->flash('message', 'Data pasien berhasil disimpan.');
     }
 
     public function render()
     {
-        return view('livewire.pasien.create');
+        return view('livewire.pasien.create', [
+            'filteredProvinsi' => $this->filteredProvinsi,
+            'filteredKabupaten' => $this->filteredKabupaten,
+            'filteredKecamatan' => $this->filteredKecamatan,
+            'filteredKelurahan' => $this->filteredKelurahan,
+        ]);
     }
 }
