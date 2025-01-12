@@ -14,11 +14,6 @@ class Profil extends Model
         'alamat',
         'email',
         'no_telp',
-
-        'organization_id',
-        'client_id',
-        'client_secret',
-
         'url',
         'provinsi',
         'kabupaten',

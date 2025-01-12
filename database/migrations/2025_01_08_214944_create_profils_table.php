@@ -18,9 +18,6 @@ return new class extends Migration
             $table->text('alamat', 100);
             $table->char('email', 50);
             $table->char('no_telp', 16);
-            $table->char('organization_id', 100);
-            $table->char('client_id', 100);
-            $table->char('client_secret', 100);
 
             $table->string('url');
             $table->char('provinsi', 2);
