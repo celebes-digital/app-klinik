@@ -16,12 +16,13 @@ class Create extends Component
 
     public PasienForm $form;
     public $selectedTab = 'umum';
-    public $config1;
 
-    public $filteredProvinsi = [];
-    public $filteredKabupaten = [];
-    public $filteredKecamatan = [];
-    public $filteredKelurahan = [];
+    public $tanggal_format = ['altFormat' => 'm/d/Y'];
+
+    public $filteredProvinsi    = [];
+    public $filteredKabupaten   = [];
+    public $filteredKecamatan   = [];
+    public $filteredKelurahan   = [];
 
     public function mount()
     {
@@ -48,16 +49,16 @@ class Create extends Component
 
     public function save()
     {
-        // Simpan data pasien
+        dd($this->form);
         Pasien::create($this->form);
 
-        session()->flash('message', 'Data pasien berhasil disimpan.');
+        $this->success('Data Pasien Telah Disimpan.');
     }
 
     public function render()
     {
         return view('livewire.pasien.create', [
-            'filteredProvinsi' => $this->filteredProvinsi,
+            'filteredProvinsi'  => $this->filteredProvinsi,
             'filteredKabupaten' => $this->filteredKabupaten,
             'filteredKecamatan' => $this->filteredKecamatan,
             'filteredKelurahan' => $this->filteredKelurahan,

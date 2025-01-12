@@ -19,6 +19,8 @@ class Pasien extends Model
         'nik',
         'nik_ibu',
         'kelamin',
+        'lahir_kembar',
+        'hidup',
         'alamat',
         'no_telp',
         'no_bpjs',
