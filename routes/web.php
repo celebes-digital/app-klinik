@@ -11,6 +11,7 @@ use App\Livewire\Pasien\Create as PasienCreate;
 use App\Livewire\Pasien\Update as PasienUpdate;
 use App\Livewire\PenunjangMedis\ListForm;
 use App\Livewire\Poli\PoliView;
+use App\Livewire\Profil\ViewProfil;
 // Staff
 use App\Livewire\Staff\View as StaffView;
 
@@ -20,7 +21,7 @@ use App\Livewire\TindakanMedis\ListForm as TindakanMedisListForm;
 
 Route::get('/', Welcome::class);
 
-Route::get('/profil', Update::class);
+Route::get('/profil', ViewProfil::class);
 
 Route::get('/poliklinik', PoliView::class);
 

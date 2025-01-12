@@ -3,13 +3,14 @@
 namespace App\Livewire\Forms;
 
 use App\Models\Profil;
-
+use App\Traits\WilayahIndonesia;
 use Livewire\Form;
 use Livewire\WithFileUploads;
 use Livewire\Attributes\Validate;
 
 class ProfilForm extends Form
 {
+    use WilayahIndonesia;
     use WithFileUploads;
     public ?Profil $profil = null;
 
@@ -25,28 +26,7 @@ class ProfilForm extends Form
     #[Validate('required|numeric|min:9')]
     public $no_telp         = "";
 
-    #[Validate('required')]
-    public $organization_id = "";
-
-    #[Validate('required')]
-    public $client_id       = "";
-
-    #[Validate('required')]
-    public $client_secret   = "";
-
     public $url             = "";
-
-    #[Validate('required')]
-    public $provinsi        = null;
-
-    #[Validate('required')]
-    public $kabupaten       = null;
-
-    #[Validate('required')]
-    public $kecamatan       = null;
-
-    #[Validate('required')]
-    public $kelurahan       = null;
 
     #[Validate('required')]
     public $kode_pos        = "";
@@ -62,9 +42,6 @@ class ProfilForm extends Form
         $this->alamat          = $profil->alamat;
         $this->email           = $profil->email;
         $this->no_telp         = $profil->no_telp;
-        $this->organization_id = $profil->organization_id;
-        $this->client_id       = $profil->client_id;
-        $this->client_secret   = $profil->client_secret;
         $this->url             = $profil->url;
         $this->provinsi        = $profil->provinsi;
         $this->kabupaten       = $profil->kabupaten;
