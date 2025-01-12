@@ -6,20 +6,16 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('tindakan_medis', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->string('kode_tindakan')->primary();
+            $table->string('nama_tindakan');
+            $table->unsignedInteger('harga_satuan')->default(0);
+            $table->unsignedInteger('harga_dasar')->default(0);
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('tindakan_medis');
