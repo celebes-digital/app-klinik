@@ -16,6 +16,7 @@ use App\Livewire\Staff\View as StaffView;
 
 // Tenaga Medis
 use App\Livewire\TenagaMedis\View as TenagaMedisView;
+use App\Livewire\TindakanMedis\ListForm as TindakanMedisListForm;
 
 Route::get('/', Welcome::class);
 
@@ -24,6 +25,8 @@ Route::get('/profil', Update::class);
 Route::get('/poliklinik', PoliView::class);
 
 Route::get('/penunjang-medis', ListForm::class);
+
+Route::get('/tindakan-medis', TindakanMedisListForm::class);
 
 // FORM PASIEN
 Route::get('/pasien', PasienView::class);
