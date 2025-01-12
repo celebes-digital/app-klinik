@@ -11,7 +11,7 @@ use Livewire\Attributes\Validate;
 class ProfilForm extends Form
 {
     use WithFileUploads;
-    public ?Profil $profil;
+    public ?Profil $profil = null;
 
     #[Validate('required')]
     public $nama_puskesmas   = "";

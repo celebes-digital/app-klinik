@@ -28,7 +28,7 @@ return new class extends Migration
             $table->char('kecamatan', 7);
             $table->char('kelurahan', 10);
             $table->char('kode_pos', 6);
-            $table->string('logo');
+            $table->string('logo')->nullable();
         });
     }
 
