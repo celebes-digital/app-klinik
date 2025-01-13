@@ -79,54 +79,54 @@
     <x-header title="Tambah Pasien" separator />
 
     <x-card>
-        <x-form>
+        <x-form wire:submit="save" wire:target="submit">
             <x-tabs wire:model="selectedTab">
                 <x-tab name="umum" label="Data Pasien" icon="o-building-office-2">
                     <x-header title="Input Data Pasien" subtitle="Data dengan simbol (*) wajib diisi!" size="text-xl" />
 
                     <div class="grid grid-cols-12 gap-4">
                         <div class="col-span-12 md:col-span-3">
-                            <x-input label="Nama Pasien" wire:model="form.nama" required />
+                            <x-input label="Nama Pasien" wire:model="form.nama"  />
                         </div>
 
                         <div class="col-span-12 md:col-span-3">
-                            <x-input label="Nomor BPJS" wire:model="form.no_bpjs" required />
+                            <x-input label="Nomor BPJS" wire:model="form.no_bpjs"  />
                         </div>
 
                         <div class="col-span-12 sm:col-span-6 md:col-span-3">
-                            <x-input label="NIK" wire:model="form.nik" required />
+                            <x-input label="NIK" wire:model="form.nik"  />
                         </div>
 
                         <div class="col-span-12 sm:col-span-6 md:col-span-3">
-                            <x-input label="NIK Ibu" wire:model="form.nik_ibu" required />
+                            <x-input label="NIK Ibu" wire:model="form.nik_ibu"  />
                         </div>
 
                         <div class="col-span-6 md:col-span-3">
-                            <x-input label="Tempat Lahir" wire:model="form.tempat_lahir" required />
+                            <x-input label="Tempat Lahir" wire:model="form.tempat_lahir"  />
                         </div>
 
                         <div class="col-span-6 md:col-span-3">
-                            <x-datepicker label="Tanggal Lahir" wire:model="form.tanggal_lahir" icon="o-calendar" :config="$tanggal_format" required />
+                            <x-datepicker label="Tanggal Lahir" wire:model="form.tgl_lahir" icon="o-calendar" :config="$tanggal_format"  />
                         </div>
 
                         <div class="col-span-6 md:col-span-3">
-                            <x-select label="Jenis Kelamin" :options="$kelamin" wire:model="form.kelamin" required />
+                            <x-select label="Jenis Kelamin" :options="$kelamin" wire:model="form.kelamin"  />
                         </div>
 
                         <div class="col-span-6 md:col-span-3">
-                            <x-select label="Status Nikah" :options="$status_nikah" wire:model="form.status_nikah" required />
+                            <x-select label="Status Nikah" :options="$status_nikah" wire:model="form.status_nikah"  />
                         </div>
                         
                         <div class="col-span-12 md:col-span-3">
                             <x-input
                             label="Alamat"
                             wire:model="form.alamat"
-                            required
+                            
                             />
                         </div>
                         
                         <div class="col-span-12 md:col-span-3">
-                            <x-input label="Nomor Telepon" wire:model="form.no_telp" required />
+                            <x-input label="Nomor Telepon" wire:model="form.no_telp"  />
                         </div>
 
                         <div class="col-span-12 md:col-span-3">
@@ -246,7 +246,7 @@
             </x-tabs>
 
             <x-slot:actions>
-                <x-button label="Simpan Data" class="btn-primary" type="submit" spinner="save" wire:click="save" />
+                <x-button label="Simpan Data" class="btn-primary" type="submit" spinner="save" />
             </x-slot:actions>
         </x-form>
     </x-card>

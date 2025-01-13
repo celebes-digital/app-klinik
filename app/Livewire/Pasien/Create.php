@@ -49,8 +49,8 @@ class Create extends Component
 
     public function save()
     {
-        dd($this->form);
-        Pasien::create($this->form);
+        $this->form->store();
+        // dd($this->form);
 
         $this->success('Data Pasien Telah Disimpan.');
     }

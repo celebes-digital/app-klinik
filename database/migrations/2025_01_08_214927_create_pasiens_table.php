@@ -36,7 +36,7 @@ return new class extends Migration
             $table->string('pendidikan')->nullable();
             $table->string('kewarganegaraan')->nullable();
             $table->enum('status_nikah', ['Married', 'Unmarried', 'Divorced', 'Widowed']);
-            $table->uuid('uuid')->unique();
+            $table->uuid('uuid')->unique()->nullable();
             $table->timestamps();
         });
     }

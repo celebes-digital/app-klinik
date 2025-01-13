@@ -22,7 +22,7 @@ class PasienForm extends Form
     #[Validate('required|digits:16|unique:pasien,nik')]
     public $nik = "";
 
-    #[Validate('required|digits:16')]
+    #[Validate('digits:16')]
     public $nik_ibu = "";
 
     #[Validate('required|in:male,female')]
@@ -34,7 +34,7 @@ class PasienForm extends Form
 
     #[Validate('required')]
     public $alamat = "";
-    
+
     #[Validate('required')]
     public $no_telp = "";
     
@@ -61,7 +61,6 @@ class PasienForm extends Form
 
     public $pendidikan = "";
 
-    #[Validate('required')]
     public $kewarganegaraan = "";
 
     #[Validate('required|in:Married,Unmarried,Divorced,Widowed')]
@@ -100,6 +99,7 @@ class PasienForm extends Form
     {
         $this->validate();
 
-        $this->pasien->update($this->all());
+        Pasien::create($this->all());
+        // $this->pasien->update($this->all());
     }
 }

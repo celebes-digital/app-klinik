@@ -26,6 +26,7 @@ class View extends Component
             ['key' => 'alamat',             'label' => 'Alamat'],
             ['key' => 'no_telp',            'label' => 'No. Telp'],
             ['key' => 'no_bpjs',            'label' => 'No. BPJS'],
+            ['key' => 'status_nikah',       'label' => 'Status Nikah'],
             ['key' => 'provinsi',           'label' => 'Provinsi'],
             ['key' => 'kabupaten',          'label' => 'Kabupaten'],
             ['key' => 'kecamatan',          'label' => 'Kecamatan'],
@@ -37,7 +38,6 @@ class View extends Component
             ['key' => 'pekerjaan',          'label' => 'Pekerjaan'],
             ['key' => 'pendidikan',         'label' => 'Pendidikan'],
             ['key' => 'kewarganegaraan',    'label' => 'Kewarganegaraan'],
-            ['key' => 'status_nikah',       'label' => 'Status Nikah'],
         ];
 
         return view('livewire.pasien.view');
