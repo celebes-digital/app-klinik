@@ -100,6 +100,5 @@ class PasienForm extends Form
         $this->validate();
 
         Pasien::create($this->all());
-        // $this->pasien->update($this->all());
     }
 }

@@ -15,9 +15,68 @@ class Create extends Component
     use Toast;
 
     public PasienForm $form;
-    public $selectedTab = 'umum';
 
     public $tanggal_format = ['altFormat' => 'm/d/Y'];
+
+    public $kelamin = [
+        [
+            'id' => '',
+            'name' => 'Pilih Jenis Kelamin',
+        ],
+        [
+            'id' => 'male',
+            'name' => 'Laki-laki',
+        ],
+        [
+            'id' => 'female',
+            'name' => 'Perempuan'
+        ]
+    ];
+
+    public $status_nikah = [
+        [
+            'id' => '',
+            'name' => 'Pilih Status Nikah',
+        ],
+        [
+            'id' => 'Married',
+            'name' => 'Menikah',
+        ],
+        [
+            'id' => 'Unmarried',
+            'name' => 'Belum Menikah'
+        ],
+        [
+            'id' => 'Divorced',
+            'name' => 'Cerai',
+        ],
+        [
+            'id' => 'Widowed',
+            'name' => 'Janda/Duda'
+        ]
+    ];
+
+    public $lahir_kembar = [
+        [
+            'id' => false,
+            'name' => 'Tidak Kembar',
+        ],
+        [
+            'id' => true,
+            'name' => 'Kembar'
+        ]
+    ];
+
+    public $hidup = [
+        [
+            'id' => true,
+            'name' => 'Hidup',
+        ],
+        [
+            'id' => false,
+            'name' => 'Meninggal'
+        ]
+    ];
 
     public $filteredProvinsi    = [];
     public $filteredKabupaten   = [];

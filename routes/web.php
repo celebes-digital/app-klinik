@@ -12,6 +12,7 @@ use App\Livewire\Pasien\Update as PasienUpdate;
 
 // Staff
 use App\Livewire\Staff\View as StaffView;
+use App\Livewire\Staff\CreateUpdate as StaffCreateUpdate;
 
 // Tenaga Medis
 use App\Livewire\TenagaMedis\View as TenagaMedisView;
@@ -36,8 +37,8 @@ Route::get('/pasien/update/{id_pasien}', PasienUpdate::class);
 
 // FORM STAFF
 Route::get('/staff', StaffView::class);
-// Route::get('/staff/create', StaffCreate::class);
-// Route::get('/staff/update/{id_staff}', StaffUpdate::class);
+Route::get('/staff/create', StaffCreateUpdate::class);
+Route::get('/staff/update/{id_staff}', StaffCreateUpdate::class);
 
 // FORM TENAGA MEDIS
 Route::get('/tenaga-medis', TenagaMedisView::class);
