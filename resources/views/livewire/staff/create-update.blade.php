@@ -6,12 +6,20 @@
             <x-header title="Input Data Staff" subtitle="Data dengan simbol (*) wajib diisi!" size="text-xl" />
 
             <div class="grid grid-cols-12 gap-4">
-                <div class="col-span-12 md:col-span-3">
-                    <x-input label="Nama Pasien" wire:model="form.nama"  />
+                <div class="col-span-12 sm:col-span-6 md:col-span-6">
+                    <x-input label="NIK" wire:model="form.nik">
+                        <x-slot:append>
+                            <x-button label="Cari Staff Satu Sehat" 
+                                icon="o-check" 
+                                class="btn-success text-white rounded-s-none" 
+                                wire:click="practitionerByNik"
+                            />
+                        </x-slot:append>
+                    </x-input>
                 </div>
 
-                <div class="col-span-12 sm:col-span-6 md:col-span-3">
-                    <x-input label="NIK" wire:model="form.nik"  />
+                <div class="col-span-12 md:col-span-3">
+                    <x-input label="Nama" wire:model="form.nama"  />
                 </div>
 
                 <div class="col-span-6 md:col-span-3">
