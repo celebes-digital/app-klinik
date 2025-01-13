@@ -7,11 +7,13 @@ use App\Livewire\Forms\ProfilForm;
 use App\Traits\WilayahIndonesia;
 use Mary\Traits\Toast;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class InformasiUmum extends Component
 {
     use Toast;
     use WilayahIndonesia;
+    use WithFileUploads;
 
     public ProfilForm $form;
 
