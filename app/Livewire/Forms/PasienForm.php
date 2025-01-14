@@ -25,7 +25,6 @@ class PasienForm extends Form
     #[Validate('digits:16')]
     public $nik_ibu = "";
 
-    #[Validate('digits:16')]
     public $no_bpjs = "";
 
     #[Validate('required|in:male,female')]

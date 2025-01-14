@@ -81,15 +81,15 @@ class Create extends Component
         ]
     ];
 
-    public $filteredProvinsi    = [];
-    public $filteredKabupaten   = [];
-    public $filteredKecamatan   = [];
-    public $filteredKelurahan   = [];
-
     public $apiSatuSehat = "https://api-satusehat-stg.dto.kemkes.go.id/fhir-r4/v1";
 
     public $dataAPI;
     public $dataNikIbuAPI;
+
+    public $filteredProvinsi    = [];
+    public $filteredKabupaten   = [];
+    public $filteredKecamatan   = [];
+    public $filteredKelurahan   = [];
 
     public function getByNik()
     {
@@ -109,10 +109,12 @@ class Create extends Component
             ->get($this->apiSatuSehat . "/Patient?identifier=https://fhir.kemkes.go.id/id/nik|" . $nik)
             ->json();
 
+
         if ($this->dataAPI) {
-            dd($this->dataAPI);
+            $this->form->nama = $this->dataAPI['entry'][0]['resource']['name'][0]['text'];
+            // dd($this->form->nama);
         } else {
-            session()->flash('error', 'No data found for the given NIK.');
+            session()->flash('error', 'Name not found in the API response.');
         }
     }
 
@@ -168,7 +170,6 @@ class Create extends Component
     {
         $this->form->store();
         $this->formDetail->store();
-        // dd($this->form);
 
         $this->success('Data Pasien Telah Disimpan.');
     }

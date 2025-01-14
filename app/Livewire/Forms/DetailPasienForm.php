@@ -10,7 +10,6 @@ class DetailPasienForm extends Form
 {
     public ?DetailPasien $detailPasien;
 
-    #[Validate('required')]
     public $no_telp = "";
 
     public $provinsi = "";
@@ -36,7 +35,7 @@ class DetailPasienForm extends Form
 
     public $kewarganegaraan = "";
 
-    #[Validate('required|in:Married,Unmarried,Divorced,Widowed')]
+    #[Validate('in:Married,Unmarried,Divorced,Widowed')]
     public $status_nikah = "";
 
     public function setDetailPasien(DetailPasien $detailPasien)
