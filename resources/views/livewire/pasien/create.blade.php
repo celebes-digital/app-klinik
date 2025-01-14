@@ -1,6 +1,4 @@
 <div>
-    <x-header title="Tambah Pasien" separator />
-
     <x-card>
         <x-form wire:submit="save" wire:target="submit">
             <x-header title="Input Data Pasien" subtitle="Data dengan simbol (*) wajib diisi!" size="text-xl" />

@@ -4,41 +4,59 @@ namespace App\Livewire\Staff;
 
 use App\Livewire\Forms\StaffForm;
 use Illuminate\Support\Facades\Http;
+use Livewire\Attributes\Title;
 use Livewire\Component;
 use Mary\Traits\Toast;
 
+#[Title('Tambah Staff')]
 class CreateUpdate extends Component
 {
     use Toast;
     public StaffForm $form;
     public $tanggal_format = ['al]Format' => 'm/d/Y'];
 
-    public $apiSatuSehat = "https://api-satusehat-stg.dto.kemkes.go.id/fhir-r4/v1/Practitioner?identifier=https://fhir.kemkes.go.id/id/nik|";
+    public $apiSatuSehat = "https://api-satusehat-stg.dto.kemkes.go.id/fhir-r4/v1";
 
     public $dataAPI;
 
-    public function practitionerByNik()
+    public function getByNik()
     {
         $nik = $this->form->nik ?? null;
+
         if (!$nik) {
             $this->error('NIK tidak boleh kosong.');
-
             return;
         }
 
-        $headers = [
-            'Authorization' => 'Bearer KmNU8Eizvo4tHtdxYBr1m9hCoCA5', // Replace with your actual token
-            'Accept' => 'application/json',
-        ];
+        try {
+            $headers = [
+                'Authorization' => 'Bearer hKZugd2eGZGrGAiZolgNwfkCTd52',
+                'Accept' => 'application/json',
+            ];
 
-        $this->dataAPI = Http::withHeaders($headers)
-            ->get($this->apiSatuSehat . $nik)
-            ->json();
+            $response = Http::withHeaders($headers)
+                ->get($this->apiSatuSehat . "/Practitioner?identifier=https://fhir.kemkes.go.id/id/nik|" . $nik);
 
-        if ($this->dataAPI) {
-            dd($this->dataAPI);
-        } else {
-            session()->flash('error', 'No data found for the given NIK.');
+            if ($response->successful()) {
+                $data = $response->json();
+
+                if (isset($data['entry'][0]['resource'])) {
+                    $resource = $data['entry'][0]['resource'];
+
+                    // Map data to form fields
+                    $this->form->no_str     = $resource['id'] ?? null;
+                    $this->form->ihs        = $resource['qualification'][0]['identifier'][0]['value'] ?? null;
+                    $this->form->alamat     = $resource['address'][0]['line'][0] ?? null;
+                    $this->form->kelamin    = $resource['gender'] ?? null;
+                    $this->form->tgl_lahir  = $resource['birthDate'] ?? null;
+                } else {
+                    $this->error('Data tidak ditemukan pada API.');
+                }
+            } else {
+                $this->error('Gagal mengambil data dari API.');
+            }
+        } catch (\Exception $e) {
+            $this->error('Terjadi kesalahan saat memproses data.');
         }
     }
 

@@ -6,20 +6,20 @@ use App\Livewire\Forms\DetailPasienForm;
 use App\Livewire\Forms\PasienForm;
 use App\Models\DetailPasien;
 use App\Models\Pasien;
-use App\Traits\HandlesWilayah;
 use Illuminate\Support\Facades\Http;
+use Livewire\Attributes\Title;
 use Livewire\Component;
 use Mary\Traits\Toast;
 
+#[Title('Tambah Pasien')]
 class Create extends Component
 {
-    use HandlesWilayah;
     use Toast;
 
     public PasienForm $form;
     public DetailPasienForm $formDetail;
 
-    public $tanggal_format = ['altFormat' => 'm/d/Y'];
+    public $tanggal_format = ['altFormat' => 'm-d-Y'];
 
     public $kelamin = [
         [
@@ -101,7 +101,7 @@ class Create extends Component
         }
 
         $headers = [
-            'Authorization' => 'Bearer KmNU8Eizvo4tHtdxYBr1m9hCoCA5',
+            'Authorization' => 'Bearer hKZugd2eGZGrGAiZolgNwfkCTd52',
             'Accept' => 'application/json',
         ];
 
@@ -128,7 +128,7 @@ class Create extends Component
         }
 
         $headers = [
-            'Authorization' => 'Bearer KmNU8Eizvo4tHtdxYBr1m9hCoCA5',
+            'Authorization' => 'Bearer hKZugd2eGZGrGAiZolgNwfkCTd52',
             'Accept' => 'application/json',
         ];
 
@@ -145,7 +145,7 @@ class Create extends Component
 
     public function mount()
     {
-        $this->filteredProvinsi = Http::get("{$this->apiurl}/provinces.json")->json();
+        // $this->filteredProvinsi = Http::get("{$this->apiurl}/provinces.json")->json();
     }
 
     public function updatedFormProvinsi($value)

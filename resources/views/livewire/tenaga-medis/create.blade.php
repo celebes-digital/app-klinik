@@ -1,13 +1,13 @@
 <div>
     <x-card shadow separator>
         <x-form wire:submit="save" wire:target="submit">
-            <x-header title="Input Data Staff" subtitle="Data dengan simbol (*) wajib diisi!" size="text-xl" />
+            <x-header title="Input Data Tenaga Medis" subtitle="Data dengan simbol (*) wajib diisi!" size="text-xl" />
 
             <div class="grid grid-cols-12 gap-4">
-                <div class="col-span-12 md:col-span-6">
+                <div class="col-span-12 sm:col-span-6 md:col-span-6">
                     <x-input label="NIK" wire:model="form.nik">
                         <x-slot:append>
-                            <x-button label="Cari Staff Satu Sehat" 
+                            <x-button label="Cari di SATUSEHAT" 
                                 icon="o-check" 
                                 class="btn-success text-white rounded-s-none" 
                                 wire:click="getByNik"
@@ -20,28 +20,28 @@
                     <x-input label="Nama" wire:model="form.nama"  />
                 </div>
 
-                <div class="col-span-6 md:col-span-6">
+                <div class="col-span-12 md:col-span-6">
+                    <x-input label="Alamat" wire:model="form.alamat"  />
+                </div>
+
+                <div class="col-span-12 md:col-span-6">
+                    <x-input label="Nomor Telepon" wire:model="form.no_telp" />
+                </div>
+
+                <div class="col-span-12 md:col-span-6">
+                    <x-input label="Nomor STR (Surat Tanda Registrasi)" wire:model="form.no_str" />
+                </div>
+
+                <div class="col-span-12 md:col-span-6">
+                    <x-input label="Nomor HIS" wire:model="form.ihs" />
+                </div>
+
+                <div class="col-span-6">
                     <x-datepicker label="Tanggal Lahir" wire:model="form.tgl_lahir" icon="o-calendar" :config="$tanggal_format"  />
                 </div>
 
-                <div class="col-span-12 md:col-span-6">
-                    <x-input label="Nomor Telepon" wire:model="form.no_telp"  />
-                </div>
-
-                <div class="col-span-6 md:col-span-6">
+                <div class="col-span-6">
                     <x-select label="Jenis Kelamin" :options="$kelamin" wire:model="form.kelamin"  />
-                </div>
-
-                <div class="col-span-12 md:col-span-6">
-                    <x-input label="Alamat" wire:model="form.alamat" />
-                </div>
-
-                <div class="col-span-12 md:col-span-6">
-                    <x-input label="Nomor Surat Tanda Registrasi (STR)" wire:model="form.no_str" />
-                </div>
-
-                <div class="col-span-12 md:col-span-6">
-                    <x-input label="Nomor IHS" wire:model="form.ihs" />
                 </div>
             </div>
 

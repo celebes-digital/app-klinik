@@ -3,11 +3,13 @@
 namespace App\Livewire\Forms;
 
 use App\Models\Pasien;
+use App\Traits\WilayahIndonesia;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
 
 class PasienForm extends Form
 {
+    use WilayahIndonesia;
     public ?Pasien $pasien;
 
     #[Validate('required')]
