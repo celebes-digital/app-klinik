@@ -3,15 +3,16 @@
 namespace App\Livewire\Forms;
 
 use App\Models\Profil;
-
+use App\Traits\WilayahIndonesia;
 use Livewire\Form;
 use Livewire\WithFileUploads;
 use Livewire\Attributes\Validate;
 
 class ProfilForm extends Form
 {
+    use WilayahIndonesia;
     use WithFileUploads;
-    public ?Profil $profil;
+    public ?Profil $profil = null;
 
     #[Validate('required')]
     public $nama_puskesmas   = "";
@@ -25,34 +26,13 @@ class ProfilForm extends Form
     #[Validate('required|numeric|min:9')]
     public $no_telp         = "";
 
-    #[Validate('required')]
-    public $organization_id = "";
-
-    #[Validate('required')]
-    public $client_id       = "";
-
-    #[Validate('required')]
-    public $client_secret   = "";
-
     public $url             = "";
-
-    #[Validate('required')]
-    public $provinsi        = null;
-
-    #[Validate('required')]
-    public $kabupaten       = null;
-
-    #[Validate('required')]
-    public $kecamatan       = null;
-
-    #[Validate('required')]
-    public $kelurahan       = null;
 
     #[Validate('required')]
     public $kode_pos        = "";
 
     #[Validate('nullable|image|max:1024')] // 1MB Max
-    public $logo            = "";
+    public $logo            = null;
 
     public function setProfil(Profil $profil)
     {
@@ -62,9 +42,6 @@ class ProfilForm extends Form
         $this->alamat          = $profil->alamat;
         $this->email           = $profil->email;
         $this->no_telp         = $profil->no_telp;
-        $this->organization_id = $profil->organization_id;
-        $this->client_id       = $profil->client_id;
-        $this->client_secret   = $profil->client_secret;
         $this->url             = $profil->url;
         $this->provinsi        = $profil->provinsi;
         $this->kabupaten       = $profil->kabupaten;
@@ -81,7 +58,7 @@ class ProfilForm extends Form
 
         if ($this->logo instanceof \Illuminate\Http\UploadedFile) {
             $fileName = 'logo' . '.' . $this->logo->getClientOriginalExtension();
-            $url = $this->logo->storeAs('img', $fileName, 'public');
+            $this->logo->storeAs('img', $fileName, 'public');
             $this->logo = $fileName;
         }
 

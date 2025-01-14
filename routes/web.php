@@ -9,27 +9,20 @@ use Illuminate\Support\Facades\Route;
 use App\Livewire\Pasien\View as PasienView;
 use App\Livewire\Pasien\Create as PasienCreate;
 use App\Livewire\Pasien\Update as PasienUpdate;
-
+use App\Livewire\PenunjangMedis\ListForm;
+use App\Livewire\Poli\PoliView;
+use App\Livewire\Profil\ViewProfil;
 // Staff
 use App\Livewire\Staff\View as StaffView;
 use App\Livewire\Staff\CreateUpdate as StaffCreateUpdate;
 
 // Tenaga Medis
 use App\Livewire\TenagaMedis\View as TenagaMedisView;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
+use App\Livewire\TindakanMedis\ListForm as TindakanMedisListForm;
 
 Route::get('/', Welcome::class);
 
+Route::get('/profil', ViewProfil::class);
 // FORM PASIEN
 Route::get('/pasien', PasienView::class);
 Route::get('/pasien/create', PasienCreate::class);
@@ -44,5 +37,3 @@ Route::get('/staff/update/{id_staff}', StaffCreateUpdate::class);
 Route::get('/tenaga-medis', TenagaMedisView::class);
 // Route::get('/tenaga-medis/create', TenagaMedisCreate::class);
 // Route::get('/tenaga-medis/update/{id_tenaga_medis}', TenagaMedisUpdate::class);
-
-Route::get('/profil', Update::class);

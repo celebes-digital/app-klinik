@@ -11,9 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('polikliniks', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::create('poliklinik', function (Blueprint $table) {
+            $table->tinyInteger('id', true, true);
+
+            $table->char('nama_poli', 50);
+            $table->text('alamat', 100);
+            $table->char('email', 50);
+            $table->char('no_telp', 16);
+            $table->char('provinsi', 2);
+            $table->char('kabupaten', 4);
+            $table->char('kecamatan', 7);
+            $table->char('kelurahan', 10);
+            $table->char('kode_pos', 6);
         });
     }
 
@@ -22,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('polikliniks');
+        Schema::dropIfExists('poliklinik');
     }
 };

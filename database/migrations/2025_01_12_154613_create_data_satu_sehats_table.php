@@ -8,14 +8,15 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('penunjang_medis', function (Blueprint $table) {
-            $table->string('kode_penunjang', 8)->primary();
-            $table->string('nama_penunjang', 50);
+        Schema::create('data_satu_sehat', function (Blueprint $table) {
+            $table->char('organization_id', 100);
+            $table->char('client_id', 100);
+            $table->char('client_secret', 100);
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('penunjang_medis');
+        Schema::dropIfExists('data_satu_sehat');
     }
 };
