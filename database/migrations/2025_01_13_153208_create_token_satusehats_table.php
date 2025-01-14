@@ -11,7 +11,7 @@ return new class extends Migration
         Schema::create('token_satusehat', function (Blueprint $table) {
             $table->string('client_id', 50);
             $table->string('access_token', 30);
-            $table->string('issued_at', 13);
+            $table->bigInteger('issued_at', unsigned: true);
             $table->smallInteger('expires_in', unsigned: true);
         });
     }
