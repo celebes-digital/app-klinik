@@ -4,6 +4,7 @@ namespace App\SatuSehat;
 
 use App\Models\DataSatuSehat;
 use App\Models\TokenSatusehat;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Facades\Http;
 
@@ -15,9 +16,9 @@ class OAuth2
 
     protected $organizationId;
 
-    public $satu_sehat_url;
+    protected $satu_sehat_url;
 
-    public $base_url;
+    protected $base_url;
 
     protected $auth_url;
 
@@ -25,13 +26,13 @@ class OAuth2
 
     public function __construct()
     {
-        $this->satu_sehat_url = env('SATU_SEHAT_URL', 'https://api-satusehat-stg.dto.kemkes.go.id');
+        $this->satu_sehat_url   = env('SATU_SEHAT_URL', 'https://api-satusehat-stg.dto.kemkes.go.id');
 
-        $this->base_url = env('SATU_SEHAT_BASE_URL', $this->satu_sehat_url . '/api/v1');
+        $this->base_url         = env('SATU_SEHAT_BASE_URL', $this->satu_sehat_url . '/fhir-r4/v1');
 
-        $this->auth_url = env('SATUSEHAT_AUTH_URL', $this->satu_sehat_url . '/oauth2/v1');
+        $this->auth_url         = env('SATUSEHAT_AUTH_URL', $this->satu_sehat_url . '/oauth2/v1');
 
-        $this->consent_url = env('SATUSEHAT_CONSENT_URL', $this->satu_sehat_url . '/consent/v1');
+        $this->consent_url      = env('SATUSEHAT_CONSENT_URL', $this->satu_sehat_url . '/consent/v1');
     }
 
     /**
@@ -39,57 +40,60 @@ class OAuth2
      *
      * @return string
      */
-    public function getToken()
+    protected function getAccessToken()
     {
         // Ambil token dari db
-        $token = TokenSatusehat::first();
+        $dataToken = TokenSatusehat::first();
 
         // Jika token ada dan belum expired, return token
-        if ($token && $token->expires_in > now()) {
-            return $token['access_token'];
+        if ($dataToken && $this->isExpired($dataToken)) {
+            return $dataToken['access_token'];
         }
 
-        // Jika tidak ada atau sudah expired, generate token 
-        $newToken = $this->_generateToken();
+        // Jika tidak ada token atau sudah expired, generate token 
+        $this->setDataSatuSehat();
+        $newDataToken = $this->generateToken();
 
         // Simpan token ke db
-        $this->_saveToken($newToken);
+        $this->saveToken($newDataToken);
 
-        return $newToken['access_token'];
+        return $newDataToken['access_token'];
     }
 
-    protected function _generateToken()
+    protected function isExpired($data)
     {
-        $this->_getDataSatuSehat();
-
-        try {
-            // Create token
-            $response = Http::asForm()->post(
-                $this->auth_url . '/accesstoken?grant_type=client_credentials',
-                [
-                    'client_id'     => $this->clientId,
-                    'client_secret' => $this->clientSecret,
-                ]
-            );
-
-            return $response->json();
-        } catch (Exception $e) {
-            return null;
-        }
+        $timeExpired = Carbon::createFromTimestampMs($data['issued_at'])
+            ->addSeconds($data['expires_in'])->subMinutes(5);
+        return $timeExpired > now();
     }
 
-    protected function _getDataSatuSehat()
+    protected function generateToken()
     {
-        $dataSatuSehat = DataSatuSehat::first();
+        $response = Http::asForm()->post(
+            $this->auth_url . '/accesstoken?grant_type=client_credentials',
+            [
+                'client_id'     => $this->clientId,
+                'client_secret' => $this->clientSecret,
+            ]
+        );
 
-        if ($dataSatuSehat) {
-            $this->clientId         = $dataSatuSehat->client_id;
-            $this->clientSecret     = $dataSatuSehat->client_secret;
-            $this->organizationId   = $dataSatuSehat->organization_id;
-        }
+        return $response->json();
     }
 
-    protected function _saveToken($data)
+    protected function setDataSatuSehat()
+    {
+        $data = DataSatuSehat::first();
+
+        if (!$data) {
+            throw new Exception('Data Satu Sehat belum diatur');
+        }
+
+        $this->clientId         = $data->client_id;
+        $this->clientSecret     = $data->client_secret;
+        $this->organizationId   = $data->organization_id;
+    }
+
+    protected function saveToken($data)
     {
         // Simpan token ke db
         TokenSatusehat::updateOrCreate(
@@ -101,5 +105,10 @@ class OAuth2
                 'expires_in'    => $data['expires_in'],
             ]
         );
+    }
+
+    protected function api(): \Illuminate\Http\Client\PendingRequest
+    {
+        return Http::withToken($this->getAccessToken());
     }
 }
