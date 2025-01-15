@@ -3,6 +3,7 @@
 namespace App\Livewire\Staff;
 
 use App\Livewire\Forms\StaffForm;
+use App\SatuSehat\FHIR\Prerequisites\Practitioner;
 use Illuminate\Support\Facades\Http;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -21,43 +22,9 @@ class CreateUpdate extends Component
 
     public function getByNik()
     {
-        $nik = $this->form->nik ?? null;
-
-        if (!$nik) {
-            $this->error('NIK tidak boleh kosong.');
-            return;
-        }
-
-        try {
-            $headers = [
-                'Authorization' => 'Bearer Z3GfQFF03SF7KdrZ4AH1OV9g6Xps',
-                'Accept' => 'application/json',
-            ];
-
-            $response = Http::withHeaders($headers)
-                ->get($this->apiSatuSehat . "/Practitioner?identifier=https://fhir.kemkes.go.id/id/nik|" . $nik);
-
-            if ($response->successful()) {
-                $data = $response->json();
-
-                if (isset($data['entry'][0]['resource'])) {
-                    $resource = $data['entry'][0]['resource'];
-
-                    // Map data to form fields
-                    $this->form->no_str     = $resource['id'] ?? null;
-                    $this->form->ihs        = $resource['qualification'][0]['identifier'][0]['value'] ?? null;
-                    $this->form->alamat     = $resource['address'][0]['line'][0] ?? null;
-                    $this->form->kelamin    = $resource['gender'] ?? null;
-                    $this->form->tgl_lahir  = $resource['birthDate'] ?? null;
-                } else {
-                    $this->error('Data tidak ditemukan pada API.');
-                }
-            } else {
-                $this->error('Gagal mengambil data dari API.');
-            }
-        } catch (\Exception $e) {
-            $this->error('Terjadi kesalahan saat memproses data.');
-        }
+        $practitioner = new Practitioner();
+        $data         = $practitioner->get($this->form->nik ?? null);
+        $this->form->fill($data);
     }
 
     

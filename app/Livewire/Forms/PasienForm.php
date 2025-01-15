@@ -4,19 +4,22 @@ namespace App\Livewire\Forms;
 
 use App\Models\DetailPasien;
 use App\Models\Pasien;
-use App\Traits\WilayahIndonesia;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
 
 class PasienForm extends Form
 {
-    use WilayahIndonesia;
     public ?Pasien          $pasien;
     public ?DetailPasien    $detailPasien;
 
     public $id_pasien = "";
 
     public $no_telp = "";
+
+    public $provinsi = "";
+    public $kabupaten = "";
+    public $kecamatan = "";
+    public $kelurahan = "";
 
     public $rt = "";
 
