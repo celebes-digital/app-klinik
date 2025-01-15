@@ -12,8 +12,6 @@ use Livewire\Attributes\Validate;
 
 class PoliForm extends Form
 {
-    use WilayahIndonesia;
-
     public ?Poliklinik $poli;
 
     #[Validate('required')]
@@ -27,6 +25,18 @@ class PoliForm extends Form
 
     #[Validate('required|numeric|min:9')]
     public $no_telp         = "";
+
+    #[Validate('required')]
+    public $provinsi        = null;
+
+    #[Validate('required')]
+    public $kabupaten       = null;
+
+    #[Validate('required')]
+    public $kecamatan       = null;
+
+    #[Validate('required')]
+    public $kelurahan       = null;
 
     #[Validate('required')]
     public $kode_pos        = "";

@@ -13,11 +13,11 @@ use Livewire\Component;
 
 class PoliStore extends Component
 {
-    use WilayahIndonesia;
     use Toast;
+    use WilayahIndonesia;
 
-    public PoliForm $form;
     public $idPoli;
+    public PoliForm $form;
 
     public function setLokasi()
     {

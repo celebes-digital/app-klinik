@@ -3,7 +3,7 @@
     <div
         class="w-full p-6 space-y-3 h-fit bg-gray-300/10"
         wire:loading
-        wire:target.except="save"
+        wire:target.except="save, form.provinsi, form.kabupaten, form.kecamatan, form.kelurahan"
     >
         <div class="w-full h-12 mb-8 skeleton"></div>
         <div class="h-4 w-44 skeleton"></div>
@@ -19,7 +19,7 @@
 
     <x-card 
         wire:loading.remove 
-        wire:target.except="save"
+        wire:target.except="save, form.provinsi, form.kabupaten, form.kecamatan, form.kelurahan"
         class="h-fit" 
         title="{{$idPoli ? 'Ubah' : 'Tambahkan'}} Poliklinik"
     >
@@ -43,57 +43,63 @@
                     <x-input label="Nomor Telepon" wire:model="form.no_telp" />
                 </div>
         
-                <div class="col-span-3">
+                    <div class="col-span-3">
+                        <x-select 
+                            label="Provinsi"
+                            icon="o-map"
+                            :options="$filteredProvinsi"
+                            option-value="code"
+                            option-label="name"
+                            placeholder="Pilih Provinsi"
+                            placeholder-value=""
+                            wire:model.change="form.provinsi" 
+                        />
+                    </div>
+    
+                    <div class="col-span-3">
                     <x-select 
-                        label="Provinsi"
+                        label="Kabupaten"
                         icon="o-map"
-                        :options="$filteredProvinsi"
-                        option-value="id"
+                        :options="$filteredKabupaten"
+                        option-value="code"
                         option-label="name"
-                        placeholder="Pilih Provinsi"
+                        placeholder="Pilih Kabupaten"
                         placeholder-value=""
-                        wire:model.live.debounce.1ms="form.provinsi" 
+                        wire:loading.attr="disabled"
+                        wire:target="form.provinsi"
+                        wire:model.change="form.kabupaten" 
                     />
-                </div>
-        
-                <div class="col-span-3">
-                <x-select 
-                    label="Kabupaten"
-                    icon="o-map"
-                    :options="$filteredKabupaten"
-                    option-value="id"
-                    option-label="name"
-                    placeholder="Pilih Kabupaten"
-                    placeholder-value=""
-                    wire:model.live.debounce.1ms="form.kabupaten" 
-                />
-                </div>
-        
-                <div class="col-span-3">
-                    <x-select 
-                        label="Kecamatan"
-                        icon="o-map"
-                        :options="$filteredKecamatan"
-                        option-value="id"
-                        option-label="name"
-                        placeholder="Pilih Kecamatan"
-                        placeholder-value=""
-                        wire:model.live.debounce.1ms="form.kecamatan" 
-                    />
-                </div>
-        
-                <div class="col-span-3">
-                    <x-select 
-                        label="Kelurahan"
-                        icon="o-map"
-                        :options="$filteredKelurahan"
-                        option-value="id"
-                        option-label="name"
-                        placeholder="Pilih Kelurahan"
-                        placeholder-value=""
-                        wire:model.live.debounce.1ms="form.kelurahan" 
-                    />
-                </div>
+                    </div>
+    
+                    <div class="col-span-3">
+                        <x-select 
+                            label="Kecamatan"
+                            icon="o-map"
+                            :options="$filteredKecamatan"
+                            option-value="code"
+                            option-label="name"
+                            placeholder="Pilih Kecamatan"
+                            placeholder-value=""
+                            wire:loading.attr="disabled"
+                            wire:target="form.kabupaten"
+                            wire:model.change="form.kecamatan" 
+                        />
+                    </div>
+    
+                    <div class="col-span-3">
+                        <x-select 
+                            label="Kelurahan"
+                            icon="o-map"
+                            :options="$filteredKelurahan"
+                            option-value="code"
+                            option-label="name"
+                            placeholder="Pilih Kelurahan"
+                            placeholder-value=""
+                            wire:loading.attr="disabled"
+                            wire:target="form.kecamatan"
+                            wire:model.change="form.kelurahan" 
+                        />
+                    </div>
         
                 <div class="col-span-5">
                     <x-input label="Alamat" wire:model="form.alamat" icon="o-map-pin" />
