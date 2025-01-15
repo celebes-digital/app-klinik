@@ -24,6 +24,12 @@ Route::get('/', Welcome::class);
 
 Route::get('/profil', ViewProfil::class);
 
+Route::get('/poliklinik', PoliView::class);
+
+Route::get('/penunjang-medis', ListForm::class);
+
+Route::get('/tindakan-medis', TindakanMedisListForm::class);
+
 // FORM PASIEN
 Route::get('/pasien', PasienView::class);
 Route::get('/pasien/create', PasienCreate::class);
