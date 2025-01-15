@@ -19,21 +19,13 @@ class Pasien extends Model
         'nik',
         'nik_ibu',
         'kelamin',
-        'alamat',
-        'no_telp',
+        'lahir_kembar',
         'no_bpjs',
-        'provinsi',
-        'kabupaten',
-        'kecamatan',
-        'kelurahan',
-        'rt',
-        'rw',
-        'kode_pos',
-        'email',
-        'pekerjaan',
-        'pendidikan',
-        'kewarganegaraan',
-        'status_nikah',
         'uuid',
     ];
+
+    public function detailPasien()
+    {
+        return $this->hasOne(DetailPasien::class, 'id_pasien', 'id_pasien');
+    }
 }

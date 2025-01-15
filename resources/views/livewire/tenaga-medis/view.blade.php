@@ -3,12 +3,10 @@
 @endphp
 
 <div>
-    <x-header title="Tenaga Medis" separator />
-
     <div class="grid grid-cols-12 gap-4">
         <x-card class="col-span-12" title="Daftar Tenaga Medis" shadow separator>
             <x-slot:menu>
-                <x-post link="/pasien/create" />
+                <x-post link="/tenaga-medis/create" />
             </x-slot:menu>
 
             <x-table :headers="$headers" :rows="$tenaga_medis" striped with-pagination per-page="perPage">

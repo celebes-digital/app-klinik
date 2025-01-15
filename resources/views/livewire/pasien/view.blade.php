@@ -1,5 +1,16 @@
 @php
     $pasien = App\Models\Pasien::paginate($this->perPage);
+
+    $headers = [
+        ['key' => 'id_pasien',    'label' => '#'],
+        ['key' => 'nama',         'label' => 'Nama'],
+        ['key' => 'tempat_lahir', 'label' => 'Tempat. Lahir'],
+        ['key' => 'tgl_lahir',    'label' => 'Tgl. Lahir'],
+        ['key' => 'nik',          'label' => 'NIK'],
+        ['key' => 'nik_ibu',      'label' => 'NIK Ibu'],
+        ['key' => 'kelamin',      'label' => 'Kelamin'],
+        ['key' => 'no_bpjs',      'label' => 'No. BPJS'],
+    ];
 @endphp
 
 <div>
@@ -11,16 +22,16 @@
                 <x-post link="/pasien/create" />
             </x-slot:menu>
 
-            <x-table :headers="$headers" :rows="$pasien" striped with-pagination per-page="perPage">
+            <x-table :headers="$headers" :rows="$pasien" striped with-pagination per-page="perPage" link="pasien/detail/{id_pasien}">
                 <x-slot:empty>
                     <x-icon name="o-cube" label="It is empty." />
                 </x-slot:empty>
                 @scope('cell_status_nikah', $status)
                     <p>
                         {{ 
-                            $status->status_nikah == 'Divorced' ? 'Cerai' : 
-                            ($status->status_nikah == 'Married' ? 'Menikah' : 
-                            ($status->status_nikah == 'Widowed' ? 'Janda' : 'Belum Menikah'))
+                            $status->status_nikah   == 'Divorced'   ? 'Cerai'   : 
+                            ($status->status_nikah  == 'Married'    ? 'Menikah' : 
+                            ($status->status_nikah  == 'Widowed'    ? 'Janda'   : 'Belum Menikah'))
                         }}
                     </p>
                 @endscope

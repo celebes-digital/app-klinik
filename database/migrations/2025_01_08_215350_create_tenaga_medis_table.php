@@ -12,14 +12,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('tenaga_medis', function (Blueprint $table) {
-            $table->id('id_tenaga_medis'); // Primary key
-            $table->string('nama', 255); // Nama lengkap
-            $table->string('nik', 16)->unique(); // NIK (unik)
-            $table->string('no_str', 20)->nullable(); // No. STR (opsional)
-            $table->text('alamat'); // Alamat lengkap
-            $table->string('no_telp', 15); // Nomor telepon
-            $table->string('ihs', 11); // Nomor HIS
-            $table->timestamps(); // Timestamps (created_at, updated_at)
+            $table->id('id_tenaga_medis');
+            $table->string('nama', 255);
+            $table->string('nik', 16)->unique();
+            $table->text('alamat');
+            $table->date('tgl_lahir');
+            $table->enum('kelamin', ['male', 'female']);
+            $table->string('no_telp', 15);
+            $table->string('no_str', 20)->nullable();
+            $table->string('ihs', 20)->nullable();
+            $table->timestamps();
         });
     }
 

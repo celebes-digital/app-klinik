@@ -20,6 +20,8 @@ class TenagaMedisFactory extends Factory
             'no_str' => $this->faker->optional()->regexify('STR[0-9]{5}'),
             'alamat' => $this->faker->address,
             'no_telp' => $this->faker->unique()->phoneNumber,
+            'kelamin'           => $this->faker->randomElement(['male', 'female']),
+            'tgl_lahir'         => $this->faker->date(),
             'ihs' => $this->faker->regexify('IHS[0-9]{5}'),
         ];
     }

@@ -2,6 +2,8 @@
 
 namespace App\Livewire\Staff;
 
+use App\Livewire\Forms\StaffForm;
+use Illuminate\Support\Facades\Http;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -9,7 +11,6 @@ class View extends Component
 {
     use WithPagination;
 
-    public $staff;
     public $headers;
     public $perPage = 5;
 

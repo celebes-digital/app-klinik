@@ -2,9 +2,11 @@
 
 namespace App\Livewire\TenagaMedis;
 
+use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithPagination;
 
+#[Title('Tenaga Medis')]
 class View extends Component
 {
     use WithPagination;
