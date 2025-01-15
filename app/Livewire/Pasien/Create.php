@@ -2,22 +2,19 @@
 
 namespace App\Livewire\Pasien;
 
-use App\Livewire\Forms\DetailPasienForm;
 use App\Livewire\Forms\PasienForm;
-use App\Models\DetailPasien;
-use App\Models\Pasien;
+use App\Traits\WilayahIndonesia;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Http;
-use Livewire\Attributes\Title;
 use Livewire\Component;
 use Mary\Traits\Toast;
 
-#[Title('Tambah Pasien')]
 class Create extends Component
 {
     use Toast;
+    use WilayahIndonesia;
 
     public PasienForm $form;
-    public DetailPasienForm $formDetail;
 
     public $tanggal_format = ['altFormat' => 'm-d-Y'];
 
@@ -86,35 +83,48 @@ class Create extends Component
     public $dataAPI;
     public $dataNikIbuAPI;
 
-    public $filteredProvinsi    = [];
-    public $filteredKabupaten   = [];
-    public $filteredKecamatan   = [];
-    public $filteredKelurahan   = [];
-
-    public function getByNik()
+    public function formattedDate($date)
     {
-        $nik = $this->form->nik ?? null;
-        if (!$nik) {
-            $this->error('NIK tidak boleh kosong.');
+        return Carbon::createFromFormat('Y-m-d H:i', $date)->format('Y-m-d');
+    }
+
+    public function getByNGB()
+    {
+        $search = $this->form->nama . "&birthdate=" . $this->formattedDate($this->form->tgl_lahir) . "&gender=" . $this->form->kelamin;
+
+        if (!$this->form->nama || !$this->form->tgl_lahir || !$this->form->kelamin) {
+            $this->error("Lengkapi Semua Data");
 
             return;
         }
 
         $headers = [
-            'Authorization' => 'Bearer hKZugd2eGZGrGAiZolgNwfkCTd52',
+            'Authorization' => 'Bearer Z3GfQFF03SF7KdrZ4AH1OV9g6Xps',
             'Accept' => 'application/json',
         ];
 
         $this->dataAPI = Http::withHeaders($headers)
-            ->get($this->apiSatuSehat . "/Patient?identifier=https://fhir.kemkes.go.id/id/nik|" . $nik)
+            ->get($this->apiSatuSehat . "/Patient?name=" . $search)
             ->json();
 
-
         if ($this->dataAPI) {
-            $this->form->nama = $this->dataAPI['entry'][0]['resource']['name'][0]['text'];
-            // dd($this->form->nama);
+            $resource       = $this->dataAPI['entry'][0]['resource'] ?? '';
+            $resourceAlamat = $resource['address'][0]['extension'][0]['extension'] ?? '';
+
+            // dd($this->dataAPI);
+            $this->form->nama             = $resource['name'][0]['text'] ?? '';
+            $this->form->nik              = $resource['identifier'][0]['value'] ?? '';
+            $this->form->kelamin          = $resource['gender'] ?? '';
+            $this->form->kewarganegaraan  = $resource['extension'][0]['valueCode'] ?? '';
+            $this->form->alamat           = $resource['address'][0]['line'][0] ?? null;
+            $this->form->provinsi         = $resourceAlamat[0]['valueCode'] ?? '';
+            $this->form->kabupaten        = $resourceAlamat[1]['valueCode'] ?? '';
+            $this->form->kecamatan        = $resourceAlamat[2]['valueCode'] ?? '';
+            $this->form->kelurahan        = $resourceAlamat[3]['valueCode'] ?? '';
+            $this->form->rt               = $resourceAlamat[4]['valueCode'] ?? '';
+            $this->form->rw               = $resourceAlamat[5]['valueCode'] ?? '';
         } else {
-            session()->flash('error', 'Name not found in the API response.');
+            session()->flash('error', 'No data found for the given Name.');
         }
     }
 
@@ -128,7 +138,7 @@ class Create extends Component
         }
 
         $headers = [
-            'Authorization' => 'Bearer hKZugd2eGZGrGAiZolgNwfkCTd52',
+            'Authorization' => 'Bearer Z3GfQFF03SF7KdrZ4AH1OV9g6Xps',
             'Accept' => 'application/json',
         ];
 
@@ -143,222 +153,16 @@ class Create extends Component
         }
     }
 
-    public function mount()
-    {
-        // $this->filteredProvinsi = Http::get("{$this->apiurl}/provinces.json")->json();
-    }
-
-    public function updatedFormProvinsi($value)
-    {
-        $this->filteredKabupaten = $this->loadKabupaten($value);
-        $this->filteredKecamatan = [];
-        $this->filteredKelurahan = [];
-    }
-
-    public function updatedFormKabupaten($value)
-    {
-        $this->filteredKecamatan = $this->loadKecamatan($value);
-        $this->filteredKelurahan = [];
-    }
-
-    public function updatedFormKecamatan($value)
-    {
-        $this->filteredKelurahan = $this->loadKelurahan($value);
-    }
-
     public function save()
     {
         $this->form->store();
-        $this->formDetail->store();
 
+        $this->reset();
         $this->success('Data Pasien Telah Disimpan.');
     }
 
     public function render()
     {
-        return view('livewire.pasien.create', [
-            'filteredProvinsi'  => $this->filteredProvinsi,
-            'filteredKabupaten' => $this->filteredKabupaten,
-            'filteredKecamatan' => $this->filteredKecamatan,
-            'filteredKelurahan' => $this->filteredKelurahan,
-        ]);
+        return view('livewire.pasien.create');
     }
 }
-
-// ! NIK AJA
-// array:5 [▼ // app\Livewire\Pasien\Create.php:112
-//   "entry" => array:1 [▼
-//     0 => array:2 [▼
-//       "fullUrl" => "https://api-satusehat-stg.dto.kemkes.go.id/fhir-r4/v1/Patient/P02280547535"
-//       "resource" => array:7 [▼
-//         "active" => true
-//         "id" => "P02280547535"
-//         "identifier" => array:2 [▼
-//           0 => array:3 [▼
-//             "system" => "https://fhir.kemkes.go.id/id/ihs-number"
-//             "use" => "official"
-//             "value" => "P02280547535"
-//           ]
-//           1 => array:3 [▼
-//             "system" => "https://fhir.kemkes.go.id/id/nik"
-//             "use" => "official"
-//             "value" => "################"
-//           ]
-//         ]
-//         "link" => array:9 [▼
-//           0 => array:2 [▼
-//             "other" => array:1 [▼
-//               "reference" => "RelatedPerson/f2aea232-a5ad-4754-9bb5-10083ce346d3"
-//             ]
-//             "type" => "refer"
-//           ]
-//           1 => array:2 [▼
-//             "other" => array:1 [▼
-//               "reference" => "RelatedPerson/46d399d9-e188-42ea-864e-beb3b8ce0f2a"
-//             ]
-//             "type" => "refer"
-//           ]
-//           2 => array:2 [▼
-//             "other" => array:1 [▼
-//               "reference" => "RelatedPerson/70e842ae-4428-45bf-9166-dfa17de41e14"
-//             ]
-//             "type" => "refer"
-//           ]
-//           3 => array:2 [▼
-//             "other" => array:1 [▼
-//               "reference" => "RelatedPerson/1f346d42-17c2-4d71-9ef0-1b85296f1aba"
-//             ]
-//             "type" => "refer"
-//           ]
-//           4 => array:2 [▼
-//             "other" => array:1 [▼
-//               "reference" => "RelatedPerson/04be1530-de1f-4d22-bf5c-ab4bffde2b36"
-//             ]
-//             "type" => "refer"
-//           ]
-//           5 => array:2 [▼
-//             "other" => array:1 [▼
-//               "reference" => "RelatedPerson/227a963f-a2e6-4251-b2cf-bb5d292a58de"
-//             ]
-//             "type" => "refer"
-//           ]
-//           6 => array:2 [▼
-//             "other" => array:1 [▼
-//               "reference" => "RelatedPerson/f9406b4a-e9b9-4d9a-a421-227cf0b16ab6"
-//             ]
-//             "type" => "refer"
-//           ]
-//           7 => array:2 [▼
-//             "other" => array:1 [▼
-//               "reference" => "RelatedPerson/99f9f5af-bf05-4505-99d8-c137e93c2180"
-//             ]
-//             "type" => "refer"
-//           ]
-//           8 => array:2 [▼
-//             "other" => array:1 [▼
-//               "reference" => "RelatedPerson/dd6c8273-e5ea-4455-a78c-6657cf669b4b"
-//             ]
-//             "type" => "refer"
-//           ]
-//         ]
-//         "meta" => array:2 [▼
-//           "lastUpdated" => "2025-01-06T11:00:07.785437+00:00"
-//           "versionId" => "MTczNjE2MTIwNzc4NTQzNzAwMA"
-//         ]
-//         "name" => array:1 [▼
-//           0 => array:2 [▼
-//             "text" => "Sa** An** Ri**"
-//             "use" => "official"
-//           ]
-//         ]
-//         "resourceType" => "Patient"
-//       ]
-//     ]
-//   ]
-//   "link" => array:3 [▼
-//     0 => array:2 [▼
-//       "relation" => "search"
-//       "url" => "https://api-satusehat-stg.dto.kemkes.go.id/fhir-r4/v1/Patient/?identifier=https%3A%2F%2Ffhir.kemkes.go.id%2Fid%2Fnik%7C9104025209000006"
-//     ]
-//     1 => array:2 [▼
-//       "relation" => "first"
-//       "url" => "https://api-satusehat-stg.dto.kemkes.go.id/fhir-r4/v1/Patient/?identifier=https%3A%2F%2Ffhir.kemkes.go.id%2Fid%2Fnik%7C9104025209000006"
-//     ]
-//     2 => array:2 [▼
-//       "relation" => "self"
-//       "url" => "https://api-satusehat-stg.dto.kemkes.go.id/fhir-r4/v1/Patient/?identifier=https%3A%2F%2Ffhir.kemkes.go.id%2Fid%2Fnik%7C9104025209000006"
-//     ]
-//   ]
-//   "resourceType" => "Bundle"
-//   "total" => 1
-//   "type" => "searchset"
-// ]
-
-// ! NIK IBU
-// array:5 [▼ // app\Livewire\Pasien\Create.php:138
-//   "entry" => array:12 [▼
-//     0 => array:2 [▼
-//       "fullUrl" => "https://api-satusehat-stg.dto.kemkes.go.id/fhir-r4/v1/Patient/P20395049704"
-//       "resource" => array:8 [▼
-//         "active" => true
-//         "birthDate" => "2024-11-30"
-//         "id" => "P20395049704"
-//         "identifier" => array:2 [▼
-//           0 => array:3 [▼
-//             "system" => "https://fhir.kemkes.go.id/id/nik-ibu"
-//             "use" => "official"
-//             "value" => "9104025209000006"
-//           ]
-//           1 => array:3 [▼
-//             "system" => "https://fhir.kemkes.go.id/id/ihs-number"
-//             "use" => "official"
-//             "value" => "P20395049704"
-//           ]
-//         ]
-//         "meta" => array:3 [▼
-//           "lastUpdated" => "2025-01-06T11:00:07.491097+00:00"
-//           "profile" => array:1 [▼
-//             0 => "https://fhir.kemkes.go.id/r4/StructureDefinition/Patient"
-//           ]
-//           "versionId" => "MTczNjE2MTIwNzQ5MTA5NzAwMA"
-//         ]
-//         "multipleBirthInteger" => 0
-//         "name" => array:1 [▼
-//           0 => array:2 [▼
-//             "text" => "SINTIA AJA"
-//             "use" => "official"
-//           ]
-//         ]
-//         "resourceType" => "Patient"
-//       ]
-//     ]
-//     1 => array:2 [▶]
-//     2 => array:2 [▶]
-//     3 => array:2 [▶]
-//     4 => array:2 [▶]
-//     5 => array:2 [▶]
-//     6 => array:2 [▶]
-//     7 => array:2 [▶]
-//     8 => array:2 [▶]
-//     9 => array:2 [▶]
-//     10 => array:2 [▶]
-//     11 => array:2 [▶]
-//   ]
-//   "link" => array:3 [▼
-//     0 => array:2 [▼
-//       "relation" => "search"
-//       "url" => "https://api-satusehat-stg.dto.kemkes.go.id/fhir-r4/v1/Patient/?identifier=https%3A%2F%2Ffhir.kemkes.go.id%2Fid%2Fnik-ibu%7C9104025209000006"
-//     ]
-//     1 => array:2 [▼
-//       "relation" => "first"
-//       "url" => "https://api-satusehat-stg.dto.kemkes.go.id/fhir-r4/v1/Patient/?identifier=https%3A%2F%2Ffhir.kemkes.go.id%2Fid%2Fnik-ibu%7C9104025209000006"
-//     ]
-//     2 => array:2 [▼
-//       "relation" => "self"
-//       "url" => "https://api-satusehat-stg.dto.kemkes.go.id/fhir-r4/v1/Patient/?identifier=https%3A%2F%2Ffhir.kemkes.go.id%2Fid%2Fnik-ibu%7C9104025209000006"
-//     ]
-//   ]
-//   "resourceType" => "Bundle"
-//   "total" => 12
-//   "type" => "searchset"
-// ]

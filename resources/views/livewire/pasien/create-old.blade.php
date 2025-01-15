@@ -16,7 +16,7 @@
                     <x-datepicker label="Tanggal Lahir" wire:model="form.tgl_lahir" icon="o-calendar" :config="$tanggal_format"  />
                 </div>
 
-                <div class="col-span-12 md:col-span-2 flex items-center">
+                <div class="col-span-6 md:col-span-2 flex items-center">
                     <x-button class="btn-success w-full h-14 border-green-600 text-white" label="Cari di SATUSEHAT" wire:click="getByNGB" icon="o-check" />
                 </div>
 
@@ -24,7 +24,7 @@
                     <hr>
                 </div>
                 
-                <div class="col-span-12 md:col-span-6">
+                <div class="col-span-12 sm:col-span-6 md:col-span-6">
                     <x-input label="NIK Ibu" wire:model="form.nik_ibu">
                         <x-slot:append>
                             <x-button label="Cari di SATUSEHAT" 
@@ -36,7 +36,7 @@
                     </x-input>
                 </div>
 
-                <div class="col-span-12 md:col-span-6">
+                <div class="col-span-12 sm:col-span-6 md:col-span-6">
                     <x-input label="NIK" wire:model="form.nik" />
                 </div>
 
@@ -57,31 +57,31 @@
                 </h3>
 
                 <div class="col-span-12 md:col-span-5">
-                    <x-input label="Alamat" wire:model="form.alamat" />
+                    <x-input label="Alamat" wire:model="formDetail.alamat" />
                 </div>
                 
                 <div class="col-span-4 md:col-span-3">
                     <x-input
                         label="Kode Pos"
-                        wire:model="form.kode_pos"
+                        wire:model="formDetail.kode_pos"
                     />
                 </div>
 
                 <div class="col-span-4 md:col-span-2">
                     <x-input
                         label="RT"
-                        wire:model="form.rt"
+                        wire:model="formDetail.rt"
                     />
                 </div>
 
                 <div class="col-span-4 md:col-span-2">
                     <x-input
                         label="RW"
-                        wire:model="form.rw"
+                        wire:model="formDetail.rw"
                     />
                 </div>
                 
-                <div class="col-span-6 md:col-span-3">
+                <div class="md:col-span-3">
                     <x-select 
                         label="Provinsi"
                         icon="o-map"
@@ -90,11 +90,11 @@
                         option-label="name"
                         placeholder="Pilih Provinsi"
                         placeholder-value=""
-                        wire:model.change="form.provinsi" 
+                        wire:model.change="formDetail.provinsi" 
                     />
                 </div>
 
-                <div class="col-span-6 md:col-span-3">
+                <div class="md:col-span-3">
                     <x-select 
                         label="Kabupaten"
                         icon="o-map"
@@ -104,13 +104,13 @@
                         placeholder="Pilih Kabupaten"
                         placeholder-value=""
                         wire:loading.attr="disabled"
-                        wire:target="form.provinsi"
-                        wire:model.change="form.kabupaten" 
-                        wire:key="form.kabupaten"
+                        wire:target="formDetail.provinsi"
+                        wire:model.change="formDetail.kabupaten" 
+                        wire:key="formDetail.kabupaten"
                     />
                 </div>
 
-                <div class="col-span-6 md:col-span-3">
+                <div class="md:col-span-3">
                     <x-select 
                         label="Kecamatan"
                         icon="o-map"
@@ -120,13 +120,13 @@
                         placeholder="Pilih Kecamatan"
                         placeholder-value=""
                         wire:loading.attr="disabled"
-                        wire:target="form.kabupaten"
-                        wire:model.change="form.kecamatan" 
-                        wire:key="form.kecamatan"
+                        wire:target="formDetail.kabupaten"
+                        wire:model.change="formDetail.kecamatan" 
+                        wire:key="formDetail.kecamatan"
                     />
                 </div>
 
-                <div class="col-span-6 md:col-span-3">
+                <div class="md:col-span-3">
                     <x-select 
                         label="Kelurahan"
                         icon="o-map"
@@ -136,34 +136,34 @@
                         placeholder="Pilih Kelurahan"
                         placeholder-value=""
                         wire:loading.attr="disabled"
-                        wire:target="form.kecamatan"
-                        wire:model.change="form.kelurahan" 
-                        wire:key="form.kelurahan"
+                        wire:target="formDetail.kecamatan"
+                        wire:model.change="formDetail.kelurahan" 
+                        wire:key="formDetail.kelurahan"
                     />
                 </div>
 
-                <div class="col-span-12 md:col-span-6">
-                    <x-input label="Nomor Telepon" wire:model="form.no_telp"  />
-                </div>
-
-                <div class="col-span-6 md:col-span-6">
-                    <x-input label="Email" wire:model="form.email" />
+                <div class="col-span-12 md:col-span-3">
+                    <x-input label="Nomor Telepon" wire:model="formDetail.no_telp"  />
                 </div>
 
                 <div class="col-span-6 md:col-span-3">
-                    <x-select label="Status Nikah" :options="$status_nikah" wire:model="form.status_nikah"  />
+                    <x-input label="Email" wire:model="formDetail.email" />
                 </div>
 
                 <div class="col-span-6 md:col-span-3">
-                    <x-input label="Pendidikan" wire:model="form.pendidikan" />
+                    <x-select label="Status Nikah" :options="$status_nikah" wire:model="formDetail.status_nikah"  />
+                </div>
+
+                <div class="col-span-6 md:col-span-3">
+                    <x-input label="Pendidikan" wire:model="formDetail.pendidikan" />
                 </div>
                 
                 <div class="col-span-6 md:col-span-3">
-                    <x-input label="Kewarganegaraan" wire:model="form.kewarganegaraan" />
+                    <x-input label="Kewarganegaraan" wire:model="formDetail.kewarganegaraan" />
                 </div>
 
                 <div class="col-span-12 md:col-span-3">
-                    <x-input label="Pekerjaan" wire:model="form.pekerjaan" />
+                    <x-input label="Pekerjaan" wire:model="formDetail.pekerjaan" />
                 </div>
 
             </div>

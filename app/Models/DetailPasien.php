@@ -11,6 +11,8 @@ class DetailPasien extends Model
 
     protected $table = 'detail_pasien';
 
+    protected $primaryKey = 'id_detail_pasien';
+
     protected $fillable = [
         'id_pasien',
         'no_telp',

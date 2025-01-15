@@ -30,7 +30,7 @@ class CreateUpdate extends Component
 
         try {
             $headers = [
-                'Authorization' => 'Bearer hKZugd2eGZGrGAiZolgNwfkCTd52',
+                'Authorization' => 'Bearer Z3GfQFF03SF7KdrZ4AH1OV9g6Xps',
                 'Accept' => 'application/json',
             ];
 
