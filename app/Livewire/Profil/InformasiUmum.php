@@ -3,10 +3,13 @@
 namespace App\Livewire\Profil;
 
 use App\Models\Profil;
-use App\Livewire\Forms\ProfilForm;
 use App\Traits\WilayahIndonesia;
+use App\Livewire\Forms\ProfilForm;
+
 use Mary\Traits\Toast;
+
 use Livewire\Component;
+use Livewire\Attributes\On;
 use Livewire\WithFileUploads;
 
 class InformasiUmum extends Component
@@ -30,6 +33,23 @@ class InformasiUmum extends Component
                 $profil->kecamatan,
             );
         }
+    }
+
+    public function placeholder()
+    {
+        return <<<'HTML'
+                <div>
+                    Loading...
+                </div>
+            HTML;
+    }
+
+    #[On('set-data-profil')]
+    public function setDataProfile()
+    {
+        $profil = Profil::first();
+        $this->form->setProfil($profil);
+        $this->success('Data profil berhasil diatur.');
     }
 
     public function save()

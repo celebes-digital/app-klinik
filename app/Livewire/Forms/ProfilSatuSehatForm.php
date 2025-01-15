@@ -2,9 +2,13 @@
 
 namespace App\Livewire\Forms;
 
+use App\Models\Profil;
 use App\Models\DataSatuSehat;
-use Livewire\Attributes\Validate;
+
+use App\SatuSehat\FHIR\Prerequisites\Organization;
+
 use Livewire\Form;
+use Livewire\Attributes\Validate;
 
 class ProfilSatuSehatForm extends Form
 {
@@ -37,5 +41,15 @@ class ProfilSatuSehatForm extends Form
         } else {
             DataSatuSehat::create($this->all());
         }
+
+        $this->createProfile();
+    }
+
+    public function createProfile()
+    {
+        $organization = new Organization();
+
+        $data = $organization->get();
+        Profil::create($data);
     }
 }

@@ -18,6 +18,7 @@ class ViewProfil extends Component
             $this->selectedTab = 'satu-sehat';
         }
     }
+
     public function render()
     {
         return view('livewire.profil.view-profil', [

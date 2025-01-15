@@ -3,8 +3,9 @@
 namespace App\Livewire\Profil;
 
 use App\Livewire\Forms\ProfilSatuSehatForm;
-use Livewire\Component;
+
 use Mary\Traits\Toast;
+use Livewire\Component;
 
 class SatuSehat extends Component
 {
@@ -24,6 +25,7 @@ class SatuSehat extends Component
         $this->form->store();
 
         $this->success('Data berhasil disimpan');
+        $this->dispatch('set-data-profil');
     }
 
     public function render()

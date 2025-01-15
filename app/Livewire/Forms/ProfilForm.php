@@ -3,14 +3,13 @@
 namespace App\Livewire\Forms;
 
 use App\Models\Profil;
-use App\Traits\WilayahIndonesia;
+
 use Livewire\Form;
 use Livewire\WithFileUploads;
 use Livewire\Attributes\Validate;
 
 class ProfilForm extends Form
 {
-    use WilayahIndonesia;
     use WithFileUploads;
     public ?Profil $profil = null;
 
@@ -27,6 +26,18 @@ class ProfilForm extends Form
     public $no_telp         = "";
 
     public $url             = "";
+
+    #[Validate('required')]
+    public $provinsi        = null;
+
+    #[Validate('required')]
+    public $kabupaten       = null;
+
+    #[Validate('required')]
+    public $kecamatan       = null;
+
+    #[Validate('required')]
+    public $kelurahan       = null;
 
     #[Validate('required')]
     public $kode_pos        = "";

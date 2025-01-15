@@ -1,3 +1,7 @@
+@php
+    // dd($filteredProvinsi);
+@endphp
+
 <div>
     <x-form wire:submit="save" no-separator>
         <div class="flex gap-8 md:flex-row">
@@ -37,7 +41,7 @@
                             label="Provinsi"
                             icon="o-map"
                             :options="$filteredProvinsi"
-                            option-value="id"
+                            option-value="code"
                             option-label="name"
                             placeholder="Pilih Provinsi"
                             placeholder-value=""
@@ -50,7 +54,7 @@
                         label="Kabupaten"
                         icon="o-map"
                         :options="$filteredKabupaten"
-                        option-value="id"
+                        option-value="code"
                         option-label="name"
                         placeholder="Pilih Kabupaten"
                         placeholder-value=""
@@ -66,7 +70,7 @@
                             label="Kecamatan"
                             icon="o-map"
                             :options="$filteredKecamatan"
-                            option-value="id"
+                            option-value="code"
                             option-label="name"
                             placeholder="Pilih Kecamatan"
                             placeholder-value=""
@@ -82,7 +86,7 @@
                             label="Kelurahan"
                             icon="o-map"
                             :options="$filteredKelurahan"
-                            option-value="id"
+                            option-value="code"
                             option-label="name"
                             placeholder="Pilih Kelurahan"
                             placeholder-value=""

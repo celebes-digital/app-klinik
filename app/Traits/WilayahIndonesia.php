@@ -2,40 +2,36 @@
 
 namespace App\Traits;
 
-use Illuminate\Support\Facades\Http;
-use Livewire\Attributes\Validate;
+use App\SatuSehat\Terminologi\KodeWilayah;
 
 trait WilayahIndonesia
 {
-    public $apiurl = "https://www.emsifa.com/api-wilayah-indonesia/api";
+    protected ?KodeWilayah $kodeWilayah = null;
 
     public $filteredProvinsi    = [];
     public $filteredKabupaten   = [];
     public $filteredKecamatan   = [];
     public $filteredKelurahan   = [];
 
-    #[Validate('required')]
-    public $provinsi        = null;
-
-    #[Validate('required')]
-    public $kabupaten       = null;
-
-    #[Validate('required')]
-    public $kecamatan       = null;
-
-    #[Validate('required')]
-    public $kelurahan       = null;
+    public function bootWilayahIndonesia()
+    {
+        $this->kodeWilayah = new KodeWilayah();
+    }
 
     public function mountWilayahIndonesia()
     {
-        $this->filteredProvinsi = Http::get($this->apiurl . '/provinces.json')->json();
+        $res = $this->kodeWilayah->getProvinsi();
+        $this->filteredProvinsi = $res;
     }
 
     public function setDataWilayah($kodeProv, $kodeKab, $kodeKec)
     {
-        $this->filteredKabupaten = Http::get($this->apiurl . "/regencies/{$kodeProv}.json")->json();
-        $this->filteredKecamatan = Http::get($this->apiurl . "/districts/{$kodeKab}.json")->json();
-        $this->filteredKelurahan = Http::get($this->apiurl . "/villages/{$kodeKec}.json")->json();
+        $this->updatedProvinsi($kodeProv);
+        $this->updatedKabupaten($kodeKab);
+        $this->updatedKecamatan($kodeKec);
+        $this->form->provinsi = $kodeProv;
+        $this->form->kabupaten = $kodeKab;
+        $this->form->kecamatan = $kodeKec;
     }
 
     public function updatedWilayahIndonesia($key, $value)
@@ -50,25 +46,22 @@ trait WilayahIndonesia
 
     public function updatedProvinsi($value)
     {
-        $this->kabupaten = null;
-        $this->kecamatan = null;
-        $this->kelurahan = null;
-        $this->filteredKabupaten = Http::get($this->apiurl . "/regencies/{$value}.json")->json();
+        $this->filteredKabupaten = $this->kodeWilayah->getKabupaten($value);
+        $this->reset('form.kabupaten', 'filteredKecamatan', 'filteredKelurahan');
         $this->filteredKecamatan = [];
         $this->filteredKelurahan = [];
     }
 
     public function updatedKabupaten($value)
     {
-        $this->kecamatan = null;
-        $this->kelurahan = null;
-        $this->filteredKecamatan = Http::get($this->apiurl . "/districts/{$value}.json")->json();
+        $this->reset('filteredKecamatan', 'filteredKelurahan');
+        $this->filteredKecamatan = $this->kodeWilayah->getKecamatan($value);
         $this->filteredKelurahan = [];
     }
 
     public function updatedKecamatan($value)
     {
-        $this->kelurahan = null;
-        $this->filteredKelurahan = Http::get($this->apiurl . "/villages/{$value}.json")->json();
+        $this->reset('filteredKelurahan');
+        $this->filteredKelurahan = $this->kodeWilayah->getKelurahan($value);
     }
 }
