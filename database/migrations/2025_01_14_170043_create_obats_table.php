@@ -11,9 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tenaga_medis', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::create('obat', function (Blueprint $table) {
+            $table->integerIncrements('id_obat')->unsigned()->primary();
+			$table->string('nama_obat', 100);
+			$table->string('kelas_terapi', 100)->nullable();
+			$table->string('satuan', 20);
         });
     }
 
@@ -22,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tenaga_medis');
+        Schema::dropIfExists('obat');
     }
 };

@@ -11,8 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('stok_obats', function (Blueprint $table) {
-            $table->id();
+        Schema::create('stok_obat', function (Blueprint $table) {
+            $table->unsignedInteger('id_obat')->primary();
+            $table->float('stok')->default('0');
             $table->timestamps();
         });
     }
@@ -22,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('stok_obats');
+        Schema::dropIfExists('stok_obat');
     }
 };
