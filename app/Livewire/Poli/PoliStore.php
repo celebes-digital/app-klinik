@@ -54,6 +54,7 @@ class PoliStore extends Component
         $this->form->store($this->idPoli);
 
         $this->success('Data poliklinik berhasil disimpan');
+        $this->resetForm();
         $this->dispatch('reloadPoliList');
     }
 
