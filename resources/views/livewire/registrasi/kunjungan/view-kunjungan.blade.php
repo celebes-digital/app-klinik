@@ -14,8 +14,8 @@
 
     $kelaminOptions = [
         ['id' => '', 'name' => 'Pilih jenis kelamin'],
-        ['id' => 'L', 'name' => 'Laki-laki'],
-        ['id' => 'P', 'name' => 'Perempuan'],
+        ['id' => 'male', 'name' => 'Laki-laki'],
+        ['id' => 'female', 'name' => 'Perempuan'],
     ];
 @endphp
 
@@ -23,11 +23,23 @@
     class="space-y-6" 
     x-data="{ 
         selectedSearch: $wire.entangle('selectedSearch'),
-        liveSearch: $wire.entangle('isLiveSearch') 
+        liveSearch: $wire.entangle('isLiveSearch'),
+        
+        liveSearching: $wire.entangle('liveSearching').live,
+        search: $wire.entangle('search'),
+
+        searchTemp: '', 
+
+        resetSearch() {
+            this.searchTemp = ''
+            this.search = ''
+            this.liveSearching = ''
+        }
     }" 
+    
     x-init="
-        $watch('liveSearch', value => value ? $refs.search.focus() : ''),
-        $watch('selectedSearch', value => value == 'nik' ? $refs.search.focus() : $refs.kelamin.focus())
+        $watch('liveSearch', value => value ? $refs.searchTemp.focus() : ''),
+        $watch('selectedSearch', value => value == 'nik' ? $refs.searchTemp.focus() : $refs.kelamin.focus())
     "
 >
     <x-card title="Pencarian Pasien" class="py-8 px-14" separator>
@@ -74,17 +86,31 @@
                     'md:col-span-4': liveSearch || selectedSearch == 'nik'
                 }"
                 wire:key
+                x-init="$watch('searchTemp', value => {
+                    if ($wire.isLiveSearch && value.length > 2) {
+                        liveSearching = value
+                    } else {
+                        search = value
+                    }
+                })"
             >
                 <x-input 
                     label="" 
-                    x-ref="search"
-                    wire:key="search"
-                    wire:model.live="{{$isLiveSearch ? 'liveSearching' : 'search'}}"
+                    x-ref="searchTemp"
+                    wire:key="searchTemp"
+                    x-model.debounce="searchTemp"
                     x-bind:placeholder="selectedSearch == 'nama' ? 'Masukkan nama lengkap' : 'Masukkan NIK'"
                     icon="o-identification" 
-                    :clearable="!empty($search)"
                     hint="Sesuai dengan KTP"
-                />
+                >
+                    <x-slot:append>
+                        <x-button 
+                            icon="o-x-mark" 
+                            x-on:click="resetSearch" 
+                            class="btn-primary btn-outline rounded-s-none" 
+                        />
+                    </x-slot:append>
+                </x-input>
             </div>
 
             <div>
@@ -99,15 +125,6 @@
     </x-card>
 
     <x-card class="py-8 px-14" title="Hasil pencarian">
-        <x-slot:menu>
-            <x-button 
-                label="Tambah Pasien" 
-                icon="o-user-plus" 
-                class="btn-primary" 
-                link="/registrasi/pasien/create"
-            />
-        </x-slot:menu>
-
         <div 
             wire:loading 
             wire:target="searchPasien, liveSearching" 

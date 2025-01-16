@@ -29,6 +29,8 @@ class ViewKunjungan extends Component
         if ($this->isLiveSearch) {
             $this->pasien = Pasien::where($this->selectedSearch, 'like', '%' . $this->liveSearching . '%')
                 ->limit(5)->get() ?? [];
+        } else {
+            $this->pasien = [];
         }
     }
 
