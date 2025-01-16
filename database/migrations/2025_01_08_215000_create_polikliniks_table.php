@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('poliklinik', function (Blueprint $table) {
-            $table->tinyInteger('id', true, true);
+            $table->tinyInteger('id_poli', true, true)->primary();
 
             $table->char('nama_poli', 50);
             $table->text('alamat', 100);

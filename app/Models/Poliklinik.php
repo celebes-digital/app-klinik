@@ -6,8 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Poliklinik extends Model
 {
-    protected $table = 'poliklinik';
-    public $timestamps = false;
+    protected $table        = 'poliklinik';
+    protected $primaryKey   = 'id_poli';
+    public $timestamps      = false;
 
     protected $fillable = [
         'nama_poli',
