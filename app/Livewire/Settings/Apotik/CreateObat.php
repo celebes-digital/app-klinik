@@ -19,8 +19,6 @@ class CreateObat extends Component
 	{
 		$this->form->store();
 		$this->success('Data Obat berhasil ditambahkan!');
-		// $this->dispatch('notifikasi');
-		// return $this->redirect('/settings/apotik/daftar-obat', true);
 	}
 
     public function render()
@@ -54,15 +52,7 @@ class CreateObat extends Component
 				[
 					'satuan' => 'pil',
 					'nama'	=> 'Pil'
-				],
-				// [
-				// 	'satuan' => 'puyer',
-				// 	'nama'	=> 'Puyer'
-				// ],
-				// [
-				// 	'satuan' => 'sirup',
-				// 	'nama'	=> 'Sirup'
-				// ],
+				]
 			]
 		]);
     }

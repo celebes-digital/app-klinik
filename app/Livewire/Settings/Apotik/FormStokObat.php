@@ -16,11 +16,18 @@ class FormStokObat extends Component
 	use Toast, WithPagination;
 
 	public StokObatForm $form;
-	public $cardTitle = 'Update Stok Obat';
+	public $cardTitle = 'Form Stok Obat';
+
+	public function mount($stok)
+	{
+		$this->form->setStokObat($stok);
+	}
 
 	public function save()
 	{
 		$this->form->store();
+		$this->dispatch('update-stok');
+		$this->success('Data Stok sudah ditambahkan!');
 	}
 
 	public function render()

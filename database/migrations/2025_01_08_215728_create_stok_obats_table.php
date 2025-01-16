@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('stok_obat', function (Blueprint $table) {
             $table->unsignedInteger('id_obat')->primary();
-            $table->float('stok')->default('0');
+            $table->date('tgl_restok')->nullable();
+            $table->float('stok', 5)->default('0');
             $table->timestamps();
         });
     }

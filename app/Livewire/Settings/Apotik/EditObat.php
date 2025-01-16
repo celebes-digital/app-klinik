@@ -56,15 +56,7 @@ class EditObat extends Component
 				[
 					'satuan' => 'pil',
 					'nama'	=> 'Pil'
-				],
-				// [
-				// 	'satuan' => 'puyer',
-				// 	'nama'	=> 'Puyer'
-				// ],
-				// [
-				// 	'satuan' => 'sirup',
-				// 	'nama'	=> 'Sirup'
-				// ],
+				]
 			]
 		]);
     }
