@@ -12,6 +12,8 @@ use App\Livewire\Pasien\Update as PasienUpdate;
 use App\Livewire\PenunjangMedis\ListForm;
 use App\Livewire\Poli\PoliView;
 use App\Livewire\Profil\ViewProfil;
+use App\Livewire\Registrasi\Kunjungan\CreateKunjungan;
+use App\Livewire\Registrasi\Kunjungan\ViewKunjungan;
 // Staff
 use App\Livewire\Staff\View as StaffView;
 use App\Livewire\Staff\CreateUpdate as StaffCreateUpdate;
@@ -29,6 +31,9 @@ Route::get('/poliklinik', PoliView::class);
 Route::get('/penunjang-medis', ListForm::class);
 
 Route::get('/tindakan-medis', TindakanMedisListForm::class);
+
+Route::get('/kunjungan', ViewKunjungan::class);
+Route::get('/registrasi/kunjungan/pasien/{pasien}/create', CreateKunjungan::class);
 
 // FORM PASIEN
 Route::get('/pasien', PasienView::class);
