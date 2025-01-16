@@ -15,6 +15,7 @@ return new class extends Migration
             $table->unsignedTinyInteger('id_poli');
             $table->text('keluhan_awal');
             $table->dateTime('tgl_kunjungan');
+            $table->enum('status', ['menunggu', 'diperiksa', 'selesai', 'batal'])->default('menunggu');
 
             $table->foreignId('id_pasien')->constrained('pasien', 'id_pasien');
             $table->foreignId('id_tenaga_medis')->constrained('tenaga_medis', 'id_tenaga_medis');

@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\Antrian\ListAntrian;
 use App\Livewire\Profil;
 use App\Livewire\Profil\Update;
 use App\Livewire\Welcome;
@@ -34,6 +35,8 @@ Route::get('/tindakan-medis', TindakanMedisListForm::class);
 
 Route::get('/kunjungan', ViewKunjungan::class);
 Route::get('/registrasi/kunjungan/pasien/{pasien}/create', CreateKunjungan::class);
+
+Route::get('/antrian', ListAntrian::class);
 
 // FORM PASIEN
 Route::get('/pasien', PasienView::class);
