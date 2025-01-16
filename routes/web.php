@@ -18,6 +18,7 @@ use App\Livewire\Staff\CreateUpdate as StaffCreateUpdate;
 // Tenaga Medis
 use App\Livewire\TenagaMedis\View as TenagaMedisView;
 use App\Livewire\TenagaMedis\Create as TenagaMedisCreate;
+use App\Livewire\TenagaMedis\Konfigurasi as TenagaMedisKonfigurasi;
 use App\Livewire\TindakanMedis\ListForm as TindakanMedisListForm;
 
 Route::get('/', Welcome::class);
@@ -43,4 +44,5 @@ Route::get('/staff/update/{id_staff}', StaffCreateUpdate::class);
 // FORM TENAGA MEDIS
 Route::get('/tenaga-medis', TenagaMedisView::class);
 Route::get('/tenaga-medis/create', TenagaMedisCreate::class);
+Route::get('/tenaga-medis/konfigurasi', TenagaMedisKonfigurasi::class);
 // Route::get('/tenaga-medis/update/{id_tenaga_medis}', TenagaMedisUpdate::class);

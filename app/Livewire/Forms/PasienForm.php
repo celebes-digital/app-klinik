@@ -46,7 +46,7 @@ class PasienForm extends Form
     // #[Validate('required')]
     public $nama = "";
 
-    // #[Validate('required')]
+    #[Validate('required')]
     public $tempat_lahir = "";
 
     // #[Validate('required|date')]

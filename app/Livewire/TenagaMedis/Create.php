@@ -3,7 +3,10 @@
 namespace App\Livewire\TenagaMedis;
 
 use App\Livewire\Forms\TenagaMedisForm;
+use App\Models\Profesi;
+use App\Models\Spesialisasi;
 use App\Models\TenagaMedis;
+use App\SatuSehat\FHIR\Prerequisites\Practitioner;
 use App\Traits\WilayahIndonesia;
 use Illuminate\Support\Facades\Http;
 use Livewire\Attributes\Title;
@@ -18,11 +21,10 @@ class Create extends Component
     use WilayahIndonesia;
 
     public TenagaMedisForm $form;
-
-    public $apiSatuSehat = "https://api-satusehat-stg.dto.kemkes.go.id/fhir-r4/v1";
-    public $dataAPI;
     public $tanggal_format = ['altFormat' => 'Y-m-d'];
 
+    public $dr = '';
+    public $sp = '';
 
     public $kelamin = [
         [
@@ -41,47 +43,22 @@ class Create extends Component
 
     public function getByNik()
     {
-        $nik = $this->form->nik ?? null;
+        $practitioner = new Practitioner();
+        $data         = $practitioner->get($this->form->nik ?? null);
+        $this->form->fill($data);
+    }
 
-        if (!$nik) {
-            $this->error('NIK tidak boleh kosong.');
-            return;
-        }
-
-        try {
-            $headers = [
-                'Authorization' => 'Bearer Z3GfQFF03SF7KdrZ4AH1OV9g6Xps',
-                'Accept' => 'application/json',
-            ];
-
-            $response = Http::withHeaders($headers)
-                ->get($this->apiSatuSehat . "/Practitioner?identifier=https://fhir.kemkes.go.id/id/nik|" . $nik);
-
-            if ($response->successful()) {
-                $data = $response->json();
-
-                if (isset($data['entry'][0]['resource'])) {
-                    $resource = $data['entry'][0]['resource'];
-
-                    // Map data to form fields
-                    $this->form->no_str     = $resource['id'] ?? null;
-                    $this->form->ihs        = $resource['qualification'][0]['identifier'][0]['value'] ?? null;
-                    $this->form->alamat     = $resource['address'][0]['line'][0] ?? null;
-                    $this->form->kelamin    = $resource['gender'] ?? null;
-                    $this->form->tgl_lahir  = $resource['birthDate'] ?? null;
-                } else {
-                    $this->error('Data tidak ditemukan pada API.');
-                }
-            } else {
-                $this->error('Gagal mengambil data dari API.');
-            }
-        } catch (\Exception $e) {
-            $this->error('Terjadi kesalahan saat memproses data.');
-        }
+    public function updatedFormSpesialisasi($key)
+    {
+        $spesialisasi = Spesialisasi::find($key);
+        $profesi      = $spesialisasi ? Profesi::find($spesialisasi->id_profesi) : '';
+        $this->dr = $profesi->code ?? '';
+        $this->sp = $spesialisasi->code ?? '';
     }
 
     public function save()
     {
+        $this->form->nama = $this->dr . $this->form->nama . $this->sp;
         $this->form->store();
 
         $this->success('Data berhasil disimpan.');

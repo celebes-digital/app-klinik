@@ -1,10 +1,14 @@
+@php
+    $spesialisasi = App\Models\Spesialisasi::get();
+@endphp
+
 <div>
     <x-card shadow separator>
         <x-form wire:submit="save" wire:target="submit">
             <x-header title="Input Data Tenaga Medis" subtitle="Data dengan simbol (*) wajib diisi!" size="text-xl" />
 
             <div class="grid grid-cols-12 gap-4">
-                <div class="col-span-12 sm:col-span-6 md:col-span-6">
+                <div class="col-span-12 md:col-span-6">
                     <x-input label="NIK" wire:model="form.nik">
                         <x-slot:append>
                             <x-button label="Cari di SATUSEHAT" 
@@ -16,31 +20,44 @@
                     </x-input>
                 </div>
 
-                <div class="col-span-12 md:col-span-6">
-                    <x-input label="Nama" wire:model="form.nama"  />
-                </div>
-
-                <div class="col-span-12 md:col-span-6">
-                    <x-input label="Alamat" wire:model="form.alamat"  />
-                </div>
-
-                <div class="col-span-12 md:col-span-6">
-                    <x-input label="Nomor Telepon" wire:model="form.no_telp" />
-                </div>
-
-                <div class="col-span-12 md:col-span-6">
+                <div class="col-span-12 md:col-span-3">
                     <x-input label="Nomor STR (Surat Tanda Registrasi)" wire:model="form.no_str" />
                 </div>
 
-                <div class="col-span-12 md:col-span-6">
+                <div class="col-span-12 md:col-span-3">
                     <x-input label="Nomor HIS" wire:model="form.ihs" />
                 </div>
 
-                <div class="col-span-6">
+                <div class="col-span-12 sm:col-span-4 md:col-span-4">
+                    <x-choices-offline
+                        label="Spesialisasi"
+                        wire:model.live="form.spesialisasi"
+                        :options="$spesialisasi"
+                        {{-- wire:change="getSpesialisasi" --}}
+                        option-value="id_spesialisasi"
+                        option-label="nama"
+                        single
+                        searchable 
+                    />
+                </div>
+
+                <div class="col-span-12 md:col-span-4">
+                    <x-input label="Nama" wire:model="form.nama" :prefix="$dr" :suffix="$sp"  />
+                </div>
+
+                <div class="col-span-12 md:col-span-4">
+                    <x-input label="Nomor Telepon" wire:model="form.no_telp" />
+                </div>
+
+                <div class="col-span-12 md:col-span-4">
+                    <x-input label="Alamat" wire:model="form.alamat" />
+                </div>
+
+                <div class="col-span-4">
                     <x-datepicker label="Tanggal Lahir" wire:model="form.tgl_lahir" icon="o-calendar" :config="$tanggal_format"  />
                 </div>
 
-                <div class="col-span-6">
+                <div class="col-span-4">
                     <x-select label="Jenis Kelamin" :options="$kelamin" wire:model="form.kelamin"  />
                 </div>
             </div>

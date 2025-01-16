@@ -7,6 +7,7 @@
         <x-card class="col-span-12" title="Daftar Tenaga Medis" shadow separator>
             <x-slot:menu>
                 <x-post link="/tenaga-medis/create" />
+                <x-button icon="o-wrench-screwdriver" label="Konfigurasi" class="btn-seccondary font-bold" link="/tenaga-medis/konfigurasi"></x-button>
             </x-slot:menu>
 
             <x-table :headers="$headers" :rows="$tenaga_medis" striped with-pagination per-page="perPage">

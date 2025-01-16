@@ -13,6 +13,9 @@ class TenagaMedisForm extends Form
     #[Validate('required')]
     public $nama = "";
 
+    #[Validate('required')]
+    public $spesialisasi = "";
+
     #[Validate('required|digits:16|unique:tenaga_medis,nik')]
     public $nik = "";
 
@@ -33,11 +36,13 @@ class TenagaMedisForm extends Form
 
     #[Validate('required|numeric|digits_between:1,16')]
     public $ihs = "";
+
     public function setTenagaMedis(TenagaMedis $tenagaMedis)
     {
         $this->tenagaMedis  = $tenagaMedis;
 
         $this->nama         = $tenagaMedis->nama;
+        $this->spesialisasi = $tenagaMedis->spesialisasi;
         $this->nik          = $tenagaMedis->nik;
         $this->alamat       = $tenagaMedis->alamat;
         $this->no_telp      = $tenagaMedis->no_telp;
@@ -52,29 +57,17 @@ class TenagaMedisForm extends Form
         $this->validate();
 
         TenagaMedis::create([
-            'nama'      => $this->nama,
-            'nik'       => $this->nik,
-            'alamat'    => $this->alamat,
-            'no_telp'   => $this->no_telp,
-            'kelamin'   => $this->kelamin,
-            'tgl_lahir' => $this->tgl_lahir,
-            'no_str'    => $this->no_str,
-            'ihs'       => $this->ihs,
+            'spesialisasi' => $this->spesialisasi,
+            'nama'         => $this->nama,
+            'nik'          => $this->nik,
+            'alamat'       => $this->alamat,
+            'no_telp'      => $this->no_telp,
+            'kelamin'      => $this->kelamin,
+            'tgl_lahir'    => $this->tgl_lahir,
+            'no_str'       => $this->no_str,
+            'ihs'          => $this->ihs,
         ]);
 
         session()->flash('success', 'Data Tenaga Medis berhasil disimpan!');
-        $this->resetForm();
-    }
-
-    public function resetForm()
-    {
-        $this->nama         = "";
-        $this->nik          = "";
-        $this->alamat       = "";
-        $this->no_telp      = "";
-        $this->kelamin      = "";
-        $this->tgl_lahir    = "";
-        $this->no_str       = "";
-        $this->ihs          = "";
     }
 }
