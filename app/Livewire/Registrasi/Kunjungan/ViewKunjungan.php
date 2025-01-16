@@ -26,9 +26,9 @@ class ViewKunjungan extends Component
 
     public function updatedLiveSearching()
     {
-        if ($this->isLiveSearch) {
+        if ($this->isLiveSearch && strlen($this->liveSearching) > 2) {
             $this->pasien = Pasien::where($this->selectedSearch, 'like', '%' . $this->liveSearching . '%')
-                ->limit(5)->get() ?? [];
+                ->limit(5)->get();
         } else {
             $this->pasien = [];
         }
@@ -51,9 +51,9 @@ class ViewKunjungan extends Component
                 ->where('tgl_lahir', $this->tglLahir)
                 ->where('kelamin', $this->kelamin)
                 ->limit(5)
-                ->get() ?? [];
+                ->get();
         } else {
-            $this->pasien = Pasien::where('nik', $this->search)->get() ?? [];
+            $this->pasien = Pasien::where('nik', $this->search)->get();
         }
     }
 
