@@ -1,9 +1,11 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use App\Livewire\Settings\Apotik\CreateObat;
+use App\Livewire\Settings\Apotik\EditObat;
+use App\Livewire\Settings\Apotik\StokObat;
 use App\Livewire\Settings\Apotik\ViewDaftarObat;
 use App\Livewire\Welcome;
-use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +24,8 @@ Route::get('/', Welcome::class);
 Route::prefix('settings')->group( function () {
 	Route::prefix('apotik')->group( function () {
 		Route::get('/daftar-obat', ViewDaftarObat::class);
+		Route::get('/obat/{obat}/edit', EditObat::class);
 		Route::get('/tambah-obat', CreateObat::class);
+		Route::get('/stok-obat/{obat}', StokObat::class);
 	});
 });

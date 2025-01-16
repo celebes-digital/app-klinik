@@ -9,6 +9,8 @@ use Livewire\Form;
 
 class ObatForm extends Form
 {
+	public ?Obat $obat;
+
 	#[Validate('required', message: 'Nama Obat belum diisi')]
 	#[Validate('min:5', message: 'Nama Obat minimal 5 karakter')]
 	public $nama_obat = '';
@@ -33,5 +35,19 @@ class ObatForm extends Form
 		}
 
 		$this->reset('nama_obat', 'satuan');
+	}
+
+	public function setObat($obat) // Obat $obat
+	{
+		$this->obat			= $obat;
+		$this->nama_obat	= $obat->nama_obat;
+		$this->satuan 		= $obat->satuan;
+	}
+
+	public function update()
+	{
+		$this->validate();
+		// dd($this->all());
+		$this->obat->update($this->only(['nama_obat', 'satuan']));
 	}
 }

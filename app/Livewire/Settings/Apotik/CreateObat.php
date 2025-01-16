@@ -3,8 +3,8 @@
 namespace App\Livewire\Settings\Apotik;
 
 use Livewire\Component;
-use App\Livewire\Forms\ObatForm;
 use Livewire\Attributes\Title;
+use App\Livewire\Forms\ObatForm;
 use Mary\Traits\Toast;
 
 #[Title('Formulir Obat')]
@@ -52,17 +52,17 @@ class CreateObat extends Component
 					'nama'	=> 'Kaplet'
 				],
 				[
-					'satuan' => 'puyer',
-					'nama'	=> 'Puyer'
-				],
-				[
 					'satuan' => 'pil',
 					'nama'	=> 'Pil'
 				],
-				[
-					'satuan' => 'sirup',
-					'nama'	=> 'Sirup'
-				],
+				// [
+				// 	'satuan' => 'puyer',
+				// 	'nama'	=> 'Puyer'
+				// ],
+				// [
+				// 	'satuan' => 'sirup',
+				// 	'nama'	=> 'Sirup'
+				// ],
 			]
 		]);
     }

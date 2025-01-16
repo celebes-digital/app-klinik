@@ -17,11 +17,10 @@ class ViewDaftarObat extends Component
 	public $cardTitle = 'Kelola Obat';
 	public $filter = '';
 
-	// #[On('notifikasi')]
-	// public function notifikasi()
-	// {
-
-	// }
+	public function rendered()
+	{
+		session('success') ? $this->success(session('success')) : null;
+	}
 
     public function render()
     {
