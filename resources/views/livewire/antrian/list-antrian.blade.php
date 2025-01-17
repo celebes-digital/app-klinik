@@ -53,7 +53,7 @@
                 <div class="flex gap-2">
                     <x-button 
                         icon="o-clipboard-document-list" 
-                        {{-- wire:click="$dispatch('set-kunjungan', { id: {{ $antrian->id }} })"  --}}
+                        link="/pemeriksaan/poliklinik/{{ $antrian->no_kunjungan }}/view"
                         spinner 
                         class="btn-sm btn-warning" 
                     />
