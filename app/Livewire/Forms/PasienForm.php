@@ -16,6 +16,8 @@ class PasienForm extends Form
 
     public $no_telp = "";
 
+    public $no_ihs  = "";
+
     public $provinsi = "";
     public $kabupaten = "";
     public $kecamatan = "";
@@ -43,13 +45,13 @@ class PasienForm extends Form
 
     public $dataPasien = [];
     
-    // #[Validate('required')]
+    #[Validate('required')]
     public $nama = "";
 
     #[Validate('required')]
     public $tempat_lahir = "";
 
-    // #[Validate('required|date')]
+    #[Validate('required|date')]
     public $tgl_lahir;
 
     // #[Validate('required|digits:16|unique:pasien,nik')]
@@ -57,13 +59,14 @@ class PasienForm extends Form
 
     #[Validate('digits:16')]
     public $nik_ibu = "";
-
+    
     public $no_bpjs = "";
 
-    // #[Validate('required|in:male,female')]
+    #[Validate('required|in:male,female')]
     public $kelamin = "";
-
-    public $lahir_kembar = false;
+    
+    #[Validate('required|in:male,female')]
+    public $lahir_kembar = 0;
 
     public function setPasien(Pasien $pasien)
     {
@@ -84,6 +87,7 @@ class PasienForm extends Form
         $this->detailPasien = $detailPasien;
 
         $this->id_pasien        = $detailPasien->id_pasien;
+        $this->no_ihs           = $detailPasien->no_ihs;
         $this->no_telp          = $detailPasien->no_telp;
         $this->provinsi         = $detailPasien->provinsi;
         $this->kabupaten        = $detailPasien->kabupaten;
@@ -102,6 +106,18 @@ class PasienForm extends Form
 
     public function store()
     {
+        $validationRules = [
+            'nama'          => 'required',
+            'tempat_lahir'  => 'required',
+            'tgl_lahir'     => 'required|date',
+            'kelamin'       => 'required',
+            'nik'           => $this->nik_ibu ? 'nullable' : 'required|digits:16|unique:pasien,nik',
+            'nik_ibu'       => $this->nik ? 'nullable' : 'required|digits:16',
+            'no_bpjs'       => $this->nik_ibu ? 'nullable' : 'required',
+        ];
+
+        $this->validate($validationRules);
+
         $pasienData = [
             'nama'          => $this->nama,
             'tempat_lahir'  => $this->tempat_lahir,
@@ -116,21 +132,22 @@ class PasienForm extends Form
         $pasien = Pasien::create($pasienData);
 
         $detailPasienData = [
-            'id_pasien'         => $pasien->id_pasien,
-            'no_telp'           => $this->no_telp,
-            'provinsi'          => $this->provinsi,
-            'kabupaten'         => $this->kabupaten,
-            'kecamatan'         => $this->kecamatan,
-            'kelurahan'         => $this->kelurahan,
-            'rt'                => $this->rt,
-            'rw'                => $this->rw,
-            'kode_pos'          => $this->kode_pos,
-            'email'             => $this->email,
-            'pekerjaan'         => $this->pekerjaan,
-            'pendidikan'        => $this->pendidikan,
-            'kewarganegaraan'   => $this->kewarganegaraan,
-            'alamat'            => $this->alamat,
-            'status_nikah'      => $this->status_nikah,
+            'id_pasien'       => $pasien->id_pasien,
+            'no_ihs'          => $this->no_ihs,
+            'no_telp'         => $this->no_telp,
+            'provinsi'        => $this->provinsi,
+            'kabupaten'       => $this->kabupaten,
+            'kecamatan'       => $this->kecamatan,
+            'kelurahan'       => $this->kelurahan,
+            'rt'              => $this->rt,
+            'rw'              => $this->rw,
+            'kode_pos'        => $this->kode_pos,
+            'email'           => $this->email,
+            'pekerjaan'       => $this->pekerjaan,
+            'pendidikan'      => $this->pendidikan,
+            'kewarganegaraan' => $this->kewarganegaraan,
+            'alamat'          => $this->alamat,
+            'status_nikah'    => $this->status_nikah,
         ];
 
         DetailPasien::create($detailPasienData);

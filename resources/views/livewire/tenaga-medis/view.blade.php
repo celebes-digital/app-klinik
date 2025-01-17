@@ -15,8 +15,22 @@
                     <x-icon name="o-cube" label="It is empty." />
                 </x-slot:empty>
                 @scope('actions', $tenaga_medis)
-                    <x-button icon="o-pencil" link="tenaga-medis/update/{{ $tenaga_medis->id_tenaga_medis }}" spinner class="btn-sm" />
-                @endscope            
+                    <div class="flex gap-2">
+                        <x-button 
+                            icon="o-pencil-square" 
+                            wire:click="$dispatch('set-tenaga_medis', { id: {{ $tenaga_medis->id_tenaga_medis }}})" 
+                            link="/tenaga-medis/update/{{ $tenaga_medis->id_tenaga_medis }}"
+                            spinner 
+                            class="btn-sm" 
+                        />
+                        <x-button 
+                            icon="o-trash" 
+                            wire:click="delete({{ $tenaga_medis->id_tenaga_medis }})" 
+                            spinner 
+                            class="btn-sm" 
+                        />
+                    </div>
+                @endscope
             </x-table>
         </x-card>
     </div>

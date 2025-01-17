@@ -14,8 +14,6 @@
 @endphp
 
 <div>
-    <x-header title="Pasien" separator />
-    
     <div class="grid grid-cols-12 gap-4">
         <x-card class="col-span-12" title="Daftar Pasien" shadow separator>
             <x-slot:menu>

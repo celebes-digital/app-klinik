@@ -23,16 +23,16 @@ class Practitioner extends OAuth2
 	protected function parseJson($json)
 	{
 		$data = json_decode($json, true);
-		$data = $data['entry'][0]['resource'];
+		$data = $data['entry'][0]['resource'] ?? '';
 
 		// dd($data);
 
 		return [
-			'ihs'		=> $data['id'] ?? '',
-			'no_str'	=> $data['qualification'][0]['identifier'][0]['value'] ?? '',
-			'alamat'	=> $data['address'][0]['line'][0],
-			'kelamin'	=> $data['gender'] ?? null,
-			'tgl_lahir'	=> $data['birthDate'] ?? null,
+			'ihs'		=> $data == '' ? '' : $data['id'],
+			'no_str'	=> $data == '' ? '' : $data['qualification'][0]['identifier'][0]['value'],
+			'alamat'	=> $data == '' ? '' : $data['address'][0]['line'][0],
+			'kelamin'	=> $data == '' ? '' : $data['gender'],
+			'tgl_lahir'	=> $data == '' ? '' : $data['birthDate'],
 		];
 	}
 
@@ -42,6 +42,7 @@ class Practitioner extends OAuth2
 			$res = $this->api()->get("$this->url/?identifier=https://fhir.kemkes.go.id/id/nik|$nik");
 			return $this->parseJson($res->body());
 		} catch (Exception $e) {
+			// dd($e);
 			return $e;
 		}
 	}

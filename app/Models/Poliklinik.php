@@ -20,4 +20,10 @@ class Poliklinik extends Model
         'kelurahan',
         'kode_pos',
     ];
+
+    public function tenagaMedis()
+    {
+        // TODO SESUAIKAN RELASI NYA
+        return $this->hasMany(TenagaMedis::class, 'id_poliklinik', 'id');
+    }
 }

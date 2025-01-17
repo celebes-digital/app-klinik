@@ -48,10 +48,14 @@ class StaffForm extends Form
         $this->ihs          = $staff->ihs;
     }
 
-    public function store()
+    public function store($id_staff)
     {
         $this->validate();
 
-        Staff::create($this->all());
+        if (!$id_staff) {
+            Staff::create($this->all());
+        } else {
+            $this->staff->update($this->all());
+        }
     }
 }

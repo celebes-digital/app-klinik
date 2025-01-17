@@ -10,10 +10,14 @@ class TenagaMedisForm extends Form
 {
     public ?TenagaMedis $tenagaMedis;
 
+    public $id_tenaga_medis;
+
+    #[Validate('required')]
+    public $id_poliklinik;
+    
     #[Validate('required')]
     public $nama = "";
 
-    #[Validate('required')]
     public $spesialisasi = "";
 
     #[Validate('required|digits:16|unique:tenaga_medis,nik')]
@@ -41,32 +45,27 @@ class TenagaMedisForm extends Form
     {
         $this->tenagaMedis  = $tenagaMedis;
 
-        $this->nama         = $tenagaMedis->nama;
-        $this->spesialisasi = $tenagaMedis->spesialisasi;
-        $this->nik          = $tenagaMedis->nik;
-        $this->alamat       = $tenagaMedis->alamat;
-        $this->no_telp      = $tenagaMedis->no_telp;
-        $this->kelamin      = $tenagaMedis->kelamin;
-        $this->tgl_lahir    = $tenagaMedis->tgl_lahir;
-        $this->no_str       = $tenagaMedis->no_str;
-        $this->ihs          = $tenagaMedis->ihs;
+        $this->id_poliklinik = $tenagaMedis->id_poliklinik;
+        $this->nama          = $tenagaMedis->nama;
+        $this->spesialisasi  = $tenagaMedis->spesialisasi;
+        $this->nik           = $tenagaMedis->nik;
+        $this->alamat        = $tenagaMedis->alamat;
+        $this->no_telp       = $tenagaMedis->no_telp;
+        $this->kelamin       = $tenagaMedis->kelamin;
+        $this->tgl_lahir     = $tenagaMedis->tgl_lahir;
+        $this->no_str        = $tenagaMedis->no_str;
+        $this->ihs           = $tenagaMedis->ihs;
     }
 
-    public function store()
+    public function store($id_tenaga_medis)
     {
         $this->validate();
 
-        TenagaMedis::create([
-            'spesialisasi' => $this->spesialisasi,
-            'nama'         => $this->nama,
-            'nik'          => $this->nik,
-            'alamat'       => $this->alamat,
-            'no_telp'      => $this->no_telp,
-            'kelamin'      => $this->kelamin,
-            'tgl_lahir'    => $this->tgl_lahir,
-            'no_str'       => $this->no_str,
-            'ihs'          => $this->ihs,
-        ]);
+        if (!$id_tenaga_medis) {
+            TenagaMedis::create($this->all());
+        } else {
+            $this->tenagaMedis->update($this->all());
+        }
 
         session()->flash('success', 'Data Tenaga Medis berhasil disimpan!');
     }

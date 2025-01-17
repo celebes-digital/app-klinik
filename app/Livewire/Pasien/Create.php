@@ -3,6 +3,7 @@
 namespace App\Livewire\Pasien;
 
 use App\Livewire\Forms\PasienForm;
+use App\SatuSehat\FHIR\Prerequisites\Patient;
 use App\Traits\WilayahIndonesia;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Http;
@@ -17,6 +18,9 @@ class Create extends Component
     public PasienForm $form;
 
     public $tanggal_format = ['altFormat' => 'm-d-Y'];
+    public $modalIbu       = false;
+    public $dataAnakIbu    = [];
+    public $totalAnakIbu   = '';
 
     public $kelamin = [
         [
@@ -58,11 +62,11 @@ class Create extends Component
 
     public $lahir_kembar = [
         [
-            'id' => false,
+            'id' => 0,
             'name' => 'Tidak Kembar',
         ],
         [
-            'id' => true,
+            'id' => 1,
             'name' => 'Kembar'
         ]
     ];
@@ -88,69 +92,98 @@ class Create extends Component
         return Carbon::createFromFormat('Y-m-d H:i', $date)->format('Y-m-d');
     }
 
+    // public function getByNGB()
+    // {
+    //     $search = $this->form->nama . "&birthdate=" . $this->formattedDate($this->form->tgl_lahir) . "&gender=" . $this->form->kelamin;
+
+    //     if (!$this->form->nama || !$this->form->tgl_lahir || !$this->form->kelamin) {
+    //         $this->error("Lengkapi Semua Data");
+
+    //         return;
+    //     }
+
+    //     $headers = [
+    //         'Authorization' => 'Bearer Z3GfQFF03SF7KdrZ4AH1OV9g6Xps',
+    //         'Accept' => 'application/json',
+    //     ];
+
+    //     $this->dataAPI = Http::withHeaders($headers)
+    //         ->get($this->apiSatuSehat . "/Patient?name=" . $search)
+    //         ->json();
+
+    //     if ($this->dataAPI) {
+    //         $resource       = $this->dataAPI['entry'][0]['resource'] ?? '';
+    //         $resourceAlamat = $resource['address'][0]['extension'][0]['extension'] ?? '';
+
+    //         // dd($this->dataAPI);
+    //         $this->form->nama             = $resource['name'][0]['text'] ?? '';
+    //         $this->form->nik              = $resource['identifier'][0]['value'] ?? '';
+    //         $this->form->kelamin          = $resource['gender'] ?? '';
+    //         $this->form->kewarganegaraan  = $resource['extension'][0]['valueCode'] ?? '';
+    //         $this->form->alamat           = $resource['address'][0]['line'][0] ?? null;
+    //         $this->form->provinsi         = $resourceAlamat[0]['valueCode'] ?? '';
+    //         $this->form->kabupaten        = $resourceAlamat[1]['valueCode'] ?? '';
+    //         $this->form->kecamatan        = $resourceAlamat[2]['valueCode'] ?? '';
+    //         $this->form->kelurahan        = $resourceAlamat[3]['valueCode'] ?? '';
+    //         $this->form->rt               = $resourceAlamat[4]['valueCode'] ?? '';
+    //         $this->form->rw               = $resourceAlamat[5]['valueCode'] ?? '';
+    //     } else {
+    //         session()->flash('error', 'No data found for the given Name.');
+    //     }
+    // }
+
     public function getByNGB()
     {
-        $search = $this->form->nama . "&birthdate=" . $this->formattedDate($this->form->tgl_lahir) . "&gender=" . $this->form->kelamin;
-
         if (!$this->form->nama || !$this->form->tgl_lahir || !$this->form->kelamin) {
-            $this->error("Lengkapi Semua Data");
-
+            $this->warning(
+                'Lengkapi data yang diperlukan!',
+                'Nama, jenis kelamin, dan tanggal tahir wajib diisi'
+            );
             return;
         }
 
-        $headers = [
-            'Authorization' => 'Bearer Z3GfQFF03SF7KdrZ4AH1OV9g6Xps',
-            'Accept' => 'application/json',
-        ];
+        $patient = new Patient();
+        $data = $patient->getNGB($this->form->nama, $this->form->tgl_lahir, $this->form->kelamin);
 
-        $this->dataAPI = Http::withHeaders($headers)
-            ->get($this->apiSatuSehat . "/Patient?name=" . $search)
-            ->json();
+        if ($data['nama'] === '') {
+            $this->info('Data pasien tidak ditemukan');
 
-        if ($this->dataAPI) {
-            $resource       = $this->dataAPI['entry'][0]['resource'] ?? '';
-            $resourceAlamat = $resource['address'][0]['extension'][0]['extension'] ?? '';
-
-            // dd($this->dataAPI);
-            $this->form->nama             = $resource['name'][0]['text'] ?? '';
-            $this->form->nik              = $resource['identifier'][0]['value'] ?? '';
-            $this->form->kelamin          = $resource['gender'] ?? '';
-            $this->form->kewarganegaraan  = $resource['extension'][0]['valueCode'] ?? '';
-            $this->form->alamat           = $resource['address'][0]['line'][0] ?? null;
-            $this->form->provinsi         = $resourceAlamat[0]['valueCode'] ?? '';
-            $this->form->kabupaten        = $resourceAlamat[1]['valueCode'] ?? '';
-            $this->form->kecamatan        = $resourceAlamat[2]['valueCode'] ?? '';
-            $this->form->kelurahan        = $resourceAlamat[3]['valueCode'] ?? '';
-            $this->form->rt               = $resourceAlamat[4]['valueCode'] ?? '';
-            $this->form->rw               = $resourceAlamat[5]['valueCode'] ?? '';
-        } else {
-            session()->flash('error', 'No data found for the given Name.');
+            return;
         }
     }
 
     public function getByNikIbu()
     {
-        $nik = $this->form->nik_ibu ?? null;
-        if (!$nik) {
-            $this->error('NIK tidak boleh kosong.');
+        if (!$this->form->nik_ibu) {
+            $this->warning("Lengkapi data NIK ibu!", "NIK ibu wajib diisi");
 
             return;
         }
 
-        $headers = [
-            'Authorization' => 'Bearer Z3GfQFF03SF7KdrZ4AH1OV9g6Xps',
-            'Accept' => 'application/json',
-        ];
+        $patient = new Patient();
+        $data    = $patient->getNikIbu($this->form->nik_ibu ?? null);
+        if ($data['total'] === 0) {
+            $this->info('Tidak ada data yang ditemukan');
 
-        $this->dataNikIbuAPI = Http::withHeaders($headers)
-            ->get($this->apiSatuSehat . "/Patient?identifier=https://fhir.kemkes.go.id/id/nik-ibu|" . $nik)
-            ->json();
-
-        if ($this->dataNikIbuAPI) {
-            dd($this->dataNikIbuAPI);
-        } else {
-            session()->flash('error', 'No data found for the given NIK.');
+            return;
         }
+        $this->modalIbu = true;
+        $this->dataAnakIbu  = $data ? $data['data'] : '';
+        $this->totalAnakIbu = $data ? $data['total'] : '';
+        // dd($this->dataAnakIbu);
+        $this->form->fill($data);
+    }
+
+    public function selectAnak($id, $name, $birthdate, $kembar)
+    {
+        // dd($id, $name, $birthdate);
+        $this->modalIbu = false;
+
+        $this->success('Data Telah Dipilih.');
+        $this->form->no_ihs         = $id;
+        $this->form->nama           = $name;
+        $this->form->lahir_kembar   = $kembar;
+        $this->form->tgl_lahir      = $birthdate;
     }
 
     public function save()

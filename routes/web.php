@@ -44,5 +44,6 @@ Route::get('/staff/update/{id_staff}', StaffCreateUpdate::class);
 // FORM TENAGA MEDIS
 Route::get('/tenaga-medis', TenagaMedisView::class);
 Route::get('/tenaga-medis/create', TenagaMedisCreate::class);
+Route::get('/tenaga-medis/update/{id_tenaga_medis}', TenagaMedisCreate::class);
 Route::get('/tenaga-medis/konfigurasi', TenagaMedisKonfigurasi::class);
 // Route::get('/tenaga-medis/update/{id_tenaga_medis}', TenagaMedisUpdate::class);

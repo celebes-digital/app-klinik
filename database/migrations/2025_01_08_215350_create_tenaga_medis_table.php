@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('tenaga_medis', function (Blueprint $table) {
             $table->id('id_tenaga_medis');
+
+            $table->unsignedTinyInteger('id_poliklinik');
+            $table->foreign('id_poliklinik')->references('id')->on('poliklinik')->onDelete('cascade');
             $table->string('nama', 255);
             $table->string('nik', 16)->unique();
             $table->text('alamat');
@@ -30,6 +33,9 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::table('tenaga_medis', function (Blueprint $table) {
+            $table->dropForeign(['id_poliklinik']);
+        });
         Schema::dropIfExists('tenaga_medis');
     }
 };

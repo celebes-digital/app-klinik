@@ -1,5 +1,6 @@
 @php
-    $spesialisasi = App\Models\Spesialisasi::get();
+    $spesialisasi   = App\Models\Spesialisasi::get();
+    $poli           = App\Models\Poliklinik::get();
 @endphp
 
 <div>
@@ -21,7 +22,7 @@
                 </div>
 
                 <div class="col-span-12 md:col-span-3">
-                    <x-input label="Nomor STR (Surat Tanda Registrasi)" wire:model="form.no_str" />
+                    <x-input label="Nomor STR" wire:model="form.no_str" />
                 </div>
 
                 <div class="col-span-12 md:col-span-3">
@@ -32,8 +33,8 @@
                     <x-choices-offline
                         label="Spesialisasi"
                         wire:model.live="form.spesialisasi"
+                        :disabled="$disabled"
                         :options="$spesialisasi"
-                        {{-- wire:change="getSpesialisasi" --}}
                         option-value="id_spesialisasi"
                         option-label="nama"
                         single
@@ -46,6 +47,18 @@
                 </div>
 
                 <div class="col-span-12 md:col-span-4">
+                    <x-choices-offline
+                        label="Pilih Poliklinik"
+                        wire:model.live="form.poli"
+                        :options="$poli"
+                        option-value="id"
+                        option-label="nama_poli"
+                        single
+                        searchable 
+                    />
+                </div>
+
+                <div class="col-span-12 md:col-span-4">
                     <x-input label="Nomor Telepon" wire:model="form.no_telp" />
                 </div>
 
@@ -53,11 +66,11 @@
                     <x-input label="Alamat" wire:model="form.alamat" />
                 </div>
 
-                <div class="col-span-4">
+                <div class="col-span-12 md:col-span-2">
                     <x-datepicker label="Tanggal Lahir" wire:model="form.tgl_lahir" icon="o-calendar" :config="$tanggal_format"  />
                 </div>
 
-                <div class="col-span-4">
+                <div class="col-span-12 md:col-span-2">
                     <x-select label="Jenis Kelamin" :options="$kelamin" wire:model="form.kelamin"  />
                 </div>
             </div>

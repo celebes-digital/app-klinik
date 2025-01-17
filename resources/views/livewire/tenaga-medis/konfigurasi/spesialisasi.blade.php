@@ -2,13 +2,6 @@
     $spesialisasi = App\Models\Spesialisasi::paginate(5);
 
     $profesi = App\Models\Profesi::get();
-
-    $headers = [
-        ['key' => 'no',             'label' => '#'],
-        ['key' => 'nama',           'label' => 'Nama'],
-        ['key' => 'code',           'label' => 'Code'],
-        ['key' => 'profesi.nama',   'label' => 'Profesi'],
-    ];
 @endphp
 
 <div class="col-span-12 grid grid-cols-12 gap-4">

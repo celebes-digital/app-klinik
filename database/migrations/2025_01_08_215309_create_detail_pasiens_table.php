@@ -15,8 +15,9 @@ return new class extends Migration
             $table->id('id_detail_pasien');
             $table->unsignedBigInteger('id_pasien');
             $table->foreign('id_pasien')->references('id_pasien')->on('pasien')->onDelete('cascade');
-            $table->string('no_telp');
-            $table->text('alamat');
+            $table->string('no_ihs')->nullable();
+            $table->string('no_telp')->nullable();
+            $table->text('alamat')->nullable();
             $table->string('provinsi')->nullable();
             $table->string('kabupaten')->nullable();
             $table->string('kecamatan')->nullable();
@@ -28,7 +29,7 @@ return new class extends Migration
             $table->string('pekerjaan')->nullable();
             $table->string('pendidikan')->nullable();
             $table->string('kewarganegaraan')->nullable();
-            $table->enum('status_nikah', ['Married', 'Unmarried', 'Divorced', 'Widowed']);
+            $table->enum('status_nikah', ['Married', 'Unmarried', 'Divorced', 'Widowed'])->nullable();
             $table->timestamps();
         });
     }

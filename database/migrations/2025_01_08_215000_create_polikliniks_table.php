@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('poliklinik', function (Blueprint $table) {
             $table->tinyInteger('id', true, true);
+            // $table->id();
 
             $table->char('nama_poli', 50);
             $table->text('alamat', 100);

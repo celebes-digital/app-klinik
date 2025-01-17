@@ -1,3 +1,13 @@
+@php
+    $headers = [
+        ['key' => 'id',         'label' => 'ID IHS'],
+        ['key' => 'name',       'label' => 'Nama'],
+        ['key' => 'birthdate',  'label' => 'Tanggal Lahir'],
+        ['key' => 'kembar',     'label' => 'Lahir Kembar'],
+        ['key' => 'action',     'label' => 'Action']
+    ];
+@endphp
+
 <div>
     <x-card>
         <x-form wire:submit="save" wire:target="submit">
@@ -5,15 +15,15 @@
 
             <div class="grid grid-cols-12 gap-4">
                 <div class="col-span-12 md:col-span-4">
-                    <x-input label="Nama Pasien" wire:model="form.nama" hint="Nama Sesuai KTP" />
+                    <x-input label="Nama Pasien" wire:model="form.nama" hint="Nama Sesuai KTP" required />
                 </div>
-                
+
                 <div class="col-span-6 md:col-span-3">
-                    <x-select label="Jenis Kelamin" :options="$kelamin" wire:model="form.kelamin" />
+                    <x-select label="Jenis Kelamin" :options="$kelamin" wire:model="form.kelamin" required />
                 </div>
-                
+
                 <div class="col-span-6 md:col-span-3">
-                    <x-datepicker label="Tanggal Lahir" wire:model="form.tgl_lahir" icon="o-calendar" :config="$tanggal_format"  />
+                    <x-datepicker label="Tanggal Lahir" wire:model="form.tgl_lahir" icon="o-calendar" :config="$tanggal_format" required />
                 </div>
 
                 <div class="col-span-12 md:col-span-2 flex items-center">
@@ -23,44 +33,49 @@
                 <div class="col-span-12">
                     <hr>
                 </div>
-                
+
                 <div class="col-span-12 md:col-span-6">
-                    <x-input label="NIK Ibu" wire:model="form.nik_ibu">
+                    <x-input label="NIK" wire:model="form.nik" hint="Isi Jika Pasien Dewasa" />
+                </div>
+
+                <div class="col-span-12 md:col-span-6">
+                    <x-input label="NIK Ibu" wire:model="form.nik_ibu" hint="Isi Jika Pasien Bayi">
                         <x-slot:append>
-                            <x-button label="Cari di SATUSEHAT" 
-                            icon="o-check" 
-                            class="btn-success text-white rounded-s-none" 
-                            wire:click="getByNikIbu"
+                            <x-button 
+                                label="Cari di SATUSEHAT" 
+                                icon="o-check" 
+                                class="btn-success text-white rounded-s-none" 
+                                wire:click="getByNikIbu"
                             />
                         </x-slot:append>
                     </x-input>
                 </div>
 
-                <div class="col-span-12 md:col-span-6">
-                    <x-input label="NIK" wire:model="form.nik" />
+                <div class="col-span-12 md:col-span-3">
+                    <x-input label="Nomor IHS" wire:model="form.no_ihs" required />
                 </div>
 
-                <div class="col-span-12 md:col-span-6">
-                    <x-input label="Nomor BPJS" wire:model="form.no_bpjs"  />
-                </div>
-
-                <div class="col-span-6 md:col-span-3">
-                    <x-input label="Tempat Lahir" wire:model="form.tempat_lahir"  />
+                <div class="col-span-12 md:col-span-3">
+                    <x-input label="Nomor BPJS" wire:model="form.no_bpjs" />
                 </div>
 
                 <div class="col-span-6 md:col-span-3">
-                    <x-select label="Lahir Kembar" :options="$lahir_kembar" wire:model="form.lahir_kembar" />
+                    <x-input label="Tempat Lahir" wire:model="form.tempat_lahir" required />
+                </div>
+
+                <div class="col-span-6 md:col-span-3">
+                    <x-select label="Lahir Kembar" :options="$lahir_kembar" wire:model="form.lahir_kembar" required />
                 </div>
 
                 <h3 class="col-span-12 gap-1 font-bold text-lg" size="text-xl">
                     Detail Pasien 
                 </h3>
 
-                <div class="col-span-12 md:col-span-5">
+                <div class="col-span-12 md:col-span-6">
                     <x-input label="Alamat" wire:model="form.alamat" />
                 </div>
-                
-                <div class="col-span-4 md:col-span-3">
+
+                <div class="col-span-4 md:col-span-2">
                     <x-input
                         label="Kode Pos"
                         wire:model="form.kode_pos"
@@ -80,7 +95,7 @@
                         wire:model="form.rw"
                     />
                 </div>
-                
+
                 <div class="col-span-6 md:col-span-3">
                     <x-select 
                         label="Provinsi"
@@ -173,4 +188,25 @@
             </x-slot:actions>
         </x-form>
     </x-card>
+
+    <x-modal wire:model="modalIbu" title="Data yang ditemukan" box-class="max-w-4xl" class="backdrop-blur" subtitle="Ditemukan {{$totalAnakIbu}} data orang yang terkait dengan nik {{ $form->nik_ibu }}">
+
+        <x-table :headers="$headers" :rows="$dataAnakIbu" striped>
+            @scope('cell_kembar', $item)
+                {{ $item['kembar'] == 0 ? 'Tidak' : 'Ya' }}
+            @endscope
+            @scope('cell_action', $item)
+                <x-button 
+                    label="Pilih"
+                    wire:click="selectAnak('{{ $item['id'] }}', '{{$item['name']}}', '{{$item['birthdate']}}', '{{$item['kembar']}}')" 
+                    spinner 
+                    class="btn-sm" 
+                />
+            @endscope
+        </x-table>
+
+        <x-slot:actions>
+            <x-button label="Cancel" @click="$wire.modalIbu = false" />
+        </x-slot:actions>
+    </x-modal>
 </div>
