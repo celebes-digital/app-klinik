@@ -11,7 +11,14 @@
                 <livewire:pemeriksaan.poliklinik.anamnesis.create-anamnesis :$kunjungan />
             </x-tab>
             <x-tab name="klinis" label="Pemeriksaan Klinis">
-                <div>Diagnosa</div>
+                <x-header 
+                    title="Pemeriksaan Klinis"
+                    size="text-2xl" 
+                    class="!mb-4" 
+                    separator
+                />
+                <livewire:pemeriksaan.poliklinik.pemeriksaan-klinis.tanda-vital :$kunjungan />
+                <livewire:pemeriksaan.poliklinik.pemeriksaan-klinis.pemeriksaan-fisik :$kunjungan />
             </x-tab>
             <x-tab name="diagnosa" label="Diagnosa">
                 <div>Diagnosa</div>
