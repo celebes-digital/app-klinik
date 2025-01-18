@@ -8,10 +8,10 @@
             label-div-class="p-2 mb-2 rounded bg-primary/5"
         >
             <x-tab name="anamnesis" label="Anamnesis">
-                <livewire:pemeriksaan.poliklinik.create-anamnesis :$kunjungan />
+                <livewire:pemeriksaan.poliklinik.anamnesis.create-anamnesis :$kunjungan />
             </x-tab>
             <x-tab name="klinis" label="Pemeriksaan Klinis">
-                <div>Klinis</div>
+                <div>Diagnosa</div>
             </x-tab>
             <x-tab name="diagnosa" label="Diagnosa">
                 <div>Diagnosa</div>
