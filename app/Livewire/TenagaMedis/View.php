@@ -14,10 +14,9 @@ class View extends Component
     use Toast;
     use WithPagination;
 
-    public $tenaga_medis;
     public $headers;
-    public $perPage = 5;
-    
+    public $perPage = 6;
+
     public function mount()
     {
         // $this->tenaga_medis = TenagaMedis::paginate($this->perPage);
@@ -30,7 +29,7 @@ class View extends Component
         $this->success('Data poliklinik berhasil dihapus');
         $this->mount();
     }
-    
+
     public function render()
     {
         $this->headers = [
@@ -42,6 +41,10 @@ class View extends Component
             ['key' => 'ihs',                'label' => 'IHS']
         ];
 
-        return view('livewire.tenaga-medis.view');
+        $tenaga_medis = TenagaMedis::paginate($this->perPage);
+
+        return view('livewire.tenaga-medis.view', [
+            'tenaga_medis' => $tenaga_medis
+        ]);
     }
 }

@@ -15,6 +15,7 @@ class DetailPasien extends Model
 
     protected $fillable = [
         'id_pasien',
+        'no_ihs',
         'no_telp',
         'alamat',
         'provinsi',
