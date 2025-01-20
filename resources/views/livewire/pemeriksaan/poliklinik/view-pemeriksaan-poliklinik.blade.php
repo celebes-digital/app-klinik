@@ -21,7 +21,14 @@
                 <livewire:pemeriksaan.poliklinik.pemeriksaan-klinis.pemeriksaan-fisik :$kunjungan />
             </x-tab>
             <x-tab name="diagnosa" label="Diagnosa">
-                <div>Diagnosa</div>
+                <x-header 
+                    title="Diagnosa"
+                    size="text-2xl" 
+                    class="!mb-4" 
+                    separator
+                />
+                <livewire:pemeriksaan.poliklinik.diagnosis.form-diagnosis :$kunjungan />
+                <livewire:pemeriksaan.poliklinik.diagnosis.form-diagnosis-banding :$kunjungan />
             </x-tab>
             <x-tab name="riwayatDiagnosa" label="Riwayat Diagnosa">
                 <div>Riwayat Diagnosa</div>
