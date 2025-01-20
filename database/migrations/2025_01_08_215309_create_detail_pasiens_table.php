@@ -29,7 +29,7 @@ return new class extends Migration
             $table->string('pekerjaan')->nullable();
             $table->string('pendidikan')->nullable();
             $table->string('kewarganegaraan')->nullable();
-            $table->enum('status_nikah', ['Married', 'Unmarried', 'Divorced', 'Widowed'])->nullable();
+            $table->enum('status_nikah', ['Annulled', 'Married', 'Unmarried', 'Divorced', 'Widowed'])->nullable()->default('Annulled');
             $table->timestamps();
         });
     }

@@ -12,6 +12,10 @@ use App\Livewire\Pasien\Update as PasienUpdate;
 use App\Livewire\PenunjangMedis\ListForm;
 use App\Livewire\Poli\PoliView;
 use App\Livewire\Profil\ViewProfil;
+
+
+use App\Livewire\RuangPerawatan\Create as RuangPerawatanCreate;
+use App\Livewire\RuangPerawatan\View as RuangPerawatanView;
 // Staff
 use App\Livewire\Staff\View as StaffView;
 use App\Livewire\Staff\CreateUpdate as StaffCreateUpdate;
@@ -34,7 +38,7 @@ Route::get('/tindakan-medis', TindakanMedisListForm::class);
 // FORM PASIEN
 Route::get('/pasien', PasienView::class);
 Route::get('/pasien/create', PasienCreate::class);
-Route::get('/pasien/update/{id_pasien}', PasienUpdate::class);
+Route::get('/pasien/update/{id_pasien}', PasienCreate::class);
 
 // FORM STAFF
 Route::get('/staff', StaffView::class);
@@ -47,3 +51,8 @@ Route::get('/tenaga-medis/create', TenagaMedisCreate::class);
 Route::get('/tenaga-medis/update/{id_tenaga_medis}', TenagaMedisCreate::class);
 Route::get('/tenaga-medis/konfigurasi', TenagaMedisKonfigurasi::class);
 // Route::get('/tenaga-medis/update/{id_tenaga_medis}', TenagaMedisUpdate::class);
+
+// FORM RUANG PERAWATAN
+Route::get('/ruang-perawatan', RuangPerawatanView::class);
+Route::get('/ruang-perawatan/create', RuangPerawatanCreate::class);
+Route::get('/ruang-perawatan/update/{id_ruang_perawatan}', RuangPerawatanCreate::class);

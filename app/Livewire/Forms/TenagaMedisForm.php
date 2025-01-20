@@ -13,7 +13,7 @@ class TenagaMedisForm extends Form
     public $id_tenaga_medis;
 
     #[Validate('required')]
-    public $id_poliklinik;
+    public $id_poliklinik = [];
     
     #[Validate('required')]
     public $nama = "";
@@ -57,16 +57,32 @@ class TenagaMedisForm extends Form
         $this->ihs           = $tenagaMedis->ihs;
     }
 
-    public function store($id_tenaga_medis)
+    public function store($id_tenaga_medis = null)
     {
         $this->validate();
 
-        if (!$id_tenaga_medis) {
-            TenagaMedis::create($this->all());
-        } else {
-            $this->tenagaMedis->update($this->all());
+        $tenagaMedis = $id_tenaga_medis
+            ? TenagaMedis::find($id_tenaga_medis)
+            : new TenagaMedis();
+
+        $tenagaMedis->fill([
+            'nama'       => $this->nama,
+            'nik'        => $this->nik,
+            'no_str'     => $this->no_str,
+            'alamat'     => $this->alamat,
+            'tgl_lahir'  => $this->tgl_lahir,
+            'kelamin'    => $this->kelamin,
+            'no_telp'    => $this->no_telp,
+            'ihs'        => $this->ihs,
+        ]);
+
+        $tenagaMedis->save();
+
+        if (!empty($this->id_poliklinik)) {
+            $tenagaMedis->poliklinik()->sync($this->id_poliklinik);
         }
 
         session()->flash('success', 'Data Tenaga Medis berhasil disimpan!');
     }
+
 }

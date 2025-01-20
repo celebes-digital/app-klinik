@@ -9,6 +9,17 @@
 @endphp
 
 <div>
+    <x-slot:headerActions>
+        <div x-data>
+            <x-button 
+                icon="o-arrow-uturn-left" 
+                label="Kembali"
+                link="/pasien"
+                wire:key
+            />
+        </div>
+    </x-slot:headerActions>
+
     <x-card>
         <x-form wire:submit="save" wire:target="submit">
             <x-header title="Input Data Pasien" subtitle="Data dengan simbol (*) wajib diisi!" size="text-xl" />
@@ -189,7 +200,7 @@
         </x-form>
     </x-card>
 
-    <x-modal wire:model="modalIbu" title="Data yang ditemukan" box-class="max-w-4xl" class="backdrop-blur" subtitle="Ditemukan {{$totalAnakIbu}} data orang yang terkait dengan nik {{ $form->nik_ibu }}">
+    <x-modal wire:model="modalIbu" title="Data yang ditemukan" box-class="max-w-4xl" subtitle="Ditemukan {{$totalAnakIbu}} data orang yang terkait dengan nik {{ $form->nik_ibu }}">
 
         <x-table :headers="$headers" :rows="$dataAnakIbu" striped>
             @scope('cell_kembar', $item)

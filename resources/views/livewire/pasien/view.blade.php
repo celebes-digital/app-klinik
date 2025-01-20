@@ -6,9 +6,9 @@
         ['key' => 'nama',         'label' => 'Nama'],
         ['key' => 'tempat_lahir', 'label' => 'Tempat. Lahir'],
         ['key' => 'tgl_lahir',    'label' => 'Tgl. Lahir'],
+        ['key' => 'kelamin',      'label' => 'Kelamin'],
         ['key' => 'nik',          'label' => 'NIK'],
         ['key' => 'nik_ibu',      'label' => 'NIK Ibu'],
-        ['key' => 'kelamin',      'label' => 'Kelamin'],
         ['key' => 'no_bpjs',      'label' => 'No. BPJS'],
     ];
 @endphp
@@ -24,16 +24,6 @@
                 <x-slot:empty>
                     <x-icon name="o-cube" label="It is empty." />
                 </x-slot:empty>
-                @scope('cell_status_nikah', $status)
-                    <p>
-                        {{ 
-                            $status->status_nikah   == 'Divorced'   ? 'Cerai'   : 
-                            ($status->status_nikah  == 'Married'    ? 'Menikah' : 
-                            ($status->status_nikah  == 'Widowed'    ? 'Janda'   : 'Belum Menikah'))
-                        }}
-                    </p>
-                @endscope
-
                 @scope('cell_kelamin', $kelamin)
                     <p>{{ $kelamin->kelamin == 'male' ? 'Laki-laki' : 'Perempuan'}}</p>
                 @endscope

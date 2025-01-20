@@ -16,7 +16,6 @@ class TenagaMedis extends Model
     protected $keyType = 'int';
 
     protected $fillable = [
-        'id_poliklinik',
         'nama',
         'nik',
         'no_str',
@@ -29,7 +28,6 @@ class TenagaMedis extends Model
 
     public function poliklinik()
     {
-        // TODO SESUAIKAN RELASI NYA
-        return $this->hasMany(Poliklinik::class, 'id_poliklinik', 'id');
+        return $this->belongsToMany(Poliklinik::class, 'poliklinik_tenaga_medis', 'id_tenaga_medis', 'id_poliklinik');
     }
 }

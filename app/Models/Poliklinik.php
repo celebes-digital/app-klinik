@@ -23,7 +23,6 @@ class Poliklinik extends Model
 
     public function tenagaMedis()
     {
-        // TODO SESUAIKAN RELASI NYA
-        return $this->hasMany(TenagaMedis::class, 'id_poliklinik', 'id');
+        return $this->belongsToMany(TenagaMedis::class, 'poliklinik_tenaga_medis', 'id_poliklinik', 'id_tenaga_medis');
     }
 }

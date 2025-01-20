@@ -32,7 +32,7 @@ class DetailPasienFactory extends Factory
             'pekerjaan'         => $this->faker->jobTitle(),
             'pendidikan'        => $this->faker->randomElement(['SD', 'SMP', 'SMA', 'Diploma', 'Sarjana']),
             'kewarganegaraan'   => $this->faker->randomElement(['WNI', 'WNA']),
-            'status_nikah'      => $this->faker->randomElement(['Married', 'Unmarried', 'Divorced', 'Widowed']),
+            'status_nikah'      => $this->faker->randomElement(['Annulled', 'Married', 'Unmarried', 'Divorced', 'Widowed']),
         ];
     }
 }

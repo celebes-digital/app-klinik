@@ -19,8 +19,11 @@ class PasienForm extends Form
     public $no_ihs  = "";
 
     public $provinsi = "";
+
     public $kabupaten = "";
+
     public $kecamatan = "";
+
     public $kelurahan = "";
 
     public $rt = "";
@@ -40,8 +43,8 @@ class PasienForm extends Form
 
     public $alamat = "";
 
-    #[Validate('in:Married,Unmarried,Divorced,Widowed')]
-    public $status_nikah = "";
+    #[Validate('in:Annulled,Married,Unmarried,Divorced,Widowed')]
+    public $status_nikah = "Annulled";
 
     public $dataPasien = [];
     
@@ -54,8 +57,8 @@ class PasienForm extends Form
     #[Validate('required|date')]
     public $tgl_lahir;
 
-    // #[Validate('required|digits:16|unique:pasien,nik')]
-    public $nik = "";
+    #[Validate('digits:16|unique:pasien,nik')]
+    public $nik = null;
 
     #[Validate('digits:16')]
     public $nik_ibu = "";
@@ -113,7 +116,7 @@ class PasienForm extends Form
             'kelamin'       => 'required',
             'nik'           => $this->nik_ibu ? 'nullable' : 'required|digits:16|unique:pasien,nik',
             'nik_ibu'       => $this->nik ? 'nullable' : 'required|digits:16',
-            'no_bpjs'       => $this->nik_ibu ? 'nullable' : 'required',
+            'no_bpjs'       => $this->nik_ibu ? 'nullable' : 'nullable',
         ];
 
         $this->validate($validationRules);

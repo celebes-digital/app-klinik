@@ -4,6 +4,17 @@
 @endphp
 
 <div>
+    <x-slot:headerActions>
+        <div x-data>
+            <x-button 
+                icon="o-arrow-uturn-left" 
+                label="Kembali"
+                link="/pasien"
+                wire:key
+            />
+            <x-button icon="o-wrench-screwdriver" label="Konfigurasi" class="btn-seccondary font-bold" link="/tenaga-medis/konfigurasi"></x-button>
+        </div>
+    </x-slot:headerActions>
     <x-card shadow separator>
         <x-form wire:submit="save" wire:target="submit">
             <x-header title="Input Data Tenaga Medis" subtitle="Data dengan simbol (*) wajib diisi!" size="text-xl" />
@@ -49,12 +60,12 @@
                 <div class="col-span-12 md:col-span-4">
                     <x-choices-offline
                         label="Pilih Poliklinik"
-                        wire:model.live="form.poli"
+                        wire:model.live="form.id_poliklinik"
                         :options="$poli"
                         option-value="id"
                         option-label="nama_poli"
-                        single
-                        searchable 
+                        {{-- single --}}
+                        {{-- allow-all --}}
                     />
                 </div>
 

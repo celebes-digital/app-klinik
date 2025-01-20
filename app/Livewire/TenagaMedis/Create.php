@@ -48,7 +48,15 @@ class Create extends Component
     public function getByNik()
     {
         $practitioner = new Practitioner();
-        $data         = $practitioner->get($this->form->nik ?? null);
+
+        if(!$practitioner){
+            // dd($practitioner);
+            $this->warning('Data tidak ditemukan');
+            
+            return;
+        }
+        $this->success('Data ditemukan');
+        $data = $practitioner->get($this->form->nik ?? null);
         $this->form->fill($data);
     }
 
@@ -61,7 +69,7 @@ class Create extends Component
     }
 
     public function mount($id_tenaga_medis = null)
-    {
+{
         // Cari data staff berdasarkan ID
         $this->id_tenaga_medis = $id_tenaga_medis ?? null;
         $tenaga_medis = $id_tenaga_medis ? TenagaMedis::find($id_tenaga_medis) : null;
