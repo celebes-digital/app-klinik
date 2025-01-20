@@ -1,18 +1,3 @@
-@php
-    $pasien = App\Models\Pasien::paginate($this->perPage);
-
-    $headers = [
-        ['key' => 'id_pasien',    'label' => '#'],
-        ['key' => 'nama',         'label' => 'Nama'],
-        ['key' => 'tempat_lahir', 'label' => 'Tempat. Lahir'],
-        ['key' => 'tgl_lahir',    'label' => 'Tgl. Lahir'],
-        ['key' => 'kelamin',      'label' => 'Kelamin'],
-        ['key' => 'nik',          'label' => 'NIK'],
-        ['key' => 'nik_ibu',      'label' => 'NIK Ibu'],
-        ['key' => 'no_bpjs',      'label' => 'No. BPJS'],
-    ];
-@endphp
-
 <div>
     <div class="grid grid-cols-12 gap-4">
         <x-card class="col-span-12" title="Daftar Pasien" shadow separator>
@@ -20,12 +5,13 @@
                 <x-post link="/pasien/create" />
             </x-slot:menu>
 
-            <x-table :headers="$headers" :rows="$pasien" striped with-pagination per-page="perPage" link="pasien/detail/{id_pasien}">
+            <x-table :headers="$headers" :rows="$pasien" striped with-pagination per-page="perPage"
+                link="pasien/detail/{id_pasien}">
                 <x-slot:empty>
                     <x-icon name="o-cube" label="It is empty." />
                 </x-slot:empty>
                 @scope('cell_kelamin', $kelamin)
-                    <p>{{ $kelamin->kelamin == 'male' ? 'Laki-laki' : 'Perempuan'}}</p>
+                    <p>{{ $kelamin->kelamin == 'male' ? 'Laki-laki' : 'Perempuan' }}</p>
                 @endscope
 
                 {{-- Special `actions` slot --}}

@@ -163,9 +163,7 @@ class Create extends Component
 
     public function save()
     {
-        // dd($this->form->nik_ibu);
-
-        $this->form->store();
+        $this->form->store($this->id_pasien);
 
         $this->success('Data Pasien Telah Disimpan.');
     }
