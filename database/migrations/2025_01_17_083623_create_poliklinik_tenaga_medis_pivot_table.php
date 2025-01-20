@@ -16,7 +16,6 @@ return new class extends Migration
             $table->foreign('id_tenaga_medis')->references('id_tenaga_medis')->on('tenaga_medis')->onDelete('cascade');
             $table->unsignedTinyInteger('id_poliklinik');
             $table->foreign('id_poliklinik')->references('id')->on('poliklinik')->onDelete('cascade');
-            $table->timestamps();
         });
     }
 

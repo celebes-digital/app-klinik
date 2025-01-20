@@ -1,3 +1,7 @@
 <div>
-    {{-- Care about people's approval and you will be their prisoner. --}}
+    <x-slot:headerActions>
+        <div x-data>
+            <x-post wire:key link="/ruang-perawatan/create" />
+        </div>
+    </x-slot:headerActions>
 </div>
