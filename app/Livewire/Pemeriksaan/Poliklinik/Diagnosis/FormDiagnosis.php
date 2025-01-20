@@ -34,15 +34,12 @@ class FormDiagnosis extends Component
 
     public function search(string $value = '')
     {
-        $selectedOption = ICD10::where('id', $this->selectedOption)->get();
-
         $this->diagnosisOptions = ICD10::query()
             ->where('display', 'like', "%$value%")
             ->orWhere('code', 'like', "%$value%")
             ->take(5)
             ->orderBy('code')
-            ->get()
-            ->merge($selectedOption);     // <-- Adds selected option
+            ->get();
     }
 
     public function render()

@@ -19,13 +19,13 @@
             <div class="flex gap-2">
                 <x-button 
                     icon="o-pencil-square" 
-                    wire:click="$dispatch('set-poli', { id: {{ $poli->id }}})" 
+                    wire:click="$dispatch('set-poli', { id: {{ $poli->id_poli }}})" 
                     spinner 
                     class="btn-sm" 
                 />
                 <x-button 
                     icon="o-trash" 
-                    wire:click="delete({{ $poli->id }})" 
+                    wire:click="delete({{ $poli->id_poli }})" 
                     spinner 
                     class="btn-sm" 
                 />

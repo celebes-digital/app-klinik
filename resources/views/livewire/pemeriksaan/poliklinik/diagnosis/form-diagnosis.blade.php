@@ -111,7 +111,7 @@
                                         <span class="px-1 text-base rounded text-primary bg-primary/5">
                                             {{$item->code}}
                                         </span>
-                                        @if (in_array($item->id, array_column($selectedOption, 'id')))
+                                        @if (in_array($item->code, array_column($selectedOption, 'code')))
                                             <x-button
                                                 icon-right="o-arrow-right-circle" 
                                                 class="cursor-not-allowed btn-primary btn-sm" 
@@ -119,10 +119,10 @@
                                             />
                                             @else
                                             <x-button
-                                                wire:click="addDiagnosis('{{$item->id}}')" 
+                                                wire:click="addDiagnosis('{{$item->code}}')" 
                                                 icon-right="o-arrow-right-circle" 
                                                 class="btn-primary btn-sm" 
-                                                spinner="addDiagnosis('{{$item->id}}')"
+                                                spinner="addDiagnosis('{{$item->code}}')"
                                             />
                                         @endif
                                     </div>
