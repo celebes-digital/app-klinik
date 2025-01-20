@@ -6,23 +6,16 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
-        Schema::create('data_icd10', function (Blueprint $table) {
-            $table->integer('id', true, true);
-            $table->string('code', 8);
+        Schema::create('icd10', function (Blueprint $table) {
+            $table->string('code', 8)->primary();
             $table->string('display');
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
-        Schema::dropIfExists('data_icd10');
+        Schema::dropIfExists('icd10');
     }
 };

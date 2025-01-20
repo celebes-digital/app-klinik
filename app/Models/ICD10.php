@@ -6,7 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class ICD10 extends Model
 {
-    protected $table    = 'data_icd10';
+    protected $table        = 'icd10';
+    protected $primaryKey   = 'code';
+    protected $keyType      = 'string';
+    public $incrementing    = false;
+    public $timestamps      = false;
+
     protected $fillable = ['code', 'display'];
-    public $timestamps  = false;
 }
