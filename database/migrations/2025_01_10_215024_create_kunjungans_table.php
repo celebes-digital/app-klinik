@@ -12,14 +12,21 @@ return new class extends Migration
             $table->bigInteger('no_kunjungan')->primary();
 
             $table->uuid('id_kunjungan');
-            $table->unsignedTinyInteger('id_poli');
+            $table->unsignedTinyInteger('id_poli')->nullable();
             $table->text('keluhan_awal');
             $table->dateTime('tgl_kunjungan');
             $table->enum('status', ['menunggu', 'diperiksa', 'selesai', 'batal'])->default('menunggu');
 
-            $table->foreignId('id_pasien')->constrained('pasien', 'id_pasien');
-            $table->foreignId('id_tenaga_medis')->constrained('tenaga_medis', 'id_tenaga_medis');
-            $table->foreign('id_poli')->references('id_poli')->on('poliklinik');
+            $table->foreignId('id_pasien')
+                ->constrained('pasien', 'id_pasien')
+                ->onDelete('cascade');
+            $table->foreignId('id_tenaga_medis')
+                ->constrained('tenaga_medis', 'id_tenaga_medis')
+                ->onDelete('cascade');
+            $table->foreign('id_poli')
+                ->references('id_poli')
+                ->on('poliklinik')
+                ->nullOnDelete();
         });
     }
 
