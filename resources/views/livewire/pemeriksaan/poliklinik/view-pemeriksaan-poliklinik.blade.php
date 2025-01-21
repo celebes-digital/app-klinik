@@ -34,7 +34,7 @@
                 <livewire:pemeriksaan.poliklinik.riwayat-diagnosa.view-riwayat-diagnosa />
             </x-tab>
             <x-tab name="tindakanMedis" label="Tindakan Medis">
-                <div>Tindakan Medis</div>
+                <livewire:pemeriksaan.poliklinik.tindakan-medis.form-tindakan-medis :$kunjungan />
             </x-tab>
             <x-tab name="resumeMedis" label="Resume Medis">
                 <div>Resume Medis</div>
