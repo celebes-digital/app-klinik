@@ -2,18 +2,31 @@
 
 namespace App\Livewire\Pemeriksaan\Poliklinik\Diagnosis;
 
+use App\Models\Diagnosis;
 use App\Models\ICD10;
+use App\Models\Kunjungan;
 use Illuminate\Database\Eloquent\Collection;
 use Livewire\Component;
+use Mary\Traits\Toast;
 
 class FormDiagnosis extends Component
 {
+    use Toast;
+
+    public Kunjungan $kunjungan;
+
     public array $selectedOption = [];
 
     public Collection|array $diagnosisOptions = [];
 
     public function mount()
     {
+        $dataDiagnosis = Diagnosis::where('no_kunjungan', $this->kunjungan->no_kunjungan)->first();
+
+        if ($dataDiagnosis) {
+            $this->selectedOption = $dataDiagnosis->diagnosis;
+        }
+
         $this->search();
     }
 
@@ -27,9 +40,17 @@ class FormDiagnosis extends Component
         unset($this->selectedOption[$index]);
     }
 
-    public function saveDiagnosis()
+    public function save()
     {
-        dd($this->selectedOption);
+        Diagnosis::updateOrCreate(
+            ['no_kunjungan' => $this->kunjungan->no_kunjungan],
+            [
+                'no_kunjungan'  => $this->kunjungan->no_kunjungan,
+                'diagnosis'     => $this->selectedOption
+            ]
+        );
+
+        $this->success('Berhasil menyimpan data diagnosis');
     }
 
     public function search(string $value = '')

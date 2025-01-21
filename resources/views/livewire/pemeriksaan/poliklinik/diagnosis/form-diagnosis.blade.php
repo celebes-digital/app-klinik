@@ -165,6 +165,7 @@
                         <x-button
                             label="Simpan"
                             class="btn-primary"
+                            wire:click="save"
                         />
                     </div>
                 @endif
