@@ -31,7 +31,7 @@
                 <livewire:pemeriksaan.poliklinik.diagnosis.form-diagnosis-banding :$kunjungan />
             </x-tab>
             <x-tab name="riwayatDiagnosa" label="Riwayat Diagnosa">
-                <div>Riwayat Diagnosa</div>
+                <livewire:pemeriksaan.poliklinik.riwayat-diagnosa.view-riwayat-diagnosa />
             </x-tab>
             <x-tab name="tindakanMedis" label="Tindakan Medis">
                 <div>Tindakan Medis</div>
