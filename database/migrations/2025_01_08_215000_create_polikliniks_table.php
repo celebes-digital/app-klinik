@@ -12,14 +12,16 @@ return new class extends Migration
             $table->tinyInteger('id_poli', true, true)->primary();
 
             $table->char('nama_poli', 50);
-            $table->text('alamat', 100);
-            $table->char('email', 50);
-            $table->char('no_telp', 16);
-            $table->char('provinsi', 2);
-            $table->char('kabupaten', 4);
-            $table->char('kecamatan', 7);
-            $table->char('kelurahan', 10);
-            $table->char('kode_pos', 6);
+            $table->unsignedInteger('tarif_dasar')->default(0);
+            $table->unsignedInteger('tarif_konsultasi')->default(0);
+            $table->text('alamat', 100)->nullable();
+            $table->char('email', 50)->nullable();
+            $table->char('no_telp', 16)->nullable();
+            $table->char('provinsi', 2)->nullable();
+            $table->char('kabupaten', 4)->nullable();
+            $table->char('kecamatan', 7)->nullable();
+            $table->char('kelurahan', 10)->nullable();
+            $table->char('kode_pos', 6)->nullable();
         });
     }
 

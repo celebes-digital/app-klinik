@@ -12,6 +12,8 @@ class Poliklinik extends Model
 
     protected $fillable = [
         'nama_poli',
+        'tarif_dasar',
+        'tarif_konsultasi',
         'alamat',
         'email',
         'no_telp',
