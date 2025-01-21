@@ -9,7 +9,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('kunjungan', function (Blueprint $table) {
-            $table->bigInteger('no_kunjungan')->primary();
+            $table->bigInteger('no_kunjungan', unsigned: true)->primary();
 
             $table->uuid('id_kunjungan');
             $table->unsignedTinyInteger('id_poli')->nullable();
