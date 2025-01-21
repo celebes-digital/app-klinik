@@ -14,7 +14,6 @@
                     <p>{{ $kelamin->kelamin == 'male' ? 'Laki-laki' : 'Perempuan' }}</p>
                 @endscope
 
-                {{-- Special `actions` slot --}}
                 @scope('actions', $pasien)
                     {{-- <x-button icon="o-trash" wire:click="delete({{ $pasien->id_pasien }})" spinner class="btn-sm" /> --}}
                     <x-button icon="o-pencil" link="pasien/update/{{ $pasien->id_pasien }}" spinner class="btn-sm" />

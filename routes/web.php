@@ -14,8 +14,9 @@ use App\Livewire\Poli\PoliView;
 use App\Livewire\Profil\ViewProfil;
 
 
-use App\Livewire\RuangPerawatan\Create as RuangPerawatanCreate;
-use App\Livewire\RuangPerawatan\View as RuangPerawatanView;
+// use App\Livewire\RuangPerawatan\Create as RuangPerawatanCreate;
+// use App\Livewire\RuangPerawatan\View as RuangPerawatanView;
+use App\Livewire\Perawatan\View as PerawatanView;
 // Staff
 use App\Livewire\Staff\View as StaffView;
 use App\Livewire\Staff\CreateUpdate as StaffCreateUpdate;
@@ -53,6 +54,6 @@ Route::get('/tenaga-medis/konfigurasi', TenagaMedisKonfigurasi::class);
 // Route::get('/tenaga-medis/update/{id_tenaga_medis}', TenagaMedisUpdate::class);
 
 // FORM RUANG PERAWATAN
-Route::get('/ruang-perawatan', RuangPerawatanView::class);
-Route::get('/ruang-perawatan/create', RuangPerawatanCreate::class);
-Route::get('/ruang-perawatan/update/{id_ruang_perawatan}', RuangPerawatanCreate::class);
+Route::get('/ruangan-perawatan', PerawatanView::class);
+// Route::get('/ruang-perawatan/create', RuangPerawatanCreate::class);
+// Route::get('/ruang-perawatan/update/{id_ruang_perawatan}', RuangPerawatanCreate::class);

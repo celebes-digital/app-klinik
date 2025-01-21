@@ -16,9 +16,8 @@ return new class extends Migration
             $table->unsignedBigInteger('id_ruang_perawatan');
             $table->char('nama', 100); // nama lokasi
             $table->char('status', 50)->nullable(); // status lokasi occupied unocuppied housekeeping dll
-            $table->char('mode', 50)->nullable(); // mode ruangan or kamar 
-            $table->char('pyhsical_type', 20)->nullable(); // site building dll
-            $table->char('managing_organization', 255)->nullable(); // bapak nya
+            $table->char('service_class', 50)->nullable(); // mode ruangan or kamar 
+            $table->char('jumlah_kasur', 20)->nullable(); // site building dll
             $table->timestamps();
 
             $table->foreign('id_ruang_perawatan')->references('id_ruang_perawatan')->on('ruang_perawatan')->onDelete('cascade');
