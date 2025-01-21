@@ -23,7 +23,7 @@ class FormDiagnosis extends Component
     {
         $dataDiagnosis = Diagnosis::where('no_kunjungan', $this->kunjungan->no_kunjungan)->first();
 
-        if ($dataDiagnosis) {
+        if ($dataDiagnosis?->diagnosis) {
             $this->selectedOption = $dataDiagnosis->diagnosis;
         }
 
