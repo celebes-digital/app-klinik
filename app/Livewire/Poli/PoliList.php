@@ -43,9 +43,9 @@ class PoliList extends Component
         $this->success('Detail poliklinik berhasil diperbaharui');
     }
 
-    public function delete($id)
+    public function delete()
     {
-        $this->form->delete($id);
+        $this->form->delete();
         $this->success('Data poliklinik berhasil dihapus');
     }
 
