@@ -78,6 +78,7 @@ class Kamar extends Component
 
     public function addNew()
     {
+        $this->id_kamar = null;
         $this->titleForm = "Input Kamar Perawatan";
         $this->form->setKamar();
     }

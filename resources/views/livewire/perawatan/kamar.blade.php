@@ -39,7 +39,6 @@
                     label="Status" 
                     wire:model="form.status"
                     :options="$status"
-                    required
                     single
                 />
             </div>

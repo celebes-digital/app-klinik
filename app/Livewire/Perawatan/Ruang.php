@@ -30,6 +30,7 @@ class Ruang extends Component
     
     public function addNew()
     {
+        $this->id_ruang = null;
         $this->titleForm = "Input Ruang Perawatan";
         $this->form->setRuang();
     }
