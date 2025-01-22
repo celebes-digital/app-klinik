@@ -10,8 +10,13 @@
             />
         </div>
     </x-slot:headerActions>
+    
     <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-5">
-        <livewire:poli.poli-list />
-        <livewire:poli.poli-store />
+        <div class="lg:col-span-3">
+            <livewire:setting.poli.list-poli />
+        </div>
+        <div class="lg:col-span-2">
+            <livewire:setting.poli.form-poli />
+        </div>
     </div>
 </div>

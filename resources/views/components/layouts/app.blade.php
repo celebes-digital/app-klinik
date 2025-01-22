@@ -48,7 +48,7 @@
 				<x-nav-menu-sub title="Setting" icon="o-cog-8-tooth">
 					<x-menu-item title="Pasien" icon="o-user-plus" link="/pasien" />
 					<x-menu-item title="Profil" icon="o-building-office-2" link="/profil" />
-					<x-menu-item title="Poliklinik" icon="o-building-library" link="/poliklinik" />
+					<x-menu-item title="Poliklinik" icon="o-building-library" link="/setting/poliklinik" />
 					<x-menu-item title="Apotek" icon="o-building-storefront" link="/apotek" />
 					<x-menu-item title="Tenaga Medis" icon="o-user-group" link="/tenaga-medis" />
 					<x-menu-item title="Staff" icon="o-users" link="/staff" />

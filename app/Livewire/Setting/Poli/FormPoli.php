@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Poli;
+namespace App\Livewire\Setting\Poli;
 
 use App\Models\Poliklinik;
 
@@ -11,7 +11,7 @@ use Mary\Traits\Toast;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
-class PoliStore extends Component
+class FormPoli extends Component
 {
     use Toast;
     use WilayahIndonesia;
@@ -45,6 +45,6 @@ class PoliStore extends Component
 
     public function render()
     {
-        return view('livewire.poli.poli-store');
+        return view('livewire.setting.poli.form-poli');
     }
 }

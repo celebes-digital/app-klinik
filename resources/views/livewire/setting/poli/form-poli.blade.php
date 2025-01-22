@@ -1,4 +1,4 @@
-<div class="lg:col-span-2">
+<div>
     <div
         class="w-full p-6 space-y-3 h-fit bg-gray-300/10"
         wire:loading
@@ -40,6 +40,7 @@
             </div>
         
             <x-slot:actions>
+                <x-button wire:click="resetForm" class="btn-warning">Reset</x-button>
                 <x-button type="submit" class="btn-primary">Simpan</x-button>
             </x-slot:actions>
         </x-form>

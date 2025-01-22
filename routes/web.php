@@ -1,8 +1,6 @@
 <?php
 
 use App\Livewire\Antrian\ListAntrian;
-use App\Livewire\Profil;
-use App\Livewire\Profil\Update;
 use App\Livewire\Welcome;
 use Illuminate\Support\Facades\Route;
 
@@ -12,10 +10,10 @@ use App\Livewire\Pasien\Create as PasienCreate;
 use App\Livewire\Pasien\Update as PasienUpdate;
 use App\Livewire\Pemeriksaan\Poliklinik\ViewPemeriksaanPoliklinik;
 use App\Livewire\PenunjangMedis\ListForm;
-use App\Livewire\Poli\PoliView;
 use App\Livewire\Profil\ViewProfil;
 use App\Livewire\Registrasi\Kunjungan\CreateKunjungan;
 use App\Livewire\Registrasi\Kunjungan\ViewKunjungan;
+use App\Livewire\Setting\Poli\ViewPoli;
 use App\Livewire\Setting\TindakanMedis\ViewTindakanMedis;
 // Staff
 use App\Livewire\Staff\View as StaffView;
@@ -28,7 +26,7 @@ Route::get('/', Welcome::class);
 
 Route::get('/profil', ViewProfil::class);
 
-Route::get('/poliklinik', PoliView::class);
+Route::get('/setting/poliklinik', ViewPoli::class);
 
 Route::get('/penunjang-medis', ListForm::class);
 

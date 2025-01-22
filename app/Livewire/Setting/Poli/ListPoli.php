@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Poli;
+namespace App\Livewire\Setting\Poli;
 
 use App\Livewire\Forms\PoliForm;
 use App\Models\Poliklinik;
@@ -9,7 +9,7 @@ use Livewire\Attributes\On;
 use Livewire\Component;
 use Mary\Traits\Toast;
 
-class PoliList extends Component
+class ListPoli extends Component
 {
     use Toast;
     use WilayahIndonesia;
@@ -31,7 +31,7 @@ class PoliList extends Component
 
     public function showDelete(Poliklinik $poli)
     {
-        $this->form->fill($poli);
+        $this->form->setDataPoli($poli);
         $this->showModalDelete = true;
     }
 
@@ -52,7 +52,7 @@ class PoliList extends Component
     #[On('reloadPoliList')]
     public function render()
     {
-        return view('livewire.poli.poli-list', [
+        return view('livewire.setting.poli.list-poli', [
             'poli' => Poliklinik::all()
         ]);
     }

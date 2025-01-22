@@ -2,8 +2,8 @@
     $headers = [
         ['key' => 'no', 'label' => '#', 'class' => 'w-8'],
         ['key' => 'nama_poli', 'label' => 'Nama Poli'],
-        ['key' => 'tarif_dasar', 'label' => 'Tarif Dasar'],
-        ['key' => 'tarif_konsultasi', 'label' => 'Tarif Konsultasi'],
+        ['key' => 'tarif_dasar', 'label' => 'Tarif Dasar', 'format' => ['currency', '0..', 'IDR ']],
+        ['key' => 'tarif_konsultasi', 'label' => 'Tarif Konsultasi', 'format' => ['currency', '0..', 'IDR ']],
         ['key' => 'link', 'label' => 'Link'],
     ];
 @endphp
@@ -35,16 +35,20 @@
                         icon="o-pencil-square" 
                         wire:click="$dispatch('set-poli', { id: {{ $poli->id_poli }}})" 
                         spinner 
-                        class="btn-sm" 
+                        class="btn-sm btn-warning" 
                     />
                     <x-button 
                         icon="o-trash" 
                         wire:click="showDelete({{ $poli->id_poli }})" 
                         spinner 
-                        class="btn-sm" 
+                        class="btn-sm btn-error" 
                     />
                 </div>
             @endscope
+
+            <x-slot:empty>
+                <x-atoms.empty-state label="Belum ada data poliklinik" />
+            </x-slot:empty>
         </x-table>
     </x-card>
 

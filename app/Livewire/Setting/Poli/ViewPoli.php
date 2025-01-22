@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Livewire\Poli;
+namespace App\Livewire\Setting\Poli;
 
 use Livewire\Attributes\On;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 
 #[Title('Poliklinik')]
-class PoliView extends Component
+class ViewPoli extends Component
 {
     public function render()
     {
-        return view('livewire.poli.poli-view');
+        return view('livewire.setting.poli.view-poli');
     }
 }
