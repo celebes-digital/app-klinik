@@ -15,6 +15,7 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.css" />
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/robsontenorio/mary@0.44.2/libs/currency/currency.js"></script>
 	@vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="min-h-screen antialiased bg-base-200/50 dark:bg-base-200">
@@ -47,11 +48,11 @@
 				<x-nav-menu-sub title="Setting" icon="o-cog-8-tooth">
 					<x-menu-item title="Pasien" icon="o-user-plus" link="/pasien" />
 					<x-menu-item title="Profil" icon="o-building-office-2" link="/profil" />
-					<x-menu-item title="Poliklinik" icon="o-building-library" link="/poliklinik" />
+					<x-menu-item title="Poliklinik" icon="o-building-library" link="/setting/poliklinik" />
 					<x-menu-item title="Apotek" icon="o-building-storefront" link="/apotek" />
 					<x-menu-item title="Tenaga Medis" icon="o-user-group" link="/tenaga-medis" />
 					<x-menu-item title="Staff" icon="o-users" link="/staff" />
-					<x-menu-item title="Tindakan Medis" icon="o-scissors" link="/tindakan-medis" />
+					<x-menu-item title="Tindakan Medis" icon="o-scissors" link="/setting/tindakan-medis" />
 					<x-menu-item title="Penunjang Medis" icon="o-beaker" link="/penunjang-medis" />
 					<x-menu-item title="Ruangan Perawatan" icon="o-rectangle-stack" link="/ruangan-perawatan" />
 				</x-nav-menu-sub>

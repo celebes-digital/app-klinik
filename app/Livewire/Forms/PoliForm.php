@@ -5,40 +5,34 @@ namespace App\Livewire\Forms;
 use App\Models\Poliklinik;
 use App\Models\Profil;
 
-use App\Traits\WilayahIndonesia;
-
 use Livewire\Form;
 use Livewire\Attributes\Validate;
 
 class PoliForm extends Form
 {
-    public ?Poliklinik $poli;
+    public ?Poliklinik $poli = null;
 
     #[Validate('required')]
     public $nama_poli       = "";
 
-    #[Validate('required')]
+    public $tarif_dasar     = 0;
+
+    public $tarif_konsultasi = 0;
+
     public $alamat          = "";
 
-    #[Validate('required|email')]
     public $email           = "";
 
-    #[Validate('required|numeric|min:9')]
     public $no_telp         = "";
 
-    #[Validate('required')]
     public $provinsi        = null;
 
-    #[Validate('required')]
     public $kabupaten       = null;
 
-    #[Validate('required')]
     public $kecamatan       = null;
 
-    #[Validate('required')]
     public $kelurahan       = null;
 
-    #[Validate('required')]
     public $kode_pos        = "";
 
 
@@ -46,29 +40,50 @@ class PoliForm extends Form
     {
         $this->poli = $poli;
 
-        $this->fill($poli);
+        $this->fill(
+            $poli->only(['nama_poli', 'tarif_dasar', 'tarif_konsultasi'])
+        );
     }
 
-    public function setLokasiPuskesmas()
+    public function setDetailPoli($poli)
     {
-        $dataLokasi = Profil::first();
-
-        if ($dataLokasi) {
-            $this->fill($dataLokasi);
-            return true;
-        }
-
-        return false;
+        $this->poli = $poli;
+        $this->fill($poli->except(['tarif_dasar', 'tarif_konsultasi']));
     }
 
-    public function store($idPoli)
+    public function store()
     {
         $this->validate();
 
-        if (!$idPoli) {
-            Poliklinik::create($this->all());
+        $data = [
+            'nama_poli'             => $this->nama_poli,
+            'tarif_dasar'           => str_replace('.', '', $this->tarif_dasar),
+            'tarif_konsultasi'      => str_replace('.', '', $this->tarif_konsultasi),
+        ];
+
+        if (!$this->poli) {
+            Poliklinik::create($data);
         } else {
-            $this->poli->update($this->all());
+            $this->poli->update($data);
         }
+    }
+
+    public function updateDetailPoli()
+    {
+        $this->poli->update($this->only([
+            'alamat',
+            'email',
+            'no_telp',
+            'provinsi',
+            'kabupaten',
+            'kecamatan',
+            'kelurahan',
+            'kode_pos',
+        ]));
+    }
+
+    public function delete()
+    {
+        $this->poli->delete();
     }
 }

@@ -11,6 +11,8 @@ return new class extends Migration
         Schema::create('tindakan_medis', function (Blueprint $table) {
             $table->string('kode_tindakan')->primary();
             $table->string('nama_tindakan');
+            $table->unsignedTinyInteger('id_poliklinik')->nullable();
+            $table->foreign('id_poliklinik')->references('id_poli')->on('poliklinik')->nullOnDelete()->nullable();
             $table->unsignedInteger('harga_satuan')->default(0);
             $table->unsignedInteger('harga_dasar')->default(0);
         });
