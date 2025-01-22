@@ -13,11 +13,11 @@ class RuangForm extends Form
     #[Validate('required')]
     public $nama = "";
 
-    public function setRuang(RuangPerawatan $ruangPerawatan)
+    public function setRuang(RuangPerawatan $ruangPerawatan = null)
     {
         $this->ruangPerawatan = $ruangPerawatan;
 
-        $this->nama = $ruangPerawatan->nama;
+        $this->nama = $ruangPerawatan->nama ?? '';
     }
 
     public function store($id_ruang_perawatan)

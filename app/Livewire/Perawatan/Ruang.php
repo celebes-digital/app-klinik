@@ -14,17 +14,24 @@ class Ruang extends Component
 
     public RuangForm $form;
     public $id_ruang;
-
+    public $titleForm = "Input Ruang Perawatan";
 
     #[On('edit-ruang')]
     public function editRuang($id = null)
     {
         $this->id_ruang = $id;
         $ruang = $id ? RuangPerawatan::find($id) : null;
-
+        $this->titleForm = "Update Ruang Perawatan";
+        
         if ($ruang) {
             $this->form->setRuang($ruang);
         }
+    }
+    
+    public function addNew()
+    {
+        $this->titleForm = "Input Ruang Perawatan";
+        $this->form->setRuang();
     }
 
     public function save()

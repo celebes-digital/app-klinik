@@ -26,15 +26,15 @@ class KamarForm extends Form
     #[Validate('required')]
     public $status = "";
 
-    public function setKamar(KamarPerawatan $kamarPerawatan)
+    public function setKamar(KamarPerawatan $kamarPerawatan = null)
     {
         $this->kamarPerawatan = $kamarPerawatan;
 
-        $this->nama                 = $kamarPerawatan->nama;
-        $this->id_ruang_perawatan   = $kamarPerawatan->id_ruang_perawatan;
-        $this->jumlah_kasur         = $kamarPerawatan->jumlah_kasur;
-        $this->service_class        = $kamarPerawatan->service_class;
-        $this->status               = $kamarPerawatan->status;
+        $this->nama                 = $kamarPerawatan->nama ?? '';
+        $this->id_ruang_perawatan   = $kamarPerawatan->id_ruang_perawatan ?? '';
+        $this->jumlah_kasur         = $kamarPerawatan->jumlah_kasur ?? '';
+        $this->service_class        = $kamarPerawatan->service_class ?? '';
+        $this->status               = $kamarPerawatan->status ?? '';
     }
 
     public function store($id_kamar_perawatan)

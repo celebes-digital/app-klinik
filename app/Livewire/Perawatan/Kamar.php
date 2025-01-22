@@ -63,15 +63,23 @@ class Kamar extends Component
             'name' => 'Contaminated'
         ],
     ];
+    public $titleForm = "Input Kamar Perawatan";
 
 
     #[On('edit-kamar')]
     public function editKamar($id = null)
     {
+        $this->titleForm = "Update Kamar Perawatan";
         $this->id_kamar = $id;
         $kamar = $id ? KamarPerawatan::find($id) : '';
 
         $kamar ? $this->form->setKamar($kamar) : '';
+    }
+
+    public function addNew()
+    {
+        $this->titleForm = "Input Kamar Perawatan";
+        $this->form->setKamar();
     }
 
     public function save()
