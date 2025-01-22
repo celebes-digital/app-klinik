@@ -4,19 +4,27 @@ namespace App\Livewire\Forms;
 
 use App\Models\DetailPasien;
 use App\Models\Pasien;
-use App\Traits\WilayahIndonesia;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
 
 class PasienForm extends Form
 {
-    use WilayahIndonesia;
     public ?Pasien          $pasien;
     public ?DetailPasien    $detailPasien;
 
     public $id_pasien = "";
 
     public $no_telp = "";
+
+    public $no_ihs  = "";
+
+    public $provinsi = "";
+
+    public $kabupaten = "";
+
+    public $kecamatan = "";
+
+    public $kelurahan = "";
 
     public $rt = "";
 
@@ -35,32 +43,33 @@ class PasienForm extends Form
 
     public $alamat = "";
 
-    #[Validate('in:Married,Unmarried,Divorced,Widowed')]
-    public $status_nikah = "";
+    #[Validate('in:Annulled,Married,Unmarried,Divorced,Widowed')]
+    public $status_nikah = "Annulled";
 
     public $dataPasien = [];
-    
-    // #[Validate('required')]
+
+    #[Validate('required')]
     public $nama = "";
 
-    // #[Validate('required')]
+    #[Validate('required')]
     public $tempat_lahir = "";
 
-    // #[Validate('required|date')]
+    #[Validate('required|date')]
     public $tgl_lahir;
 
-    // #[Validate('required|digits:16|unique:pasien,nik')]
-    public $nik = "";
+    #[Validate('digits:16|unique:pasien,nik')]
+    public $nik = null;
 
     #[Validate('digits:16')]
     public $nik_ibu = "";
 
     public $no_bpjs = "";
 
-    // #[Validate('required|in:male,female')]
+    #[Validate('required|in:male,female')]
     public $kelamin = "";
 
-    public $lahir_kembar = false;
+    #[Validate('required|in:male,female')]
+    public $lahir_kembar = 0;
 
     public function setPasien(Pasien $pasien)
     {
@@ -81,6 +90,7 @@ class PasienForm extends Form
         $this->detailPasien = $detailPasien;
 
         $this->id_pasien        = $detailPasien->id_pasien;
+        $this->no_ihs           = $detailPasien->no_ihs;
         $this->no_telp          = $detailPasien->no_telp;
         $this->provinsi         = $detailPasien->provinsi;
         $this->kabupaten        = $detailPasien->kabupaten;
@@ -97,39 +107,100 @@ class PasienForm extends Form
         $this->status_nikah     = $detailPasien->status_nikah;
     }
 
-    public function store()
+    public function store($id_pasien)
     {
-        $pasienData = [
-            'nama'          => $this->nama,
-            'tempat_lahir'  => $this->tempat_lahir,
-            'tgl_lahir'     => $this->tgl_lahir,
-            'nik'           => $this->nik,
-            'nik_ibu'       => $this->nik_ibu,
-            'kelamin'       => $this->kelamin,
-            'lahir_kembar'  => $this->lahir_kembar,
-            'no_bpjs'       => $this->no_bpjs,
-        ];
+        if (!$id_pasien) {
+            $validationRules = [
+                'nama'          => 'required',
+                'tempat_lahir'  => 'required',
+                'tgl_lahir'     => 'required|date',
+                'kelamin'       => 'required',
+                'nik'           => $this->nik_ibu ? 'nullable' : 'required|digits:16|unique:pasien,nik',
+                'nik_ibu'       => $this->nik ? 'nullable' : 'required|digits:16',
+                'no_bpjs'       => $this->nik_ibu ? 'nullable' : 'nullable',
+            ];
 
-        $pasien = Pasien::create($pasienData);
+            $this->validate($validationRules);
 
-        $detailPasienData = [
-            'id_pasien'         => $pasien->id_pasien,
-            'no_telp'           => $this->no_telp,
-            'provinsi'          => $this->provinsi,
-            'kabupaten'         => $this->kabupaten,
-            'kecamatan'         => $this->kecamatan,
-            'kelurahan'         => $this->kelurahan,
-            'rt'                => $this->rt,
-            'rw'                => $this->rw,
-            'kode_pos'          => $this->kode_pos,
-            'email'             => $this->email,
-            'pekerjaan'         => $this->pekerjaan,
-            'pendidikan'        => $this->pendidikan,
-            'kewarganegaraan'   => $this->kewarganegaraan,
-            'alamat'            => $this->alamat,
-            'status_nikah'      => $this->status_nikah,
-        ];
+            $pasienData = [
+                'nama'          => $this->nama,
+                'tempat_lahir'  => $this->tempat_lahir,
+                'tgl_lahir'     => $this->tgl_lahir,
+                'nik'           => $this->nik,
+                'nik_ibu'       => $this->nik_ibu,
+                'kelamin'       => $this->kelamin,
+                'lahir_kembar'  => $this->lahir_kembar,
+                'no_bpjs'       => $this->no_bpjs,
+            ];
 
-        DetailPasien::create($detailPasienData);
+            $pasien = Pasien::create($pasienData);
+
+            $detailPasienData = [
+                'id_pasien'       => $pasien->id_pasien,
+                'no_ihs'          => $this->no_ihs,
+                'no_telp'         => $this->no_telp,
+                'provinsi'        => $this->provinsi,
+                'kabupaten'       => $this->kabupaten,
+                'kecamatan'       => $this->kecamatan,
+                'kelurahan'       => $this->kelurahan,
+                'rt'              => $this->rt,
+                'rw'              => $this->rw,
+                'kode_pos'        => $this->kode_pos,
+                'email'           => $this->email,
+                'pekerjaan'       => $this->pekerjaan,
+                'pendidikan'      => $this->pendidikan,
+                'kewarganegaraan' => $this->kewarganegaraan,
+                'alamat'          => $this->alamat,
+                'status_nikah'    => $this->status_nikah,
+            ];
+
+            DetailPasien::create($detailPasienData);
+        } else {
+            $validationRules = [
+                'nama'          => 'required',
+                'tempat_lahir'  => 'required',
+                'tgl_lahir'     => 'required|date',
+                'kelamin'       => 'required',
+                'nik'           => $this->nik_ibu ? 'nullable' : 'required|digits:16|unique:pasien,nik,',
+                'nik_ibu'       => $this->nik ? 'nullable' : 'required|digits:16',
+                'no_bpjs'       => $this->nik_ibu ? 'nullable' : 'nullable',
+            ];
+
+            $this->validate($validationRules);
+
+            $pasienData = [
+                'nama'          => $this->nama,
+                'tempat_lahir'  => $this->tempat_lahir,
+                'tgl_lahir'     => $this->tgl_lahir,
+                'nik'           => $this->nik,
+                'nik_ibu'       => $this->nik_ibu,
+                'kelamin'       => $this->kelamin,
+                'lahir_kembar'  => $this->lahir_kembar,
+                'no_bpjs'       => $this->no_bpjs,
+            ];
+
+            $this->pasien->update($pasienData);
+
+            $detailPasienData = [
+                'id_pasien'       => $id_pasien,
+                'no_ihs'          => $this->no_ihs,
+                'no_telp'         => $this->no_telp,
+                'provinsi'        => $this->provinsi,
+                'kabupaten'       => $this->kabupaten,
+                'kecamatan'       => $this->kecamatan,
+                'kelurahan'       => $this->kelurahan,
+                'rt'              => $this->rt,
+                'rw'              => $this->rw,
+                'kode_pos'        => $this->kode_pos,
+                'email'           => $this->email,
+                'pekerjaan'       => $this->pekerjaan,
+                'pendidikan'      => $this->pendidikan,
+                'kewarganegaraan' => $this->kewarganegaraan,
+                'alamat'          => $this->alamat,
+                'status_nikah'    => $this->status_nikah,
+            ];
+
+            $this->detailPasien->update($detailPasienData);
+        }
     }
 }

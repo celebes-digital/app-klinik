@@ -10,8 +10,15 @@ class TenagaMedisForm extends Form
 {
     public ?TenagaMedis $tenagaMedis;
 
+    public $id_tenaga_medis;
+
+    #[Validate('required')]
+    public $id_poliklinik = [];
+    
     #[Validate('required')]
     public $nama = "";
+
+    public $spesialisasi = "";
 
     #[Validate('required|digits:16|unique:tenaga_medis,nik')]
     public $nik = "";
@@ -33,48 +40,49 @@ class TenagaMedisForm extends Form
 
     #[Validate('required|numeric|digits_between:1,16')]
     public $ihs = "";
+
     public function setTenagaMedis(TenagaMedis $tenagaMedis)
     {
         $this->tenagaMedis  = $tenagaMedis;
 
-        $this->nama         = $tenagaMedis->nama;
-        $this->nik          = $tenagaMedis->nik;
-        $this->alamat       = $tenagaMedis->alamat;
-        $this->no_telp      = $tenagaMedis->no_telp;
-        $this->kelamin      = $tenagaMedis->kelamin;
-        $this->tgl_lahir    = $tenagaMedis->tgl_lahir;
-        $this->no_str       = $tenagaMedis->no_str;
-        $this->ihs          = $tenagaMedis->ihs;
+        $this->id_poliklinik = $tenagaMedis->id_poliklinik;
+        $this->nama          = $tenagaMedis->nama;
+        $this->spesialisasi  = $tenagaMedis->spesialisasi;
+        $this->nik           = $tenagaMedis->nik;
+        $this->alamat        = $tenagaMedis->alamat;
+        $this->no_telp       = $tenagaMedis->no_telp;
+        $this->kelamin       = $tenagaMedis->kelamin;
+        $this->tgl_lahir     = $tenagaMedis->tgl_lahir;
+        $this->no_str        = $tenagaMedis->no_str;
+        $this->ihs           = $tenagaMedis->ihs;
     }
 
-    public function store()
+    public function store($id_tenaga_medis = null)
     {
         $this->validate();
 
-        TenagaMedis::create([
-            'nama'      => $this->nama,
-            'nik'       => $this->nik,
-            'alamat'    => $this->alamat,
-            'no_telp'   => $this->no_telp,
-            'kelamin'   => $this->kelamin,
-            'tgl_lahir' => $this->tgl_lahir,
-            'no_str'    => $this->no_str,
-            'ihs'       => $this->ihs,
+        $tenagaMedis = $id_tenaga_medis
+            ? TenagaMedis::find($id_tenaga_medis)
+            : new TenagaMedis();
+
+        $tenagaMedis->fill([
+            'nama'       => $this->nama,
+            'nik'        => $this->nik,
+            'no_str'     => $this->no_str,
+            'alamat'     => $this->alamat,
+            'tgl_lahir'  => $this->tgl_lahir,
+            'kelamin'    => $this->kelamin,
+            'no_telp'    => $this->no_telp,
+            'ihs'        => $this->ihs,
         ]);
 
+        $tenagaMedis->save();
+
+        if (!empty($this->id_poliklinik)) {
+            $tenagaMedis->poliklinik()->sync($this->id_poliklinik);
+        }
+
         session()->flash('success', 'Data Tenaga Medis berhasil disimpan!');
-        $this->resetForm();
     }
 
-    public function resetForm()
-    {
-        $this->nama         = "";
-        $this->nik          = "";
-        $this->alamat       = "";
-        $this->no_telp      = "";
-        $this->kelamin      = "";
-        $this->tgl_lahir    = "";
-        $this->no_str       = "";
-        $this->ihs          = "";
-    }
 }

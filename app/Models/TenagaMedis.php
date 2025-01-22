@@ -25,4 +25,9 @@ class TenagaMedis extends Model
         'no_telp',
         'ihs',
     ];
+
+    public function poliklinik()
+    {
+        return $this->belongsToMany(Poliklinik::class, 'poliklinik_tenaga_medis', 'id_tenaga_medis', 'id_poliklinik');
+    }
 }

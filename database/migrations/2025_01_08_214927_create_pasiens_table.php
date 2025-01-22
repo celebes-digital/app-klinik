@@ -16,11 +16,11 @@ return new class extends Migration
             $table->string('nama');
             $table->string('tempat_lahir');
             $table->date('tgl_lahir');
-            $table->string('nik')->unique();
-            $table->string('nik_ibu');
+            $table->string('nik')->unique()->nullable();
+            $table->string('nik_ibu')->nullable();
             $table->enum('kelamin', ['male', 'female']);
             $table->boolean('lahir_kembar')->default(false);
-            $table->string('no_bpjs');
+            $table->string('no_bpjs')->nullable();
             $table->uuid('uuid')->unique()->nullable();
             $table->timestamps();
         });

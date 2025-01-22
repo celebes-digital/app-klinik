@@ -3,12 +3,17 @@
 namespace App\Livewire\Pasien;
 
 use App\Livewire\Forms\PasienForm;
+use App\Models\DetailPasien;
+use App\Models\Pasien;
+use App\SatuSehat\FHIR\Prerequisites\Patient;
 use App\Traits\WilayahIndonesia;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Http;
+use Livewire\Attributes\Title;
 use Livewire\Component;
 use Mary\Traits\Toast;
 
+#[Title('Tambah Pasien')]
 class Create extends Component
 {
     use Toast;
@@ -17,6 +22,13 @@ class Create extends Component
     public PasienForm $form;
 
     public $tanggal_format = ['altFormat' => 'm-d-Y'];
+    public $modalIbu       = false;
+    public $dataAnakIbu    = [];
+    public $totalAnakIbu   = '';
+    public $id_pasien;
+    public $apiSatuSehat = "https://api-satusehat-stg.dto.kemkes.go.id/fhir-r4/v1";
+    public $dataAPI;
+    public $dataNikIbuAPI;
 
     public $kelamin = [
         [
@@ -35,7 +47,7 @@ class Create extends Component
 
     public $status_nikah = [
         [
-            'id' => '',
+            'id' => 'Annulled',
             'name' => 'Pilih Status Nikah',
         ],
         [
@@ -58,11 +70,11 @@ class Create extends Component
 
     public $lahir_kembar = [
         [
-            'id' => false,
+            'id' => 0,
             'name' => 'Tidak Kembar',
         ],
         [
-            'id' => true,
+            'id' => 1,
             'name' => 'Kembar'
         ]
     ];
@@ -78,10 +90,16 @@ class Create extends Component
         ]
     ];
 
-    public $apiSatuSehat = "https://api-satusehat-stg.dto.kemkes.go.id/fhir-r4/v1";
+    public function mount($id_pasien = null)
+    {
+        // Cari data staff berdasarkan ID
+        $this->id_pasien = $id_pasien;
+        $pasien          = $id_pasien ? Pasien::find($id_pasien) : '';
+        $detailPasien    = $id_pasien ? DetailPasien::find($id_pasien) : '';
 
-    public $dataAPI;
-    public $dataNikIbuAPI;
+        $pasien         ? $this->form->setPasien($pasien) : '';
+        $detailPasien   ? $this->form->setDetailPasien($detailPasien) : '';
+    }
 
     public function formattedDate($date)
     {
@@ -90,74 +108,63 @@ class Create extends Component
 
     public function getByNGB()
     {
-        $search = $this->form->nama . "&birthdate=" . $this->formattedDate($this->form->tgl_lahir) . "&gender=" . $this->form->kelamin;
-
         if (!$this->form->nama || !$this->form->tgl_lahir || !$this->form->kelamin) {
-            $this->error("Lengkapi Semua Data");
-
+            $this->warning(
+                'Lengkapi data yang diperlukan!',
+                'Nama, jenis kelamin, dan tanggal tahir wajib diisi'
+            );
             return;
         }
 
-        $headers = [
-            'Authorization' => 'Bearer Z3GfQFF03SF7KdrZ4AH1OV9g6Xps',
-            'Accept' => 'application/json',
-        ];
+        $patient = new Patient();
+        $data = $patient->getNGB($this->form->nama, $this->form->tgl_lahir, $this->form->kelamin);
 
-        $this->dataAPI = Http::withHeaders($headers)
-            ->get($this->apiSatuSehat . "/Patient?name=" . $search)
-            ->json();
+        if ($data['nama'] === '') {
+            $this->info('Data pasien tidak ditemukan');
 
-        if ($this->dataAPI) {
-            $resource       = $this->dataAPI['entry'][0]['resource'] ?? '';
-            $resourceAlamat = $resource['address'][0]['extension'][0]['extension'] ?? '';
-
-            // dd($this->dataAPI);
-            $this->form->nama             = $resource['name'][0]['text'] ?? '';
-            $this->form->nik              = $resource['identifier'][0]['value'] ?? '';
-            $this->form->kelamin          = $resource['gender'] ?? '';
-            $this->form->kewarganegaraan  = $resource['extension'][0]['valueCode'] ?? '';
-            $this->form->alamat           = $resource['address'][0]['line'][0] ?? null;
-            $this->form->provinsi         = $resourceAlamat[0]['valueCode'] ?? '';
-            $this->form->kabupaten        = $resourceAlamat[1]['valueCode'] ?? '';
-            $this->form->kecamatan        = $resourceAlamat[2]['valueCode'] ?? '';
-            $this->form->kelurahan        = $resourceAlamat[3]['valueCode'] ?? '';
-            $this->form->rt               = $resourceAlamat[4]['valueCode'] ?? '';
-            $this->form->rw               = $resourceAlamat[5]['valueCode'] ?? '';
-        } else {
-            session()->flash('error', 'No data found for the given Name.');
+            return;
         }
     }
 
     public function getByNikIbu()
     {
-        $nik = $this->form->nik_ibu ?? null;
-        if (!$nik) {
-            $this->error('NIK tidak boleh kosong.');
+        if (!$this->form->nik_ibu) {
+            $this->warning("Lengkapi data NIK ibu!", "NIK ibu wajib diisi");
 
             return;
         }
 
-        $headers = [
-            'Authorization' => 'Bearer Z3GfQFF03SF7KdrZ4AH1OV9g6Xps',
-            'Accept' => 'application/json',
-        ];
+        $this->success("Data ditemukan");
 
-        $this->dataNikIbuAPI = Http::withHeaders($headers)
-            ->get($this->apiSatuSehat . "/Patient?identifier=https://fhir.kemkes.go.id/id/nik-ibu|" . $nik)
-            ->json();
+        $patient = new Patient();
+        $data    = $patient->getNikIbu($this->form->nik_ibu);
+        if ($data['total'] === 0) {
+            $this->info('Tidak ada data yang ditemukan', 'Pastikan NIK ibu benar');
 
-        if ($this->dataNikIbuAPI) {
-            dd($this->dataNikIbuAPI);
-        } else {
-            session()->flash('error', 'No data found for the given NIK.');
+            return;
         }
+        $this->modalIbu = true;
+        $this->dataAnakIbu  = $data ? $data['data'] : '';
+        $this->totalAnakIbu = $data ? $data['total'] : '';
+        $this->form->fill($data);
+    }
+
+    public function selectAnak($id, $name, $birthdate, $kembar)
+    {
+        // dd($id, $name, $birthdate);
+        $this->modalIbu = false;
+
+        $this->success('Data Telah Dipilih.');
+        $this->form->no_ihs         = $id;
+        $this->form->nama           = $name;
+        $this->form->lahir_kembar   = $kembar;
+        $this->form->tgl_lahir      = $birthdate;
     }
 
     public function save()
     {
-        $this->form->store();
+        $this->form->store($this->id_pasien);
 
-        $this->reset();
         $this->success('Data Pasien Telah Disimpan.');
     }
 

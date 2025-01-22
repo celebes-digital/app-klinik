@@ -16,7 +16,21 @@
                     <x-icon name="o-cube" label="It is empty." />
                 </x-slot:empty>
                 @scope('actions', $staff)
-                    <x-button icon="o-pencil" link="staff/create-update /{{ $staff->id_staff }}" spinner class="btn-sm" />
+                    <div class="flex gap-2">
+                        <x-button 
+                            icon="o-pencil-square" 
+                            wire:click="$dispatch('set-staff', { id: {{ $staff->id_staff }}})" 
+                            link="/staff/update/{{ $staff->id_staff }}"
+                            spinner 
+                            class="btn-sm" 
+                        />
+                        <x-button 
+                            icon="o-trash" 
+                            wire:click="delete({{ $staff->id_staff }})" 
+                            spinner 
+                            class="btn-sm" 
+                        />
+                    </div>
                 @endscope
             </x-table>
         </x-card>
