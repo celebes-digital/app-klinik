@@ -21,11 +21,21 @@
                         wire:click="$dispatch('edit-spesialisasi', { id: {{ $item->id_spesialisasi }}})" spinner
                         class="btn-sm" />
 
-                    <x-button icon="o-trash" wire:click="delete({{ $item->id }})" spinner class="btn-sm" />
+                    <x-button icon="o-trash" spinner class="btn-sm"
+                        wire:click="openModalSpesialisasi({{ $item->id_spesialisasi }}, '{{ $item->nama }}')" />
                 </div>
             @endscope
         </x-table>
     </x-card>
+
+    <x-modal wire:model="modalSpesialisasi" class="backdrop-blur">
+        <div>Kamu yakin menghapus data {{ $selectedSpesialisasiNama }} ?</div>
+
+        <x-slot:actions>
+            <x-button label="Batalkan" @click="$wire.modalSpesialisasi = false" />
+            <x-button label="Hapus Data" wire:click="deleteSpesialisasi()" class="btn-primary" />
+        </x-slot:actions>
+    </x-modal>
 
     <div class="col-span-7">
         <x-card>

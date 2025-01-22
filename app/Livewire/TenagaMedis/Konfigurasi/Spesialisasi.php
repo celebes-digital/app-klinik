@@ -20,6 +20,9 @@ class Spesialisasi extends Component
     public $titleForm = "Input Spesialisasi";
     public $perPage = 2;
 
+    public $modalSpesialisasi = false;
+    public $selectedSpesialisasiNama = null;
+    public $selectedSpesialisasiId = null;
 
     public $headers = [
         ['key' => 'no',             'label' => '#'],
@@ -28,6 +31,14 @@ class Spesialisasi extends Component
         ['key' => 'profesi.nama',   'label' => 'Profesi'],
         ['key' => 'actions',   'label' => 'Action'],
     ];
+
+    public function openModalSpesialisasi($id, $nama)
+    {
+        $this->modalSpesialisasi = true;
+
+        $this->selectedSpesialisasiNama = $nama;
+        $this->selectedSpesialisasiId = $id;
+    }
 
     public function addNew()
     {
@@ -53,10 +64,21 @@ class Spesialisasi extends Component
 
         $this->success('Data Spesialisasi Telah Disimpan.');
 
-        $this->dispatch('changes');
+        $this->dispatch('safe-spesialisasi');
     }
 
-    #[On('changes')]
+    public function deleteSpesialisasi()
+    {
+        $this->modalSpesialisasi = false;
+
+        ModelsSpesialisasi::where('id_spesialisasi', $this->selectedSpesialisasiId)->delete();
+
+        $this->dispatch('save-spesialisasi');
+
+        $this->success('Data berhasil Dihapus');
+    }
+
+    #[On('save-spesialisasi')]
     public function render()
     {
         $spesialisasi = ModelsSpesialisasi::paginate(5);

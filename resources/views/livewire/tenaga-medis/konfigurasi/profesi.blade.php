@@ -2,7 +2,7 @@
     <x-card class="col-span-5">
         <x-header title="Daftar Profesi" size="text-xl" />
 
-        <x-table :headers="$headers" :rows="$profesi" striped with-pagination >
+        <x-table :headers="$headers" :rows="$profesi" striped with-pagination>
             <x-slot:empty>
                 <x-icon name="o-cube" label="It is empty." />
             </x-slot:empty>
@@ -13,28 +13,29 @@
 
             @scope('cell_actions', $item)
                 <div class="flex gap-2">
-                    <x-button 
-                        icon="o-pencil-square" 
-                        wire:click="$dispatch('edit-profesi', { id: {{ $item->id_profesi }}})" 
-                        {{-- wire:click="$dispatch('edit-kamar', { id: {{ $item->id_kamar_perawatan }}})"  --}}
-                        spinner 
-                        class="btn-sm" 
-                    />
-                    <x-button 
-                        icon="o-trash" 
-                        wire:click="delete({{ $item->id }})" 
-                        spinner 
-                        class="btn-sm" 
-                    />
+                    <x-button icon="o-pencil-square" wire:click="$dispatch('edit-profesi', { id: {{ $item->id_profesi }}})"
+                        spinner class="btn-sm" />
+
+                    <x-button icon="o-trash" spinner class="btn-sm"
+                        wire:click="openModalProfesi({{ $item->id_profesi }}, '{{ $item->nama }}')" />
                 </div>
             @endscope
         </x-table>
     </x-card>
 
+    <x-modal wire:model="modalProfesi" class="backdrop-blur">
+        <div>Kamu yakin menghapus data {{ $selectedProfesiNama }} ?</div>
+
+        <x-slot:actions>
+            <x-button label="Batalkan" @click="$wire.modalProfesi = false" />
+            <x-button label="Hapus Data" wire:click="deleteProfesi()" class="btn-primary" />
+        </x-slot:actions>
+    </x-modal>
+
     <div class="col-span-7">
         <x-card>
             <x-header :title="$titleForm" size="text-xl">
-                @if($titleForm === 'Update Profesi')
+                @if ($titleForm === 'Update Profesi')
                     <x-slot:actions>
                         <x-button icon="o-plus" label="Tambah" wire:click="addNew()" />
                     </x-slot:actions>
@@ -57,4 +58,4 @@
             </x-form>
         </x-card>
     </div>
-</div>    
+</div>

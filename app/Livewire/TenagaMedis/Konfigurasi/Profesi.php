@@ -17,12 +17,24 @@ class Profesi extends Component
     public $gelar;
     public $perPage = 2;
 
+    public $modalProfesi = false;
+    public $selectedProfesiNama = null;
+    public $selectedProfesiId = null;
+
     public $headers = [
         ['key' => 'no',         'label' => '#'],
         ['key' => 'nama',       'label' => 'Nama'],
         ['key' => 'code',       'label' => 'Kode'],
         ['key' => 'actions',    'label' => 'Action'],
     ];
+
+    public function openModalProfesi($id, $nama)
+    {
+        $this->modalProfesi = true;
+
+        $this->selectedProfesiNama = $nama;
+        $this->selectedProfesiId = $id;
+    }
 
     public function addNew()
     {
@@ -49,9 +61,23 @@ class Profesi extends Component
 
         $this->success('Data Profesi Telah Disimpan.');
 
-        $this->dispatch('changes');
+        $this->dispatch('save-profesi');
+        $this->dispatch('save-spesialisasi');
     }
 
+    public function deleteProfesi()
+    {
+        $this->modalProfesi = false;
+
+        ModelsProfesi::where('id_profesi', $this->selectedProfesiId)->delete();
+
+        $this->dispatch('save-profesi');
+        $this->dispatch('save-spesialisasi');
+
+        $this->success('Data berhasil Dihapus');
+    }
+
+    #[On('save-profesi')]
     public function render()
     {
         $profesi = ModelsProfesi::paginate(5);
