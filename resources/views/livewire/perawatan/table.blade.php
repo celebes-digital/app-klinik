@@ -20,10 +20,14 @@
                     </x-slot:empty>
                     @scope('cell_actions', $item)
                         <div class="flex">
+                            <x-button 
+                                icon="o-pencil-square" 
+                                spinner class="btn-sm" 
+                                wire:click="$dispatch('edit-kamar', { id: {{ $item->id_kamar_perawatan }}})" 
+                            />
                             <x-button icon="o-trash" spinner class="btn-sm" 
                                 wire:click="openModalKamar({{$item->id_kamar_perawatan}}, '{{$item->nama}}')"
                             />
-                            <x-button icon="o-pencil-square" spinner class="btn-sm" wire:click="$dispatch('edit-kamar', { id: {{ $item->id_kamar_perawatan }}})" />
                         </div>
                     @endscope
                 </x-table>
@@ -32,10 +36,10 @@
 
         @scope('cell_actions', $item)
             <div class="flex gap-2">
+                <x-button icon="o-pencil-square" spinner class="btn-sm" wire:click="$dispatch('edit-ruang', { id: {{ $item->id_ruang_perawatan }}})" />
                 <x-button icon="o-trash" spinner class="btn-sm" 
                     wire:click="openModalRuang({{$item->id_ruang_perawatan}}, '{{$item->nama}}')"
                 />
-                <x-button icon="o-pencil-square" spinner class="btn-sm" wire:click="$dispatch('edit-ruang', { id: {{ $item->id_ruang_perawatan }}})" />
             </div>
         @endscope
     </x-table>

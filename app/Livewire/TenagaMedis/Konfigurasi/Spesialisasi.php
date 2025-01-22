@@ -4,6 +4,8 @@ namespace App\Livewire\TenagaMedis\Konfigurasi;
 
 use App\Livewire\Forms\SpesialisForm;
 use App\Models\Profesi;
+use App\Models\Spesialisasi as ModelsSpesialisasi;
+use Livewire\Attributes\On;
 use Livewire\Component;
 use Mary\Traits\Toast;
 
@@ -31,8 +33,15 @@ class Spesialisasi extends Component
         $this->success('Data Spesialisasi Telah Disimpan.');
     }
 
+    #[On('changes')]
     public function render()
     {
-        return view('livewire.tenaga-medis.konfigurasi.spesialisasi');
+        $spesialisasi = ModelsSpesialisasi::paginate(5);
+        $profesi = Profesi::get();
+
+        return view('livewire.tenaga-medis.konfigurasi.spesialisasi', [
+            'spesialisasi' => $spesialisasi,
+            'profesi'      => $profesi,
+        ]);
     }
 }

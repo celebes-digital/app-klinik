@@ -16,18 +16,22 @@ class ProfesiForm extends Form
     #[Validate('required')]
     public $code = "";
 
-    public function setProfesi(Profesi $profesi)
+    public function setProfesi(Profesi $profesi = null)
     {
         $this->profesi = $profesi;
 
-        $this->nama = $profesi->nama;
-        $this->code = $profesi->code;
+        $this->nama = $profesi->nama ?? '';
+        $this->code = $profesi->code ?? '';
     }
 
-    public function store()
+    public function store($id = null)
     {
         $this->validate();
 
-        Profesi::create($this->all());
+        if (!$id) {
+            profesi::create($this->all());
+        } else {
+            $this->profesi->update($this->all());
+        }
     }
 }

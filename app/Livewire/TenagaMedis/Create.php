@@ -49,12 +49,13 @@ class Create extends Component
     {
         $practitioner = new Practitioner();
 
-        if(!$practitioner){
+        if($practitioner){
             // dd($practitioner);
             $this->warning('Data tidak ditemukan');
             
             return;
         }
+
         $this->success('Data ditemukan');
         $data = $practitioner->get($this->form->nik ?? null);
         $this->form->fill($data);

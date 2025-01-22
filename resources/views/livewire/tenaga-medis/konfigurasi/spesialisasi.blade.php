@@ -1,6 +1,4 @@
 @php
-    $spesialisasi = App\Models\Spesialisasi::paginate(5);
-
     $profesi = App\Models\Profesi::get();
 @endphp
 

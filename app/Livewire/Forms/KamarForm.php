@@ -17,13 +17,13 @@ class KamarForm extends Form
     #[Validate('required')]
     public $id_ruang_perawatan = "";
 
-    // #[Validate('required')]
+    #[Validate('required')]
     public $jumlah_kasur = "";
 
-    // #[Validate('required')]
+    #[Validate('required')]
     public $service_class = "";
 
-    // #[Validate('required')]
+    #[Validate('required')]
     public $status = "";
 
     public function setKamar(KamarPerawatan $kamarPerawatan)
@@ -33,7 +33,7 @@ class KamarForm extends Form
         $this->nama                 = $kamarPerawatan->nama;
         $this->id_ruang_perawatan   = $kamarPerawatan->id_ruang_perawatan;
         $this->jumlah_kasur         = $kamarPerawatan->jumlah_kasur;
-        $this->service_class                = $kamarPerawatan->service_class;
+        $this->service_class        = $kamarPerawatan->service_class;
         $this->status               = $kamarPerawatan->status;
     }
 
