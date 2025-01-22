@@ -16,13 +16,13 @@ use App\Livewire\Poli\PoliView;
 use App\Livewire\Profil\ViewProfil;
 use App\Livewire\Registrasi\Kunjungan\CreateKunjungan;
 use App\Livewire\Registrasi\Kunjungan\ViewKunjungan;
+use App\Livewire\Setting\TindakanMedis\ViewTindakanMedis;
 // Staff
 use App\Livewire\Staff\View as StaffView;
 use App\Livewire\Staff\CreateUpdate as StaffCreateUpdate;
 // Tenaga Medis
 use App\Livewire\TenagaMedis\View as TenagaMedisView;
 use App\Livewire\TenagaMedis\Create as TenagaMedisCreate;
-use App\Livewire\TindakanMedis\ListForm as TindakanMedisListForm;
 
 Route::get('/', Welcome::class);
 
@@ -32,7 +32,7 @@ Route::get('/poliklinik', PoliView::class);
 
 Route::get('/penunjang-medis', ListForm::class);
 
-Route::get('/tindakan-medis', TindakanMedisListForm::class);
+Route::get('/setting/tindakan-medis', ViewTindakanMedis::class);
 
 Route::get('/kunjungan', ViewKunjungan::class);
 

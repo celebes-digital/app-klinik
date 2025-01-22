@@ -52,7 +52,7 @@
 					<x-menu-item title="Apotek" icon="o-building-storefront" link="/apotek" />
 					<x-menu-item title="Tenaga Medis" icon="o-user-group" link="/tenaga-medis" />
 					<x-menu-item title="Staff" icon="o-users" link="/staff" />
-					<x-menu-item title="Tindakan Medis" icon="o-scissors" link="/tindakan-medis" />
+					<x-menu-item title="Tindakan Medis" icon="o-scissors" link="/setting/tindakan-medis" />
 					<x-menu-item title="Penunjang Medis" icon="o-beaker" link="/penunjang-medis" />
 					<x-menu-item title="Ruang Perawatan" icon="o-rectangle-stack" link="/ruang-perawatan" />
 					<x-menu-item title="Kamar Perawatan" icon="o-rectangle-group" link="/kamar-perawatan" />

@@ -11,5 +11,10 @@ class TindakanMedis extends Model
     protected $keyType      = 'string';
     public $timestamps      = false;
 
-    protected $fillable = ['kode_tindakan', 'nama_tindakan', 'harga_satuan', 'harga_dasar'];
+    protected $fillable = ['kode_tindakan', 'id_poliklinik', 'nama_tindakan', 'harga_satuan', 'harga_dasar'];
+
+    public function poliklinik()
+    {
+        return $this->belongsTo(Poliklinik::class, 'id_poliklinik', 'id_poli');
+    }
 }
