@@ -15,28 +15,28 @@
                 {{ $loop->index + 1 }}
             @endscope
 
-            {{-- @scope('actions', $spesialisasi)
+            @scope('cell_actions', $item)
                 <div class="flex gap-2">
-                    <x-button 
-                        icon="o-pencil-square" 
-                        wire:click="$dispatch('set-spesialisasi', { id: {{ $spesialisasi->id }}})" 
-                        spinner 
-                        class="btn-sm" 
-                    />
-                    <x-button 
-                        icon="o-trash" 
-                        wire:click="delete({{ $spesialisasi->id }})" 
-                        spinner 
-                        class="btn-sm" 
-                    />
+                    <x-button icon="o-pencil-square"
+                        wire:click="$dispatch('edit-spesialisasi', { id: {{ $item->id_spesialisasi }}})" spinner
+                        class="btn-sm" />
+
+                    <x-button icon="o-trash" wire:click="delete({{ $item->id }})" spinner class="btn-sm" />
                 </div>
-            @endscope --}}
+            @endscope
         </x-table>
     </x-card>
 
     <div class="col-span-7">
         <x-card>
-            <x-header title="Input Spesialisasi" size="text-xl" />
+            <x-header :title="$titleForm" size="text-xl">
+                @if ($titleForm === 'Update Spesialisasi')
+                    <x-slot:actions>
+                        <x-button icon="o-plus" label="Tambah" wire:click="addNew()" />
+                    </x-slot:actions>
+                @endif
+            </x-header>
+
             <x-form wire:submit="save" wire:target.prevent="submit">
                 <div class="grid grid-cols-12 gap-4">
                     <div class="col-span-4">
@@ -46,15 +46,8 @@
                         <x-input label="Kode" wire:model="form.code" />
                     </div>
                     <div class="col-span-4">
-                        <x-choices-offline
-                            label="Profesi"
-                            wire:model="form.id_profesi"
-                            :options="$profesi"
-                            option-value="id_profesi"
-                            option-label="nama"
-                            single
-                            searchable 
-                        />
+                        <x-choices-offline label="Profesi" wire:model="form.id_profesi" :options="$profesi"
+                            option-value="id_profesi" option-label="nama" single searchable />
                     </div>
                 </div>
 
@@ -64,4 +57,4 @@
             </x-form>
         </x-card>
     </div>
-</div>    
+</div>

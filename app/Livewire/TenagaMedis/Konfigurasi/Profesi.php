@@ -26,6 +26,8 @@ class Profesi extends Component
 
     public function addNew()
     {
+        $this->idProfesi = null;
+
         $this->titleForm = "Input Profesi";
 
         $this->form->setProfesi();
@@ -34,7 +36,6 @@ class Profesi extends Component
     #[On('edit-profesi')]
     public function editProfesi($id = null)
     {
-        // dd($id);
         $this->titleForm = "Update Profesi";
         $this->idProfesi = $id;
         $profesi = $id ? ModelsProfesi::find($id) : '';
