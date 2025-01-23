@@ -22,7 +22,6 @@ class ListPoli extends Component
     public function showDetail(Poliklinik $poli)
     {
         if ($poli) {
-            $this->setDataWilayah($poli->provinsi, $poli->kabupaten, $poli->kecamatan);
             $this->form->setDataPoli($poli);
         }
 
