@@ -28,12 +28,6 @@ class ListPoli extends Component
         $this->showModalDetail = true;
     }
 
-    public function showDelete(Poliklinik $poli)
-    {
-        $this->form->setDataPoli($poli);
-        $this->showModalDelete = true;
-    }
-
     public function updateDetail()
     {
         $this->form->updateDetailPoli();
@@ -42,9 +36,9 @@ class ListPoli extends Component
         $this->success('Detail poliklinik berhasil diperbaharui');
     }
 
-    public function delete()
+    public function delete(Poliklinik $poli)
     {
-        $this->form->delete();
+        $poli->delete();
         $this->success('Data poliklinik berhasil dihapus');
     }
 

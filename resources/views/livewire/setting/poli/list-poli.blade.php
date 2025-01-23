@@ -37,11 +37,9 @@
                         spinner 
                         class="btn-sm btn-warning" 
                     />
-                    <x-button 
-                        icon="o-trash" 
-                        wire:click="showDelete({{ $poli->id_poli }})" 
-                        spinner 
-                        class="btn-sm btn-error" 
+                    <x-delete-confirmation 
+                        confirm:delete="delete({{ $poli->id_poli }})" 
+                        :label="$poli->nama_poli"
                     />
                 </div>
             @endscope
@@ -126,11 +124,5 @@
                 <x-button spinner="updateDetail" type="submit" class="btn-primary">Simpan</x-button>
             </x-slot:actions>
         </x-form>
-    </x-modal>
-
-    <x-modal title="Hapus | {{$form->nama_poli}}" wire:model="showModalDelete" class="backdrop-blur">
-        <div class="mb-5">Yakin ingin menghapus data  ini?</div>
-        <x-button label="Batal" @click="$wire.showModalDelete = false" />
-        <x-button label="Hapus" spinner wire:click="delete" class="btn-error" />
     </x-modal>
 </div>
