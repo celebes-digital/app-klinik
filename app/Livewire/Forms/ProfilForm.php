@@ -59,7 +59,7 @@ class ProfilForm extends Form
         $this->kecamatan       = $profil->kecamatan;
         $this->kelurahan       = $profil->kelurahan;
         $this->kode_pos        = $profil->kode_pos;
-        $this->logo            = '/storage/img/' . $profil->logo;
+        $this->logo            = $profil->logo ? '/storage/img/' . $profil->logo : null;
     }
 
     public function store()

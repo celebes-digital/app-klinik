@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Profil;
+namespace App\Livewire\Setting\Profil;
 
 use App\Livewire\Forms\ProfilSatuSehatForm;
 
@@ -28,8 +28,14 @@ class SatuSehat extends Component
         $this->dispatch('set-data-profil');
     }
 
+
+    public function placeholder()
+    {
+        return view('livewire.setting.profil.placeholder', ['type' => 'satu-sehat']);
+    }
+
     public function render()
     {
-        return view('livewire.profil.satu-sehat');
+        return view('livewire.setting.profil.satu-sehat');
     }
 }

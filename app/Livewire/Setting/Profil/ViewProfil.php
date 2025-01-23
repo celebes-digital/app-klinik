@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Livewire\Profil;
+namespace App\Livewire\Setting\Profil;
 
 use App\Models\DataSatuSehat;
+use Livewire\Attributes\Title;
 use Livewire\Component;
 
+#[Title('Profil')]
 class ViewProfil extends Component
 {
     public $selectedTab = 'umum';
@@ -21,7 +23,7 @@ class ViewProfil extends Component
 
     public function render()
     {
-        return view('livewire.profil.view-profil', [
+        return view('livewire.setting.profil.view-profil', [
             'satuSehat'     => $this->satuSehat,
             'selectedTab'   => $this->selectedTab,
         ]);

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Livewire\Profil;
+namespace App\Livewire\Setting\Profil;
 
 use App\Models\Profil;
-use App\Traits\WilayahIndonesia;
 use App\Livewire\Forms\ProfilForm;
-
+use App\Traits\WilayahIndonesia;
+use Illuminate\Support\Facades\Log;
 use Mary\Traits\Toast;
 
 use Livewire\Component;
@@ -15,33 +15,24 @@ use Livewire\WithFileUploads;
 class InformasiUmum extends Component
 {
     use Toast;
-    use WilayahIndonesia;
     use WithFileUploads;
+    use WilayahIndonesia;
 
     public ProfilForm $form;
 
     public function mount()
     {
+        Log::info('Mounting Informasi Umum');
         $profil = Profil::first();
 
         if ($profil) {
             $this->form->setProfil($profil);
-
-            $this->setDataWilayah(
-                $profil->provinsi,
-                $profil->kabupaten,
-                $profil->kecamatan,
-            );
         }
     }
 
     public function placeholder()
     {
-        return <<<'HTML'
-                <div>
-                    Loading...
-                </div>
-            HTML;
+        return view('livewire.setting.profil.placeholder', ['type' => 'informasi-umum']);
     }
 
     #[On('set-data-profil')]
@@ -55,12 +46,11 @@ class InformasiUmum extends Component
     public function save()
     {
         $this->form->store();
-
         $this->success('Data berhasil disimpan.');
     }
 
     public function render()
     {
-        return view('livewire.profil.informasi-umum');
+        return view('livewire.setting.profil.informasi-umum');
     }
 }
