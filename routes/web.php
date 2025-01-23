@@ -9,6 +9,8 @@ use App\Livewire\Pasien\View as PasienView;
 use App\Livewire\Pasien\Create as PasienCreate;
 use App\Livewire\Pasien\Update as PasienUpdate;
 use App\Livewire\Pemeriksaan\Poliklinik\ViewPemeriksaanPoliklinik;
+use App\Livewire\PenunjangMedis\DaftarPemeriksaan;
+use App\Livewire\PenunjangMedis\ItemPemeriksaan;
 use App\Livewire\PenunjangMedis\ListForm;
 use App\Livewire\Profil\ViewProfil;
 use App\Livewire\Registrasi\Kunjungan\CreateKunjungan;
@@ -35,7 +37,10 @@ Route::get('/profil', ViewProfil::class);
 
 Route::get('/setting/poliklinik', ViewPoli::class);
 
+// FORM Penunjang Medis
 Route::get('/penunjang-medis', ListForm::class);
+Route::get('/penunjang-medis/{kode_penunjang}', DaftarPemeriksaan::class);
+Route::get('/penunjang-medis/{kode_penunjang}/{id_daftar_pemeriksaan}', ItemPemeriksaan::class);
 
 Route::get('/setting/tindakan-medis', ViewTindakanMedis::class);
 

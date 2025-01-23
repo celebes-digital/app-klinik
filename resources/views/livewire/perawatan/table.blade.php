@@ -9,7 +9,7 @@
                         ['key' => 'id_kamar_perawatan', 'label' => '#', 'class' => 'hidden'],
                         ['key' => 'nama',               'label' => 'Nama'],
                         ['key' => 'service_class',      'label' => 'Kelas'],
-                        ['key' => 'jumlah_kasur',       'label' => 'Kasur'],
+                        ['key' => 'jumlah_kasur',       'label' => 'Tempat Tidur'],
                         ['key' => 'status',             'label' => 'Status'],
                         ['key' => 'actions',            'label' => 'Aksi'],
                     ];

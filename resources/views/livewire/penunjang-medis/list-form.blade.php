@@ -23,7 +23,7 @@
             @scope('cell_actions', $penunjang_medis)
                 <div class="flex gap-2 w-fit">
                     <x-button 
-                        label="Edit"
+                        {{-- label="Edit" --}}
                         icon="o-pencil-square" 
                         type="button"
                         wire:click="setData('{{ $penunjang_medis->kode_penunjang }}', 'edit')" 
@@ -31,12 +31,20 @@
                         class="font-normal btn-sm btn-warning" 
                     />
                     <x-button 
-                        label="Hapus"
+                        {{-- label="Hapus" --}}
                         type="button"
                         icon="o-trash" 
                         wire:click="delete('{{ $penunjang_medis->kode_penunjang }}')" 
                         spinner 
                         class="font-normal btn-sm btn-error" 
+                    />
+                    <x-button 
+                        {{-- label="Detail" --}}
+                        type="button"
+                        icon="o-arrow-down-on-square" 
+                        link="penunjang-medis/{{ $penunjang_medis->kode_penunjang }}"
+                        spinner 
+                        class="font-normal btn-sm btn-info" 
                     />
                 </div>
             @endscope

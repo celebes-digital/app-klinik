@@ -23,7 +23,7 @@
                 <x-input label="Nama" wire:model="form.nama" required />
             </div>
             <div class="col-span-4">
-                <x-input label="Jumlah Kasur" wire:model="form.jumlah_kasur" required />
+                <x-input label="Jumlah Tempat Tidur" wire:model="form.jumlah_kasur" required />
             </div>
             <div class="col-span-4">
                 <x-choices 
