@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\Pemeriksaan\Laboratorium\CreatePemeriksaan as PemeriksaanLaboratorium;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\Settings\Apotik\CreateObat;
 use App\Livewire\Settings\Apotik\EditObat;
@@ -28,4 +29,11 @@ Route::prefix('settings')->group( function () {
 		Route::get('/tambah-obat', CreateObat::class);
 		Route::get('/stok-obat/{stok}', UpdateStokObat::class);
 	});
+});
+
+Route::prefix('pemeriksaan')->group( function () {
+		Route::get('/laboratorium/create', PemeriksaanLaboratorium::class);
+		// Route::get('/radiologi', ViewDaftarObat::class);
+		// Route::get('/poliklinik', ViewDaftarObat::class);
+		// Route::get('/poliklinik', ViewDaftarObat::class);
 });

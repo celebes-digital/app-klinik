@@ -3,6 +3,7 @@
 namespace App\Livewire\Settings\Apotik;
 
 use App\Models\HistoriStokObat;
+use App\Models\Obat;
 use Livewire\Component;
 use App\Models\StokObat;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -14,12 +15,16 @@ class ListStokObat extends Component
 	use WithPagination;
 
 	public $cardTitle	= 'Histori Restok Obat';
-	public $filter		= '';
+	public $namaObat 	= '';
+	public $stokObat	= '';
 	public $id_obat		= '';
 
 	public function mount(StokObat $stok)
 	{
-		$this->id_obat = $stok->id_obat;
+		$obat = Obat::where('id_obat', $stok->id_obat)->first();
+		$this->id_obat	= $stok->id_obat;
+		$this->namaObat = $obat->nama_obat;
+		$this->stokObat = $stok->stok . ' ' . $obat->satuan;
 	}
 
 	#[On('update-stok')]

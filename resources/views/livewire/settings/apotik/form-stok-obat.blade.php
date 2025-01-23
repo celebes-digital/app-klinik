@@ -1,7 +1,16 @@
 <div>
 
 	<x-card title="{{ $cardTitle }}" separator shadow progress-indicator>
-		<x-alert title="Harap diperhatikan, jumlah stok dimasukkan menggunakan satuan terkecil obat" icon="o-exclamation-triangle" shadow class="mb-5" />
+		<x-alert
+			title="Harap Diperhatikan!"
+			icon="o-exclamation-triangle"
+			class="mb-5 bg-amber-200 text-xl"
+			shadow
+		>
+			<x-slot:description>
+				<span class="text-base">Jumlah stok dimasukkan menggunakan satuan terkecil obat</span>
+			</x-slot:description>
+		</x-alert>
 
 		<x-form wire:submit="save" class="space-y-2">
 
@@ -33,7 +42,7 @@
 			<div class="md:grid md:grid-cols-1">
 				<x-textarea
 					label="Keterangan"
-					wire:model="keterangan"
+					wire:model="form.keterangan"
 					placeholder="..."
 					hint="Max 1000 chars"
 					rows="2"
