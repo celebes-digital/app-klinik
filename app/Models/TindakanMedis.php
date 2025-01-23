@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class TindakanMedis extends Model
 {
+    use HasFactory;
+
     protected $table        = 'tindakan_medis';
     protected $primaryKey   = 'kode_tindakan';
     protected $keyType      = 'string';
