@@ -13,10 +13,14 @@
         title="Daftar Poliklinik" 
         class="h-fit"
     >
-        <x-table :headers="$headers" :rows="$poli">
+        <x-table 
+            :headers="$headers" 
+            :rows="$poli"
+            with-pagination
+        >
     
             @scope('cell_no', $poli)
-                {{ $loop->index + 1 }}
+                {{ ($this->getPage() - 1) * $this->perPage + $loop->index + 1 }}
             @endscope
 
             @scope('cell_link', $poli)
