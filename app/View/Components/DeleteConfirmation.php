@@ -37,7 +37,6 @@ class DeleteConfirmation extends Component
                             open: false,
 
                             deleteData() {
-                            console.log('Delete data');
                                 $wire.{{$functionDelete()}};
                                 open = false;
                             }
