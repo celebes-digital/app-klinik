@@ -3,7 +3,6 @@
 namespace App\Livewire\Setting\TindakanMedis;
 
 use App\Models\TindakanMedis;
-use App\Livewire\Forms\TindakanMedisForm;
 
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -16,24 +15,11 @@ class ListTindakanMedis extends Component
     use Toast;
     use WithPagination;
 
-    public TindakanMedisForm $form;
-
     public $perPage = 10;
 
-    public $showModalDelete = false;
-
-    public function showDeleteConfirmation($id)
+    public function delete(TindakanMedis $tindakanMedis)
     {
-        $this->showModalDelete      = true;
-        $this->form->tindakanMedis  = TindakanMedis::where('kode_tindakan', $id)->first();
-    }
-
-    public function delete()
-    {
-        $this->form->delete();
-        $this->success('Data berhasil dihapus');
-
-        $this->showModalDelete = false;
+        $tindakanMedis->delete();
         $this->success('Data berhasil dihapus');
     }
 
