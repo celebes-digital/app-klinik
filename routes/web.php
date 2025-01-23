@@ -7,9 +7,7 @@ use Illuminate\Support\Facades\Route;
 // Pasien
 use App\Livewire\Pasien\View as PasienView;
 use App\Livewire\Pasien\Create as PasienCreate;
-use App\Livewire\Pasien\Update as PasienUpdate;
 use App\Livewire\Pemeriksaan\Poliklinik\ViewPemeriksaanPoliklinik;
-use App\Livewire\PenunjangMedis\ListForm;
 use App\Livewire\Registrasi\Kunjungan\CreateKunjungan;
 use App\Livewire\Registrasi\Kunjungan\ViewKunjungan;
 use App\Livewire\Setting\Poli\ViewPoli;
@@ -19,6 +17,7 @@ use App\Livewire\Setting\TindakanMedis\ViewTindakanMedis;
 // use App\Livewire\RuangPerawatan\Create as RuangPerawatanCreate;
 // use App\Livewire\RuangPerawatan\View as RuangPerawatanView;
 use App\Livewire\Perawatan\View as PerawatanView;
+use App\Livewire\Setting\PenunjangMedis\ViewPenunjangMedis;
 use App\Livewire\Setting\Profil\ViewProfil;
 // Staff
 use App\Livewire\Staff\View as StaffView;
@@ -34,7 +33,7 @@ Route::get('/setting/profil', ViewProfil::class);
 
 Route::get('/setting/poliklinik', ViewPoli::class);
 
-Route::get('/penunjang-medis', ListForm::class);
+Route::get('/setting/penunjang-medis', ViewPenunjangMedis::class);
 
 Route::get('/setting/tindakan-medis', ViewTindakanMedis::class);
 

@@ -35,9 +35,4 @@ class PenunjangMedisForm extends Form
             $this->reset();
         }
     }
-
-    public function delete(string $id)
-    {
-        PenunjangMedis::where('kode_penunjang', $id)->delete();
-    }
 }

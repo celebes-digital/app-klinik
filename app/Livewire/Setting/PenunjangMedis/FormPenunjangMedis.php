@@ -1,24 +1,27 @@
 <?php
 
-namespace App\Livewire\PenunjangMedis;
+namespace App\Livewire\Setting\PenunjangMedis;
 
 use App\Livewire\Forms\PenunjangMedisForm;
-use Livewire\Attributes\Title;
+
 use Livewire\Component;
+use Livewire\Attributes\On;
+
 use Mary\Traits\Toast;
 
-#[Title('Penunjang Medis')]
-class ListForm extends Component
+class FormPenunjangMedis extends Component
 {
     use Toast;
     public PenunjangMedisForm $form;
 
+    #[On('set-data')]
     public function setData($id)
     {
         $this->form->setPenunjangMedis($id);
         $this->form->resetValidation();
     }
 
+    #[On('reset-form')]
     public function resetForm()
     {
         $this->form->reset();
@@ -28,21 +31,14 @@ class ListForm extends Component
     public function save()
     {
         $this->form->store();
-
         $this->success('Data berhasil disimpan');
-    }
 
-    public function delete($id)
-    {
-        $this->form->delete($id);
-
-        $this->success('Data berhasil dihapus');
+        $this->resetForm();
+        $this->dispatch('reload-penunjang-medis-list');
     }
 
     public function render()
     {
-        return view('livewire.penunjang-medis.list-form', [
-            'penunjang_medis' => \App\Models\PenunjangMedis::all(),
-        ]);
+        return view('livewire.setting.penunjang-medis.form-penunjang-medis');
     }
 }

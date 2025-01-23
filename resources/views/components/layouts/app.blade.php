@@ -53,7 +53,7 @@
 					<x-menu-item title="Tenaga Medis" icon="o-user-group" link="/tenaga-medis" />
 					<x-menu-item title="Staff" icon="o-users" link="/staff" />
 					<x-menu-item title="Tindakan Medis" icon="o-scissors" link="/setting/tindakan-medis" />
-					<x-menu-item title="Penunjang Medis" icon="o-beaker" link="/penunjang-medis" />
+					<x-menu-item title="Penunjang Medis" icon="o-beaker" link="/setting/penunjang-medis" />
 					<x-menu-item title="Ruangan Perawatan" icon="o-rectangle-stack" link="/ruangan-perawatan" />
 				</x-nav-menu-sub>
 			</x-menu>
