@@ -12,9 +12,8 @@ class ItemPemeriksaan extends Model
 
     protected $fillable = [
         'id_daftar_pemeriksaan',
+        'code',
         'nama',
-        'loinc_display',
-        'loinc_code',
         'satuan',
         'harga_dasar',
         'harga_pemeriksaan',

@@ -20,21 +20,21 @@
         </x-table>
     </x-card>
     <x-card class="col-span-5">
-        <x-header :title="$titleForm" size="text-xl">
+        <x-header :title="$titleForm" :subtitle="$subTitleForm" size="text-xl">
         </x-header>
 
         <x-form wire:target="submit" wire:submit.prevent="save">
             <div class="grid grid-cols-12 gap-4">
+                <div class="col-span-12">
+                    <x-input label="Nama Pemeriksaan" wire:model="form.nama" />
+                </div>
+
                 <div class="col-span-8">
-                    <x-input label="Item Pemeriksaan" wire:model="form.nama" required />
+                    <x-input label="Item Pemeriksaan" wire:model="form.nama" hint="Isi jika nama pemeriksaan tidak di temukan" />
                 </div>
 
                 <div class="col-span-4">
                     <x-input label="Satuan" wire:model="form.satuan" />
-                </div>
-
-                <div class="col-span-12">
-                    <x-input label="Nama Pemeriksaan" wire:model="form.nama" />
                 </div>
 
                 <div class="col-span-6">

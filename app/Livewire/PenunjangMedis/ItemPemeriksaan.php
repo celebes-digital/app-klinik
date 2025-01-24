@@ -19,10 +19,13 @@ class ItemPemeriksaan extends Component
     public $perPage = 5;
     public $data_daftar_pemeriksaan;
     public $titleForm = "";
+    public $subTitleForm = "";
     public $headers = [
         ['key' => 'id', 'label' => '#'],
-        ['key' => 'nama', 'label' => 'Pemeriksaan'],
-        ['key' => 'keterangan', 'label' => 'Keterangan'],
+        ['key' => 'nama', 'label' => 'Item Pemeriksaan'],
+        ['key' => 'keterangan', 'label' => 'Harga Dasar'],
+        ['key' => 'keterangan', 'label' => 'Harga Pemeriksaan'],
+        ['key' => 'keterangan', 'label' => 'Note'],
         ['key' => 'actions', 'label' => 'Actions'],
     ];
 
@@ -30,6 +33,8 @@ class ItemPemeriksaan extends Component
     {
         $this->data_daftar_pemeriksaan = DaftarPemeriksaan::find($id_daftar_pemeriksaan);
 
+
+        $this->subTitleForm = $this->data_daftar_pemeriksaan->nama;
         $this->titleForm = "Data Item Pemeriksaan ";
     }
 
