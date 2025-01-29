@@ -13,17 +13,20 @@ return new class extends Migration
     {
         Schema::create('item_pemeriksaan', function (Blueprint $table) {
             $table->id('id_item_pemeriksaan');
-            $table->string('code');
-            $table->string('nama', 255);
-            $table->string('satuan', 20)->nullable();
+            $table->unsignedBigInteger('id_daftar_pemeriksaan');
+            $table->string('code', 1000)->nullable();
+            $table->string('nama_pemeriksaan', 255);
+            $table->string('permintaan_hasil', 20)->nullable();
+            $table->string('satuan', 100)->nullable();
+            $table->string('display', 1000)->nullable();
             $table->string('harga_dasar', 50)->nullable();
             $table->string('harga_pemeriksaan', 50)->nullable();
-            $table->text('note')->nullable();
+            $table->text('note', 200)->nullable();
             $table->timestamps();
 
-            $table->foreign('code')
-                ->references('code')
-                ->on('loinc')
+            $table->foreign('id_daftar_pemeriksaan')
+                ->references('id_daftar_pemeriksaan')
+                ->on('daftar_pemeriksaan')
                 ->onDelete('cascade');
         });
     }
@@ -34,7 +37,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('item_pemeriksaan', function (Blueprint $table) {
-            $table->dropForeign(['code']);
+            $table->dropForeign(['id_daftar_pemeriksaan']);
         });
 
         Schema::dropIfExists('item_pemeriksaan');

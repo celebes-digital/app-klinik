@@ -62,7 +62,7 @@ class DaftarPemeriksaan extends Component
 
     public function render()
     {
-        $daftar_pemeriksaan = ModelsDaftarPemeriksaan::paginate($this->perPage);
+        $daftar_pemeriksaan = ModelsDaftarPemeriksaan::where('kode_penunjang', $this->form->kode_penunjang)->paginate($this->perPage);
     
         return view('livewire.penunjang-medis.daftar-pemeriksaan', [
             'daftar_pemeriksaan' => $daftar_pemeriksaan,

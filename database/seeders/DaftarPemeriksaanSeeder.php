@@ -2,27 +2,26 @@
 
 namespace Database\Seeders;
 
-use App\Models\TerminologiLoinc;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\DaftarPemeriksaan;
 use Illuminate\Database\Seeder;
 
-class TerminologiLoincSeeder extends Seeder
+class DaftarPemeriksaanSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        // TerminologiLoinc::query()->delete();
+        // Hapus data lama
+        DaftarPemeriksaan::query()->delete();
 
         // Daftar file dan kolom mana yang digunakan untuk setiap kolom database
         $files = [
             [
-                'path' => base_path('database/data/Terminologi_Radiologi_Gigi.csv'),
+                'path' => base_path('database/data/kategori_loinc_laboratorium.csv'),
                 'columns' => [
-                    'code'              => 4,
-                    'nama_pemeriksaan'  => 2,
-                    'display'           => 5,
+                    'id_daftar_pemeriksaan' => 0,
+                    'nama'                  => 1,
                 ],
             ],
         ];
@@ -40,15 +39,13 @@ class TerminologiLoincSeeder extends Seeder
 
                 // Ambil data sesuai konfigurasi kolom
                 $data = [
-                    'code'              => $row[$fileConfig['columns']['code']] ?? null,
-                    'nama_pemeriksaan'  => $row[$fileConfig['columns']['nama_pemeriksaan']] ?? null,
-                    'display'           => $row[$fileConfig['columns']['display']] ?? null,
+                    'id_daftar_pemeriksaan' => $row[$fileConfig['columns']['id_daftar_pemeriksaan']] ?? null,
+                    'kode_penunjang'        => 'LAB00000', // Nilai tetap
+                    'nama'                  => $row[$fileConfig['columns']['nama']] ?? null,
                 ];
 
                 // Periksa jika kode sudah ada, jika tidak, tambahkan ke database
-                // if (!TerminologiLoinc::where('code', $data['code'])->exists()) {
-                //     TerminologiLoinc::create($data);
-                // }
+                DaftarPemeriksaan::create($data);
             }
 
             fclose($file);

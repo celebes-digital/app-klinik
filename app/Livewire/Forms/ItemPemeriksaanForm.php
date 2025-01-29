@@ -13,13 +13,13 @@ class ItemPemeriksaanForm extends Form
     public $id_daftar_pemeriksaan;
 
     #[Validate('required')]
-    public $nama = '';
-
-    public $loinc_display = '';
-
-    public $loinc_code = '';
+    public $nama_pemeriksaan = '';
+    
+    public $permintaan_hasil = '';
 
     public $satuan = '';
+
+    public $code = '';
 
     public $harga_dasar = null;
 
@@ -32,9 +32,9 @@ class ItemPemeriksaanForm extends Form
         $this->item_pemeriksaan = $item_pemeriksaan;
 
         $this->id_daftar_pemeriksaan = $item_pemeriksaan->id_daftar_pemeriksaan;
-        $this->nama                  = $item_pemeriksaan->nama;
-        $this->loinc_display         = $item_pemeriksaan->loinc_display;
-        $this->loinc_code            = $item_pemeriksaan->loinc_code;
+        $this->nama_pemeriksaan      = $item_pemeriksaan->nama_pemeriksaan;
+        $this->code                  = $item_pemeriksaan->code;
+        $this->permintaan_hasil      = $item_pemeriksaan->permintaan_hasil;
         $this->satuan                = $item_pemeriksaan->satuan;
         $this->harga_dasar           = $item_pemeriksaan->harga_dasar;
         $this->harga_pemeriksaan     = $item_pemeriksaan->harga_pemeriksaan;

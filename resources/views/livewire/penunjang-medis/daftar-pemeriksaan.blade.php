@@ -3,7 +3,9 @@
         <x-header title="Daftar Pemeriksaan" size="text-xl">
         </x-header>
 
-        <x-table :headers="$headers" :rows="$daftar_pemeriksaan" striped @row-click="alert($event.detail.name)">
+        <x-table :headers="$headers" :rows="$daftar_pemeriksaan" striped @row-click="alert($event.detail.name)" with-pagination
+            
+        >
             @scope('cell_actions', $item)
                 <div class="flex gap-2">
                     <x-button icon="o-pencil-square" spinner class="btn-sm btn-warning" 
