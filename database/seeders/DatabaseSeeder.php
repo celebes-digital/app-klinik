@@ -29,18 +29,6 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        // Wajib diseed
-        // ! php artisan migrate:fresh --seed
-        // ! php artisan db:seed --class=DaftarPemeriksaanSeeder
-        // PenunjangMedis::factory()->laboratorum()->create();
-        // PenunjangMedis::factory()->radiologi()->create();
-        // ! Command diatas 
-        // ! php artisan db:seed
-
-        DaftarPemeriksaan::factory()->radiologi()->create();
-        DaftarPemeriksaan::factory()->radiologiGigi()->create();
-        DaftarPemeriksaan::factory()->kedokteranNuklir()->create();
-
         // PasienFactory::new()->count(10)->create();
         // DetailPasienFactory::new()->count(10)->create();
         // StaffFactory::new()->count(10)->create();

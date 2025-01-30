@@ -2,6 +2,7 @@
     <x-table :headers="$headers" :rows="$ruangPerawatan" wire:model="expanded" expandable-key="id_ruang_perawatan" expandable with-pagination>
         @scope('expansion', $item)
             <div class="bg-base-200 p-8 font-bold">
+
                 @php
                     $kamarList = \App\Models\KamarPerawatan::where('id_ruang_perawatan', $item->id_ruang_perawatan)->get();
 
@@ -11,22 +12,28 @@
                         ['key' => 'service_class',      'label' => 'Kelas'],
                         ['key' => 'jumlah_kasur',       'label' => 'Tempat Tidur'],
                         ['key' => 'status',             'label' => 'Status'],
-                        ['key' => 'actions',            'label' => 'Aksi'],
+                        ['key' => 'actions',            'label' => 'Actions'],
                     ];
                 @endphp
+
                 <x-table :headers="$headersKamar" :rows="$kamarList">
                     <x-slot:empty>
                         <x-icon name="o-cube" label="Data Kosong." />
                     </x-slot:empty>
+                    @scope('cell_status', $item)
+                        <x-badge :value="$item->status" :class="$item->status == 'Unoccupied' ? 'badge-primary' : ($item->status == 'Occupied' ? 'badge-error' : 'badge-warning')" />
+                    @endscope
                     @scope('cell_actions', $item)
-                        <div class="flex">
+                        <div class="flex gap-2">
                             <x-button 
                                 icon="o-pencil-square" 
-                                spinner class="btn-sm" 
+                                spinner class="btn-sm btn-warning" 
                                 wire:click="$dispatch('edit-kamar', { id: {{ $item->id_kamar_perawatan }}})" 
+                                tooltip="Edit"
                             />
-                            <x-button icon="o-trash" spinner class="btn-sm" 
+                            <x-button icon="o-trash" spinner class="btn-sm btn-error" 
                                 wire:click="openModalKamar({{$item->id_kamar_perawatan}}, '{{$item->nama}}')"
+                                tooltip="Delete"
                             />
                         </div>
                     @endscope
@@ -36,8 +43,8 @@
 
         @scope('cell_actions', $item)
             <div class="flex gap-2">
-                <x-button icon="o-pencil-square" spinner class="btn-sm" wire:click="$dispatch('edit-ruang', { id: {{ $item->id_ruang_perawatan }}})" />
-                <x-button icon="o-trash" spinner class="btn-sm" 
+                <x-button icon="o-pencil-square" spinner class="btn-sm btn-warning" tooltip="Edit" wire:click="$dispatch('edit-ruang', { id: {{ $item->id_ruang_perawatan }}})" />
+                <x-button icon="o-trash" spinner class="btn-sm btn-error" tooltip="Delete" 
                     wire:click="openModalRuang({{$item->id_ruang_perawatan}}, '{{$item->nama}}')"
                 />
             </div>

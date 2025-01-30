@@ -22,25 +22,25 @@ class PenunjangMedisFactory extends Factory
         ];
     }
 
-    /**
-     * State for LABORATORIUM.
-     */
-    public function laboratorum(): self
-    {
-        return $this->state(fn(array $attributes) => [
-            'kode_penunjang' => 'LAB00000',
-            'nama_penunjang' => 'LABORATORIUM',
-        ]);
-    }
+    // /**
+    //  * State for LABORATORIUM.
+    //  */
+    // public function laboratorum(): self
+    // {
+    //     return $this->state(fn(array $attributes) => [
+    //         'kode_penunjang' => 'LAB00000',
+    //         'nama_penunjang' => 'LABORATORIUM',
+    //     ]);
+    // }
 
-    /**
-     * State for RADIOLOGI.
-     */
-    public function radiologi(): self
-    {
-        return $this->state(fn(array $attributes) => [
-            'kode_penunjang' => 'RAD00000',
-            'nama_penunjang' => 'RADIOLOGI',
-        ]);
-    }
+    // /**
+    //  * State for RADIOLOGI.
+    //  */
+    // public function radiologi(): self
+    // {
+    //     return $this->state(fn(array $attributes) => [
+    //         'kode_penunjang' => 'RAD00000',
+    //         'nama_penunjang' => 'RADIOLOGI',
+    //     ]);
+    // }
 }

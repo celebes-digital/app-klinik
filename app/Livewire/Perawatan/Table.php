@@ -27,7 +27,7 @@ class Table extends Component
         $this->headers = [
             ['key' => 'id_ruang_perawatan', 'label' => '#', 'class' => 'hidden'],
             ['key' => 'nama', 'label' => 'Nama'],
-            ['key' => 'actions', 'label' => 'Aksi'],
+            ['key' => 'actions', 'label' => 'Action'],
         ];
     }
 
@@ -69,6 +69,7 @@ class Table extends Component
     public function render()
     {
         $ruangPerawatan = RuangPerawatan::paginate($this->perPage);
+        
 
         return view('livewire.perawatan.table', [
             'ruangPerawatan' => $ruangPerawatan,

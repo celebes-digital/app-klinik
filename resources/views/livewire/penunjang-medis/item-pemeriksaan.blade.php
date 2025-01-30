@@ -1,6 +1,6 @@
 <div class="grid grid-cols-12 gap-8">
     <x-card class="col-span-12">
-        <x-header title="Daftar Pemeriksaan" size="text-xl">
+        <x-header title="Daftar Item Pemeriksaan" size="text-xl">
             <x-slot:middle class="!justify-end">
                 <x-input icon="o-magnifying-glass" wire:model="search" placeholder="Search..." wire:keydown.enter="$dispatch('search')" />
             </x-slot:middle>

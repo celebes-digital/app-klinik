@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\DaftarPemeriksaan;
+use App\Models\PenunjangMedis;
 use Illuminate\Database\Seeder;
 
 class DaftarPemeriksaanSeeder extends Seeder
@@ -26,6 +27,36 @@ class DaftarPemeriksaanSeeder extends Seeder
             ],
         ];
 
+        // Seeder Penunjang Medis
+        PenunjangMedis::create([
+            'kode_penunjang' => 'LAB00000',
+            'nama_penunjang' => 'LABORATORIUM',
+        ]);
+
+        PenunjangMedis::create([
+            'kode_penunjang' => 'RAD00000',
+            'nama_penunjang' => 'RADIOLOGI',
+        ]);
+
+        DaftarPemeriksaan::create([
+            'id_daftar_pemeriksaan' => '44',
+            'kode_penunjang'        => 'RAD00000', // Nilai tetap
+            'nama'                  => 'Radiologi',
+            'keterangan'            => '',
+        ]);
+        DaftarPemeriksaan::create([
+            'id_daftar_pemeriksaan' => '45',
+            'kode_penunjang'        => 'RAD00000', // Nilai tetap
+            'nama'                  => 'Radiologi Gigi',
+            'keterangan'            => '',
+        ]);
+        DaftarPemeriksaan::create([
+            'id_daftar_pemeriksaan' => '46',
+            'kode_penunjang'        => 'RAD00000', // Nilai tetap
+            'nama'                  => 'Kedokteran Nuklir',
+            'keterangan'            => '',
+        ]);
+
         // Proses setiap file
         foreach ($files as $fileConfig) {
             $file = fopen($fileConfig['path'], 'r');
@@ -44,7 +75,6 @@ class DaftarPemeriksaanSeeder extends Seeder
                     'nama'                  => $row[$fileConfig['columns']['nama']] ?? null,
                 ];
 
-                // Periksa jika kode sudah ada, jika tidak, tambahkan ke database
                 DaftarPemeriksaan::create($data);
             }
 

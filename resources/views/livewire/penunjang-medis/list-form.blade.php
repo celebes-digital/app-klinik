@@ -27,6 +27,7 @@
                         icon="o-pencil-square" 
                         type="button"
                         wire:click="setData('{{ $penunjang_medis->kode_penunjang }}', 'edit')" 
+                        tooltip="Edit"
                         spinner 
                         class="font-normal btn-sm btn-warning" 
                     />
@@ -35,6 +36,7 @@
                         type="button"
                         icon="o-trash" 
                         wire:click="delete('{{ $penunjang_medis->kode_penunjang }}')" 
+                        tooltip="Delete"
                         spinner 
                         class="font-normal btn-sm btn-error" 
                     />
@@ -43,6 +45,7 @@
                         type="button"
                         icon="o-arrow-down-on-square" 
                         link="penunjang-medis/{{ $penunjang_medis->kode_penunjang }}"
+                        tooltip="Daftar Pemeriksaan"
                         spinner 
                         class="font-normal btn-sm btn-info" 
                     />

@@ -81,10 +81,6 @@ class ItemPemeriksaan extends Component
         $this->modal = true;
         $this->form->setItemPemeriksaan(ModelsItemPemeriksaan::find($id));
 
-        // dd(ModelsItemPemeriksaan::find($id));
-
-        // dd($id);
-        // dd($this->form);
     }
 
     #[On('search')]
