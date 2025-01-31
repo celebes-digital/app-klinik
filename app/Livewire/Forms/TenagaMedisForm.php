@@ -12,7 +12,6 @@ class TenagaMedisForm extends Form
 
     public $id_tenaga_medis;
 
-    #[Validate('required')]
     public $id_poliklinik = [];
     
     #[Validate('required')]

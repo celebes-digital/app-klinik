@@ -13,7 +13,7 @@ use Livewire\Attributes\Title;
 use Livewire\Component;
 use Mary\Traits\Toast;
 
-#[Title('Tambah Pasien')]
+#[Title('Input Data Pasien')]
 class Create extends Component
 {
     use Toast;
@@ -29,6 +29,8 @@ class Create extends Component
     public $apiSatuSehat = "https://api-satusehat-stg.dto.kemkes.go.id/fhir-r4/v1";
     public $dataAPI;
     public $dataNikIbuAPI;
+    public $title = 'Tambah Pasien';
+    public $subtitle = '';
 
     public $kelamin = [
         [
@@ -96,7 +98,8 @@ class Create extends Component
         $this->id_pasien = $id_pasien;
         $pasien          = $id_pasien ? Pasien::find($id_pasien) : '';
         $detailPasien    = $id_pasien ? DetailPasien::find($id_pasien) : '';
-
+        
+        $this->title    = $id_pasien ? 'Edit Pasien ' . $pasien->nama : 'Tambah Pasien';
         $pasien         ? $this->form->setPasien($pasien) : '';
         $detailPasien   ? $this->form->setDetailPasien($detailPasien) : '';
     }
@@ -170,6 +173,15 @@ class Create extends Component
 
     public function render()
     {
-        return view('livewire.pasien.create');
+        $headers = [
+            ['key' => 'id', 'label' => 'ID IHS'],
+            ['key' => 'name', 'label' => 'Nama'],
+            ['key' => 'birthdate', 'label' => 'Tanggal Lahir'],
+            ['key' => 'kembar', 'label' => 'Lahir Kembar'],
+            ['key' => 'action', 'label' => 'Action'],
+        ];
+        return view('livewire.pasien.create', [
+            'headers' => $headers 
+        ]);
     }
 }

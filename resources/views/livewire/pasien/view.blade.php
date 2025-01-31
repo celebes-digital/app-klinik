@@ -15,8 +15,11 @@
                 @endscope
 
                 @scope('actions', $pasien)
-                    {{-- <x-button icon="o-trash" wire:click="delete({{ $pasien->id_pasien }})" spinner class="btn-sm" /> --}}
-                    <x-button icon="o-pencil" link="pasien/update/{{ $pasien->id_pasien }}" spinner class="btn-sm" />
+                    <div class="flex gap-2">
+                        {{-- <x-button icon="o-trash" wire:click="delete({{ $pasien->id_pasien }})" spinner class="btn-sm" /> --}}
+                        <x-button icon="o-pencil-square" link="pasien/update/{{ $pasien->id_pasien }}" spinner class="btn-sm btn-warning" tooltip="Edit" />
+                        <x-button icon="o-trash" spinner class="btn-sm btn-error" tooltip="Delete" />
+                    </div>
                 @endscope
             </x-table>
         </x-card>

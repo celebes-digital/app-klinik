@@ -9,7 +9,7 @@
             <x-button 
                 icon="o-arrow-uturn-left" 
                 label="Kembali"
-                link="/pasien"
+                link="/tenaga-medis"
                 wire:key
             />
             <x-button icon="o-wrench-screwdriver" label="Konfigurasi" class="btn-seccondary font-bold" link="/tenaga-medis/konfigurasi"></x-button>
@@ -62,10 +62,9 @@
                         label="Pilih Poliklinik"
                         wire:model.live="form.id_poliklinik"
                         :options="$poli"
-                        option-value="id"
+                        option-value="id_poli"
                         option-label="nama_poli"
-                        {{-- single --}}
-                        {{-- allow-all --}}
+                        searchable
                     />
                 </div>
 

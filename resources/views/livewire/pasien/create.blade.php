@@ -17,7 +17,7 @@
 
     <x-card>
         <x-form wire:submit="save" wire:target="submit">
-            <x-header title="Input Data Pasien" subtitle="Data dengan simbol (*) wajib diisi!" size="text-xl" />
+            <x-header :title="$title" subtitle="Data dengan simbol (*) wajib diisi!" size="text-xl" />
 
             <div class="grid grid-cols-12 gap-4">
                 <div class="col-span-12 lg:col-span-4">
@@ -69,7 +69,7 @@
                 </div>
 
                 <div class="col-span-6 md:col-span-3">
-                    <x-select label="Lahir Kembar" :options="$lahir_kembar" wire:model="form.lahir_kembar" required />
+                    <x-select label="Lahir Kembar" :options="$lahir_kembar" wire:model="form.lahir_kembar" />
                 </div>
 
                 <h3 class="col-span-12 gap-1 font-bold text-lg" size="text-xl">
