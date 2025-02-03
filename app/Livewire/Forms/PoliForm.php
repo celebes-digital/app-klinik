@@ -81,9 +81,4 @@ class PoliForm extends Form
             'kode_pos',
         ]));
     }
-
-    public function delete()
-    {
-        $this->poli->delete();
-    }
 }

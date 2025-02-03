@@ -47,9 +47,13 @@ class ProfilSatuSehatForm extends Form
 
     public function createProfile()
     {
-        $organization = new Organization();
+        $profil = Profil::first();
 
-        $data = $organization->get();
-        Profil::create($data);
+        if (!$profil) {
+            $organization = new Organization();
+
+            $data = $organization->get();
+            Profil::create($data);
+        }
     }
 }

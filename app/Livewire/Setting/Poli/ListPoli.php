@@ -7,32 +7,28 @@ use App\Models\Poliklinik;
 use App\Traits\WilayahIndonesia;
 use Livewire\Attributes\On;
 use Livewire\Component;
+use Livewire\WithPagination;
 use Mary\Traits\Toast;
 
 class ListPoli extends Component
 {
     use Toast;
+    use WithPagination;
     use WilayahIndonesia;
 
     public PoliForm $form;
 
     public $showModalDetail = false;
     public $showModalDelete = false;
+    public $perPage = 10;
 
     public function showDetail(Poliklinik $poli)
     {
         if ($poli) {
-            $this->setDataWilayah($poli->provinsi, $poli->kabupaten, $poli->kecamatan);
             $this->form->setDataPoli($poli);
         }
 
         $this->showModalDetail = true;
-    }
-
-    public function showDelete(Poliklinik $poli)
-    {
-        $this->form->setDataPoli($poli);
-        $this->showModalDelete = true;
     }
 
     public function updateDetail()
@@ -43,9 +39,14 @@ class ListPoli extends Component
         $this->success('Detail poliklinik berhasil diperbaharui');
     }
 
-    public function delete()
+    public function tindakanMedis()
     {
-        $this->form->delete();
+        return Poliklinik::query()->paginate($this->perPage);
+    }
+
+    public function delete(Poliklinik $poli)
+    {
+        $poli->delete();
         $this->success('Data poliklinik berhasil dihapus');
     }
 
@@ -53,7 +54,7 @@ class ListPoli extends Component
     public function render()
     {
         return view('livewire.setting.poli.list-poli', [
-            'poli' => Poliklinik::all()
+            'poli' => $this->tindakanMedis(),
         ]);
     }
 }

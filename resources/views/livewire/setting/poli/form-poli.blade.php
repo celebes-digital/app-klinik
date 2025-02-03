@@ -41,7 +41,7 @@
         
             <x-slot:actions>
                 <x-button wire:click="resetForm" class="btn-warning">Reset</x-button>
-                <x-button type="submit" class="btn-primary">Simpan</x-button>
+                <x-button type="submit" class="btn-primary" spinner>Simpan</x-button>
             </x-slot:actions>
         </x-form>
     </x-card>

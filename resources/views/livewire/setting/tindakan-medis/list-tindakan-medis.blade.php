@@ -30,12 +30,9 @@
                         spinner 
                         class="font-normal btn-sm btn-warning" 
                     />
-                    <x-button 
-                        type="button"
-                        icon="o-trash" 
-                        wire:click="showDeleteConfirmation('{{ $tindakan_medis->kode_tindakan }}')" 
-                        spinner 
-                        class="font-normal btn-sm btn-error" 
+                    <x-delete-confirmation
+                        confirm:delete="delete('{{ $tindakan_medis->kode_tindakan }}')"
+                        :label="$tindakan_medis->kode_tindakan"
                     />
                 </div>
             @endscope
@@ -45,10 +42,4 @@
             </x-slot:empty>
         </x-table>
     </x-card>
-
-    <x-modal title="Hapus | {{$form->kode_tindakan}}" wire:model="showModalDelete" class="backdrop-blur">
-        <div class="mb-5">Yakin ingin menghapus data  ini?</div>
-        <x-button label="Batal" @click="$wire.showModalDelete = false" />
-        <x-button label="Hapus" spinner wire:click="delete" class="btn-error" />
-    </x-modal>
 </div>

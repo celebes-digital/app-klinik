@@ -51,9 +51,4 @@ class TindakanMedisForm extends Form
             $this->reset();
         }
     }
-
-    public function delete()
-    {
-        $this->tindakanMedis->delete();
-    }
 }

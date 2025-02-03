@@ -13,10 +13,14 @@
         title="Daftar Poliklinik" 
         class="h-fit"
     >
-        <x-table :headers="$headers" :rows="$poli">
+        <x-table 
+            :headers="$headers" 
+            :rows="$poli"
+            with-pagination
+        >
     
             @scope('cell_no', $poli)
-                {{ $loop->index + 1 }}
+                {{ ($this->getPage() - 1) * $this->perPage + $loop->index + 1 }}
             @endscope
 
             @scope('cell_link', $poli)
@@ -37,11 +41,9 @@
                         spinner 
                         class="btn-sm btn-warning" 
                     />
-                    <x-button 
-                        icon="o-trash" 
-                        wire:click="showDelete({{ $poli->id_poli }})" 
-                        spinner 
-                        class="btn-sm btn-error" 
+                    <x-delete-confirmation 
+                        confirm:delete="delete({{ $poli->id_poli }})" 
+                        :label="$poli->nama_poli"
                     />
                 </div>
             @endscope
@@ -70,8 +72,8 @@
                     label="Provinsi"
                     icon="o-map"
                     :options="$filteredProvinsi"
-                    option-value="code"
-                    option-label="name"
+                    option-value="kode_provinsi"
+                    option-label="nama_provinsi"
                     placeholder="Pilih Provinsi"
                     placeholder-value=""
                     wire:model.change="form.provinsi" 
@@ -81,8 +83,8 @@
                     label="Kabupaten"
                     icon="o-map"
                     :options="$filteredKabupaten"
-                    option-value="code"
-                    option-label="name"
+                    option-value="kode_kabupaten"
+                    option-label="nama_kabupaten"
                     placeholder="Pilih Kabupaten"
                     placeholder-value=""
                     wire:loading.attr="disabled"
@@ -94,8 +96,8 @@
                     label="Kecamatan"
                     icon="o-map"
                     :options="$filteredKecamatan"
-                    option-value="code"
-                    option-label="name"
+                    option-value="kode_kecamatan"
+                    option-label="nama_kecamatan"
                     placeholder="Pilih Kecamatan"
                     placeholder-value=""
                     wire:loading.attr="disabled"
@@ -107,8 +109,8 @@
                     label="Kelurahan"
                     icon="o-map"
                     :options="$filteredKelurahan"
-                    option-value="code"
-                    option-label="name"
+                    option-value="kode_kelurahan"
+                    option-label="nama_kelurahan"
                     placeholder="Pilih Kelurahan"
                     placeholder-value=""
                     wire:loading.attr="disabled"
@@ -126,11 +128,5 @@
                 <x-button spinner="updateDetail" type="submit" class="btn-primary">Simpan</x-button>
             </x-slot:actions>
         </x-form>
-    </x-modal>
-
-    <x-modal title="Hapus | {{$form->nama_poli}}" wire:model="showModalDelete" class="backdrop-blur">
-        <div class="mb-5">Yakin ingin menghapus data  ini?</div>
-        <x-button label="Batal" @click="$wire.showModalDelete = false" />
-        <x-button label="Hapus" spinner wire:click="delete" class="btn-error" />
     </x-modal>
 </div>

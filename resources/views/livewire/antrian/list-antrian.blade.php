@@ -16,7 +16,8 @@
         
         <x-slot:menu>
             <x-button 
-                class="btn-primary"
+                class="btn-accent btn-link"
+                icon-right="o-arrow-top-right-on-square"
                 link="/kunjungan"
             >
                 Tambah Kunjungan
@@ -59,7 +60,10 @@
                     />
                 </div>
             @endscope
+
+            <x-slot:empty>
+                <x-atoms.empty-state label="Belum ada data poliklinik" />
+            </x-slot:empty>
         </x-table>
-        
     </x-card>
 </div>
