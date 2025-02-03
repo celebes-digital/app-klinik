@@ -1,4 +1,9 @@
 <div>
+    <x-slot:headerActions>
+        <div x-data>
+            <x-button icon="o-arrow-uturn-left" label="Kembali" class="btn-seccondary font-bold" link="/staff"></x-button>
+        </div>
+    </x-slot:headerActions>
     <x-card shadow separator>
         <x-form wire:submit="save" wire:target="submit">
             <x-header title="Input Data Staff" subtitle="Data dengan simbol (*) wajib diisi!" size="text-xl" />

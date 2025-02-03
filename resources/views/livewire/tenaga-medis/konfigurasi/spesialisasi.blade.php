@@ -50,14 +50,14 @@
             <x-form wire:submit="save" wire:target.prevent="submit">
                 <div class="grid grid-cols-12 gap-4">
                     <div class="col-span-4">
+                        <x-choices-offline label="Profesi" wire:model="form.id_profesi" :options="$profesi"
+                            option-value="id_profesi" option-label="nama" single searchable />
+                    </div>
+                    <div class="col-span-4">
                         <x-input label="Nama" wire:model="form.nama" />
                     </div>
                     <div class="col-span-4">
                         <x-input label="Kode" wire:model="form.code" />
-                    </div>
-                    <div class="col-span-4">
-                        <x-choices-offline label="Profesi" wire:model="form.id_profesi" :options="$profesi"
-                            option-value="id_profesi" option-label="nama" single searchable />
                     </div>
                 </div>
 

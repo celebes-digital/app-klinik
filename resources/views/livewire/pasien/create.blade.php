@@ -21,11 +21,11 @@
 
             <div class="grid grid-cols-12 gap-4">
                 <div class="col-span-12 lg:col-span-4">
-                    <x-input label="Nama Pasien" wire:model="form.nama" hint="Nama Sesuai KTP" required />
+                    <x-input icon="o-identification" label="Nama Pasien" wire:model="form.nama" hint="Sesuai KTP" required />
                 </div>
 
                 <div class="col-span-6 lg:col-span-3">
-                    <x-select label="Jenis Kelamin" :options="$kelamin" wire:model="form.kelamin" required />
+                    <x-select icon="o-finger-print" label="Jenis Kelamin" :options="$kelamin" wire:model="form.kelamin" required />
                 </div>
 
                 <div class="col-span-6 lg:col-span-3">

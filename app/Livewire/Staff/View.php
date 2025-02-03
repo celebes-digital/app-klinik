@@ -5,10 +5,12 @@ namespace App\Livewire\Staff;
 use App\Livewire\Forms\StaffForm;
 use App\Models\Staff;
 use Illuminate\Support\Facades\Http;
+use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Mary\Traits\Toast;
 
+#[Title('Staff')]
 class View extends Component
 {
     use Toast;

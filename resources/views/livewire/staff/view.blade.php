@@ -3,8 +3,6 @@
 @endphp
 
 <div>
-    <x-header title="Staff" separator />
-
     <div class="grid grid-cols-12 gap-4">
         <x-card class="col-span-12" title="Daftar Staff" shadow separator>
             <x-slot:menu>
@@ -22,13 +20,15 @@
                             wire:click="$dispatch('set-staff', { id: {{ $staff->id_staff }}})" 
                             link="/staff/update/{{ $staff->id_staff }}"
                             spinner 
-                            class="btn-sm" 
+                            class="btn-sm btn-warning" 
+                            tooltip="Edit"
                         />
                         <x-button 
                             icon="o-trash" 
                             wire:click="delete({{ $staff->id_staff }})" 
                             spinner 
-                            class="btn-sm" 
+                            class="btn-sm btn-error" 
+                            tooltip="Delete"
                         />
                     </div>
                 @endscope

@@ -2,7 +2,9 @@
 
 namespace App\Livewire\Forms;
 
+use App\Models\Poliklinik;
 use App\Models\TenagaMedis;
+use App\Models\TenagaMedisPoliklinik;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
 
@@ -12,7 +14,7 @@ class TenagaMedisForm extends Form
 
     public $id_tenaga_medis;
 
-    public $id_poliklinik = [];
+    public $id_poli = [];
     
     #[Validate('required')]
     public $nama = "";
@@ -40,11 +42,11 @@ class TenagaMedisForm extends Form
     #[Validate('required|numeric|digits_between:1,16')]
     public $ihs = "";
 
-    public function setTenagaMedis(TenagaMedis $tenagaMedis)
+    public function setTenagaMedis(TenagaMedis $tenagaMedis, $id_tenaga_medis = null)
     {
         $this->tenagaMedis  = $tenagaMedis;
 
-        $this->id_poliklinik = $tenagaMedis->id_poliklinik;
+        $this->id_poli       = $tenagaMedis->poliklinik()->pluck('id_poli')->toArray();
         $this->nama          = $tenagaMedis->nama;
         $this->spesialisasi  = $tenagaMedis->spesialisasi;
         $this->nik           = $tenagaMedis->nik;
@@ -60,9 +62,7 @@ class TenagaMedisForm extends Form
     {
         $this->validate();
 
-        $tenagaMedis = $id_tenaga_medis
-            ? TenagaMedis::find($id_tenaga_medis)
-            : new TenagaMedis();
+        $tenagaMedis = $id_tenaga_medis ? TenagaMedis::find($id_tenaga_medis) : new TenagaMedis();
 
         $tenagaMedis->fill([
             'nama'       => $this->nama,
@@ -77,8 +77,9 @@ class TenagaMedisForm extends Form
 
         $tenagaMedis->save();
 
-        if (!empty($this->id_poliklinik)) {
-            $tenagaMedis->poliklinik()->sync($this->id_poliklinik);
+
+        if (!empty($this->id_poli)) {
+            $tenagaMedis->poliklinik()->sync($this->id_poli);
         }
 
         session()->flash('success', 'Data Tenaga Medis berhasil disimpan!');

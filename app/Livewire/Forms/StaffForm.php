@@ -13,7 +13,7 @@ class StaffForm extends Form
     #[Validate('required')]
     public $nama = "";
 
-    #[Validate('required|digits:16|unique:staff,nik')]
+    #[Validate('required|digits:16')]
     public $nik = "";
     
     #[Validate('required')]
@@ -53,6 +53,7 @@ class StaffForm extends Form
         $this->validate();
 
         if (!$id_staff) {
+            // dd('inijalang');
             Staff::create($this->all());
         } else {
             $this->staff->update($this->all());

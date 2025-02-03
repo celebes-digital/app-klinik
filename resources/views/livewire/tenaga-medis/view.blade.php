@@ -3,7 +3,8 @@
         <div x-data>
             <x-post wire:key link="/tenaga-medis/create" />
             <x-button wire:key icon="o-wrench-screwdriver" label="Konfigurasi" class="btn-seccondary font-bold"
-                link="/tenaga-medis/konfigurasi"></x-button>
+                link="/tenaga-medis/konfigurasi">
+            </x-button>
         </div>
     </x-slot:headerActions>
 
@@ -19,7 +20,7 @@
                         <x-slot:actions>
                             <div class="flex gap-2">
                                 <x-button icon="o-pencil-square" :link="'tenaga-medis/update/' . $item->id_tenaga_medis" class="btn-square btn-warning" tooltip="Edit" />
-                                <x-button icon="o-trash" :link="'tenaga-medis/update/' . $item->id_tenaga_medis" class="btn-square btn-error" tooltip="Delete" />
+                                <x-button icon="o-trash" wire:click="delete({{$item->id_tenaga_medis}})" class="btn-square btn-error" tooltip="Delete" />
                             </div>
                         </x-slot:actions>
                     </x-header>
@@ -58,9 +59,9 @@
                                 <div class=" mt-3">
                                     @if (!empty($polikliniks))
                                         @foreach ($polikliniks as $poliklinik)
-                                        <div class="px-5 py-2 badge-neutral w-fit rounded-full text-sm inline mr-2">
-                                            {{ $poliklinik->nama_poli }}
-                                        </div>
+                                            <div class="px-5 py-2 badge-neutral w-fit rounded-full text-sm inline mr-2">
+                                                {{ $poliklinik->nama_poli }}
+                                            </div>
                                         @endforeach
                                     @else
                                         -

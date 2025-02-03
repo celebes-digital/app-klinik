@@ -13,6 +13,13 @@
                 wire:key
             />
             <x-button icon="o-wrench-screwdriver" label="Konfigurasi" class="btn-seccondary font-bold" link="/tenaga-medis/konfigurasi"></x-button>
+            <x-button 
+                icon="o-plus"
+                label="Tambah Tenaga medis"
+                class="btn-primary"
+                link="/tenaga-medis/create"
+                wire:key
+            />
         </div>
     </x-slot:headerActions>
     <x-card shadow separator>
@@ -21,7 +28,7 @@
 
             <div class="grid grid-cols-12 gap-4">
                 <div class="col-span-12 md:col-span-6">
-                    <x-input label="NIK" wire:model="form.nik">
+                    <x-input label="NIK" wire:model="form.nik" icon="o-identification">
                         <x-slot:append>
                             <x-button label="Cari di SATUSEHAT" 
                                 icon="o-check" 
@@ -60,7 +67,7 @@
                 <div class="col-span-12 md:col-span-4">
                     <x-choices-offline
                         label="Pilih Poliklinik"
-                        wire:model.live="form.id_poliklinik"
+                        wire:model.live="form.id_poli"
                         :options="$poli"
                         option-value="id_poli"
                         option-label="nama_poli"

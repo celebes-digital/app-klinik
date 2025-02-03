@@ -6,6 +6,7 @@ use App\Livewire\Forms\TenagaMedisForm;
 use App\Models\Profesi;
 use App\Models\Spesialisasi;
 use App\Models\TenagaMedis;
+use App\Models\TenagaMedisPoliklinik;
 use App\SatuSehat\FHIR\Prerequisites\Practitioner;
 use App\Traits\WilayahIndonesia;
 use Illuminate\Support\Facades\Http;
@@ -74,10 +75,18 @@ class Create extends Component
         // Cari data staff berdasarkan ID
         $this->id_tenaga_medis = $id_tenaga_medis ?? null;
         $tenaga_medis = $id_tenaga_medis ? TenagaMedis::find($id_tenaga_medis) : null;
+        // $pivot = $id_tenaga_medis ? TenagaMedisPoliklinik::find($id_tenaga_medis) : null;
+        if ($tenaga_medis) {
+            foreach ($tenaga_medis->poliklinik as $poli) {
+                echo $poli->nama_poli;
+            }
+        }
+
+        // dd($pivot);
 
         !$id_tenaga_medis ? $this->disabled = false : $this->disabled = true;
 
-        $tenaga_medis ? $this->form->setTenagaMedis($tenaga_medis) : '';
+        $tenaga_medis ? $this->form->setTenagaMedis($tenaga_medis, $id_tenaga_medis) : '';
     }
 
 
