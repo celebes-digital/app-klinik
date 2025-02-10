@@ -14,6 +14,7 @@
             <x-button icon="o-arrow-uturn-left" label="Kembali" link="/pasien" wire:key />
         </div>
     </x-slot:headerActions>
+    {{-- <pre>{{var_dump($this->filteredKabupaten)}}</pre> --}}
 
     <x-card>
         <x-form wire:submit="save" wire:target="submit">
@@ -92,27 +93,61 @@
                     <x-input label="RW" wire:model="form.rw" />
                 </div>
 
-                <div class="col-span-6 md:col-span-3">
-                    <x-select label="Provinsi" icon="o-map" :options="$filteredProvinsi" option-value="id" option-label="name"
-                        placeholder="Pilih Provinsi" placeholder-value="" wire:model.change="form.provinsi" />
+                <div class="col-span-4 md:col-span-3">
+                    <x-select 
+                        label="Provinsi"
+                        icon="o-map"
+                        :options="$filteredProvinsi"
+                        option-value="kode_provinsi"
+                        option-label="nama_provinsi"
+                        placeholder="Pilih Provinsi"
+                        wire:model.live="form.provinsi"
+                    />
                 </div>
 
-                <div class="col-span-6 md:col-span-3">
-                    <x-select label="Kabupaten" icon="o-map" :options="$filteredKabupaten" option-value="id" option-label="name"
-                        placeholder="Pilih Kabupaten" placeholder-value="" wire:loading.attr="disabled"
-                        wire:target="form.provinsi" wire:model.change="form.kabupaten" wire:key="form.kabupaten" />
+                <div class="col-span-4 md:col-span-3">
+                    <x-select 
+                        label="Kabupaten"
+                        icon="o-map"
+                        :options="$filteredKabupaten"
+                        option-value="kode_kabupaten"
+                        option-label="nama_kabupaten"
+                        placeholder="Pilih Kabupaten"
+                        wire:target="form.provinsi"
+                        wire:loading.attr="disabled"
+                        wire:model.live="form.kabupaten" 
+                        wire:key="{{$form->provinsi}}"
+                    />
                 </div>
 
-                <div class="col-span-6 md:col-span-3">
-                    <x-select label="Kecamatan" icon="o-map" :options="$filteredKecamatan" option-value="id" option-label="name"
-                        placeholder="Pilih Kecamatan" placeholder-value="" wire:loading.attr="disabled"
-                        wire:target="form.kabupaten" wire:model.change="form.kecamatan" wire:key="form.kecamatan" />
+                <div class="col-span-4 md:col-span-3">
+                    <x-select 
+                        label="Kecamatan"
+                        icon="o-map"
+                        :options="$filteredKecamatan"
+                        option-value="kode_kecamatan"
+                        option-label="nama_kecamatan"
+                        placeholder="Pilih Kecamatan"
+                        wire:loading.attr="disabled"
+                        wire:target="form.kabupaten"
+                        wire:model.live="form.kecamatan" 
+                        wire:key="{{$form->kabupaten}}"
+                    />
                 </div>
 
-                <div class="col-span-6 md:col-span-3">
-                    <x-select label="Kelurahan" icon="o-map" :options="$filteredKelurahan" option-value="id" option-label="name"
-                        placeholder="Pilih Kelurahan" placeholder-value="" wire:loading.attr="disabled"
-                        wire:target="form.kecamatan" wire:model.change="form.kelurahan" wire:key="form.kelurahan" />
+                <div class="col-span-4 md:col-span-3">
+                    <x-select 
+                        label="Kelurahan"
+                        icon="o-map"
+                        :options="$filteredKelurahan"
+                        option-value="kode_kelurahan"
+                        option-label="nama_kelurahan"
+                        placeholder="Pilih Kelurahan"
+                        wire:loading.attr="disabled"
+                        wire:target="form.kecamatan"
+                        wire:model.live="form.kelurahan" 
+                        wire:key="{{$form->kecamatan}}"
+                    />
                 </div>
 
                 <div class="col-span-12 md:col-span-6">

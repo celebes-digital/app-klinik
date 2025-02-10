@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\PenunjangMedis;
+namespace App\Livewire\Setting\PenunjangMedis;
 
 use App\Livewire\Forms\ItemPemeriksaanForm;
 use App\Models\DaftarPemeriksaan;

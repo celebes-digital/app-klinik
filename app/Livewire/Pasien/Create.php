@@ -9,6 +9,7 @@ use App\SatuSehat\FHIR\Prerequisites\Patient;
 use App\Traits\WilayahIndonesia;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 use Mary\Traits\Toast;
@@ -120,13 +121,20 @@ class Create extends Component
         }
 
         $patient = new Patient();
-        $data = $patient->getNGB($this->form->nama, $this->form->tgl_lahir, $this->form->kelamin);
+        $data = $patient->getNGB($this->form->nama, $this->formattedDate($this->form->tgl_lahir), $this->form->kelamin);
 
         if ($data['nama'] === '') {
             $this->info('Data pasien tidak ditemukan');
 
             return;
+        } else {
+            $this->form->fill($data);
+            Log::info('Get By NGB', [$this->form]);
+            $this->mount();
+
+            $this->setData();
         }
+
     }
 
     public function getByNikIbu()

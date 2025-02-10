@@ -8,7 +8,6 @@ use App\Models\Spesialisasi;
 use App\Models\TenagaMedis;
 use App\Models\TenagaMedisPoliklinik;
 use App\SatuSehat\FHIR\Prerequisites\Practitioner;
-use App\Traits\WilayahIndonesia;
 use Illuminate\Support\Facades\Http;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -19,7 +18,6 @@ use Mary\Traits\Toast;
 class Create extends Component
 {
     use Toast;
-    use WilayahIndonesia;
 
     public $id_tenaga_medis;
 

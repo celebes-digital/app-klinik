@@ -26,10 +26,16 @@
                         wire:click="$dispatch('set-data', {id: '{{$penunjang_medis->kode_penunjang}}'})" 
                         spinner 
                         class="font-normal btn-sm btn-warning" 
+                        tooltip="Edit"
                     />
                     <x-delete-confirmation 
                         confirm:delete="delete('{{ $penunjang_medis->kode_penunjang }}')" 
                         :label="$penunjang_medis->nama_penunjang"
+                        tooltip="Delete"
+                    />
+                    <x-button icon="o-arrow-down-on-square" spinner class="font-normal btn-sm btn-info" 
+                        link="/setting/penunjang-medis/{{ $penunjang_medis->kode_penunjang }}"
+                        tooltip="Daftar Pemeriksaan"
                     />
                 </div>
             @endscope

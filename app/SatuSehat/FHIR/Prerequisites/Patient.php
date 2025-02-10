@@ -24,7 +24,6 @@ class Patient extends OAuth2
 	{
 		$data = json_decode($json, true);
 
-		// Jika tidak ada entry, kembalikan array kosong
 		if (!isset($data['entry']) || !is_array($data['entry'])) {
 			return [];
 		}
@@ -56,15 +55,15 @@ class Patient extends OAuth2
 	protected function parseJsonNGB($json)
 	{
 		$data = json_decode($json, true);
-		// dd($data);
 		$data = $data['entry'][0]['resource'] ?? '';
 
-		$resource       = $data == '' ? '' : $data['entry'][0]['resource'];
+		$resource       = $data == '' ? '' : $data;
 		$resourceAlamat = $data == '' ? '' : $resource['address'][0]['extension'][0]['extension'];
+		// dd($resourceAlamat);
 
 		return [
 			'nama'             => $data == '' ? '' : $resource['name'][0]['text'],
-			'nik'              => $data == '' ? '' : $resource['identifier'][0]['value'],
+			'no_ihs'           => $data == '' ? '' : $resource['identifier'][0]['value'],
 			'kelamin'          => $data == '' ? '' : $resource['gender'],
 			'kewarganegaraan'  => $data == '' ? '' : $resource['extension'][0]['valueCode'],
 			'alamat'           => $data == '' ? '' : $resource['address'][0]['line'][0],
@@ -72,8 +71,8 @@ class Patient extends OAuth2
 			'kabupaten'        => $data == '' ? '' : $resourceAlamat[1]['valueCode'],
 			'kecamatan'        => $data == '' ? '' : $resourceAlamat[2]['valueCode'],
 			'kelurahan'        => $data == '' ? '' : $resourceAlamat[3]['valueCode'],
-			'rt'               => $data == '' ? '' : $resourceAlamat[4]['valueCode'],
-			'rw'               => $data == '' ? '' : $resourceAlamat[5]['valueCode'],
+			'rt'               => $resourceAlamat[4]['valueCode'] ?? '',
+			'rw'               => $resourceAlamat[5]['valueCode'] ?? '',
 		];
 	}
 
@@ -91,7 +90,8 @@ class Patient extends OAuth2
 	public function getNGB($name, $birthdate, $gender)
 	{
 		try {
-			$res = $this->api()->get("$this->url/?name=$name&birthdate=$birthdate&gender=$gender");
+			$res = $this->api()->get("$this->url?name=$name&birthdate=$birthdate&gender=$gender");
+			// dd($res->json());
 			return $this->parseJsonNGB($res->body());
 		} catch (Exception $e) {
 			return $e;

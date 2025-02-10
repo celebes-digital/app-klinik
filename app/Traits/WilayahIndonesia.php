@@ -12,9 +12,8 @@ trait WilayahIndonesia
     public $filteredKecamatan   = [];
     public $filteredKelurahan   = [];
 
-    public function mountWilayahIndonesia()
+    public function setData()
     {
-        Log::info('Mounting Wilayah Indonesia');
         $this->filteredProvinsi = $this->getProvinsi();
 
         if ($this->form->provinsi) {
@@ -28,10 +27,19 @@ trait WilayahIndonesia
         if ($this->form->kecamatan) {
             $this->filteredKelurahan = $this->getKelurahan($this->form->kecamatan);
         }
+        Log::info('Data Wilayah Indonesia', [$this->form, $this->filteredProvinsi, $this->filteredKabupaten, $this->filteredKecamatan, $this->filteredKelurahan]);
+    }
+
+    public function dehydrateWilayahIndonesia()
+    {
+        $this->setData();
+
     }
 
     public function updatedWilayahIndonesia($key, $value)
     {
+        if($key == 'form.kelurahan' || $key == 'form.kecamatan' || $key == 'form.kabupaten' || $key == 'form.provinsi')
+
         if ($key == 'form.provinsi')
             $this->updatedProvinsi($value);
         else if ($key == 'form.kabupaten')

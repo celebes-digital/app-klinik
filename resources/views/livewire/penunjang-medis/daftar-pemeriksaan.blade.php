@@ -24,17 +24,17 @@
             @scope('cell_actions', $item)
                 <div class="flex gap-2">
                     <x-button icon="o-pencil-square" spinner class="btn-sm btn-warning" 
-                            wire:click="edit({{ $item->id_daftar_pemeriksaan }})" 
-                            tooltip="Edit"
-                        />
-                        <x-button icon="o-trash" spinner class="btn-sm btn-error" 
-                            wire:click="openModal({{$item->id_daftar_pemeriksaan}}, '{{$item->nama}}')"
-                            tooltip="Delete"
-                        />
-                        <x-button icon="o-arrow-down-on-square" spinner class="font-normal btn-sm btn-info" 
-                            link="/penunjang-medis/{{ $item->kode_penunjang }}/{{ $item->id_daftar_pemeriksaan }}"
-                            tooltip="Item Pemeriksaan"
-                        />
+                        wire:click="edit({{ $item->id_daftar_pemeriksaan }})" 
+                        tooltip="Edit"
+                    />
+                    <x-button icon="o-trash" spinner class="btn-sm btn-error" 
+                        wire:click="openModal({{$item->id_daftar_pemeriksaan}}, '{{$item->nama}}')"
+                        tooltip="Delete"
+                    />
+                    <x-button icon="o-arrow-down-on-square" spinner class="font-normal btn-sm btn-info" 
+                        link="/setting/penunjang-medis/{{ $item->kode_penunjang }}/{{ $item->id_daftar_pemeriksaan }}"
+                        tooltip="Item Pemeriksaan"
+                    />
                 </div>
             @endscope
         </x-table>

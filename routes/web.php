@@ -8,13 +8,16 @@ use Illuminate\Support\Facades\Route;
 use App\Livewire\Pasien\View as PasienView;
 use App\Livewire\Pasien\Create as PasienCreate;
 use App\Livewire\Pemeriksaan\Poliklinik\ViewPemeriksaanPoliklinik;
-use App\Livewire\PenunjangMedis\DaftarPemeriksaan;
-use App\Livewire\PenunjangMedis\ItemPemeriksaan;
+use App\Livewire\Setting\PenunjangMedis\DaftarPemeriksaan;
+use App\Livewire\Setting\PenunjangMedis\ItemPemeriksaan;
 use App\Livewire\Registrasi\Kunjungan\CreateKunjungan;
 use App\Livewire\Registrasi\Kunjungan\ViewKunjungan;
 use App\Livewire\Setting\Poli\ViewPoli;
 use App\Livewire\Setting\TindakanMedis\ViewTindakanMedis;
 
+// IGD
+use App\Livewire\Igd\View as IgdView;
+use App\Livewire\Igd\RawatInap\View as RawatInapView;
 
 // use App\Livewire\RuangPerawatan\Create as RuangPerawatanCreate;
 // use App\Livewire\RuangPerawatan\View as RuangPerawatanView;
@@ -54,6 +57,10 @@ Route::get('/antrian', ListAntrian::class);
 Route::get('/pasien', PasienView::class);
 Route::get('/pasien/create', PasienCreate::class);
 Route::get('/pasien/update/{id_pasien}', PasienCreate::class);
+
+// IGD
+Route::get('/igd', IgdView::class);
+// Route::get('/igd/rawat-inap', RawatInapView::class);
 
 // FORM STAFF
 Route::get('/staff', StaffView::class);
